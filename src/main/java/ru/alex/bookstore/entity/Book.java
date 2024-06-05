@@ -13,6 +13,7 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String name;
     private String author;
     private Integer rating;
     private Integer price;
