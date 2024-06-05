@@ -23,4 +23,23 @@ public class Book {
     @Column(name = "is_in_cart")
     private boolean isInCart;
     private String imagePath;
+
+    private String publisher;
+    private String series;
+
+    @Column(name = "year_of_publishing")
+    private Integer yearOfPublishing;
+    private String isbn;
+
+    @Column(name = "number_of_pages")
+    private Integer numberOfPages;
+    private String size;
+
+    @Column(name = "cover_type")
+    private String coverType;
+    private Double circulation;
+    private Integer weight;
+
+    @Column(name = "age_restrictions")
+    private Integer ageRestrictions;
 }
