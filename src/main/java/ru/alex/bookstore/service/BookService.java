@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.alex.bookstore.dto.BookPreviewDto;
 import ru.alex.bookstore.mapper.BookPreviewMapper;
-import ru.alex.bookstore.repository.BookRepository;
+import ru.alex.bookstore.database.repository.BookRepository;
 
 import java.util.List;
 

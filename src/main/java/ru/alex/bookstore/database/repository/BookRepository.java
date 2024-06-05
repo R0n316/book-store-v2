@@ -1,9 +1,9 @@
-package ru.alex.bookstore.repository;
+package ru.alex.bookstore.database.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import ru.alex.bookstore.entity.Book;
+import ru.alex.bookstore.database.entity.Book;
 
 import java.util.List;
 

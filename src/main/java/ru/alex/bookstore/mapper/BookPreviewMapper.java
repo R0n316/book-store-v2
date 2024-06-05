@@ -2,7 +2,7 @@ package ru.alex.bookstore.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.alex.bookstore.dto.BookPreviewDto;
-import ru.alex.bookstore.entity.Book;
+import ru.alex.bookstore.database.entity.Book;
 
 @Component
 public class BookPreviewMapper implements Mapper<Book, BookPreviewDto> {

@@ -1,4 +1,4 @@
-package ru.alex.bookstore.entity;
+package ru.alex.bookstore.database.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -43,4 +43,8 @@ public class Book {
 
     @Column(name = "age_restrictions")
     private Integer ageRestrictions;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
 }
