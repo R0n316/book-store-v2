@@ -2,7 +2,9 @@ package ru.alex.bookstore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import ru.alex.bookstore.database.entity.Book;
 import ru.alex.bookstore.dto.BookCreateEditDto;
 import ru.alex.bookstore.dto.BookPreviewDto;
 import ru.alex.bookstore.mapper.BookCreateEditMapper;
@@ -39,7 +41,12 @@ public class BookService {
         return bookRepository.findTopByCirculation(limit).stream().map(bookPreviewMapper::map).toList();
     }
 
-    
+    public Optional<byte[]> findImage(Integer id){
+        return bookRepository.findById(id)
+                .map(Book::getImagePath)
+                .filter(StringUtils::hasText)
+                .flatMap(imageService::get);
+    }
 
 
     public BookPreviewDto create(BookCreateEditDto bookDto){

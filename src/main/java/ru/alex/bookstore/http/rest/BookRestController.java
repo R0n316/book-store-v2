@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.alex.bookstore.dto.BookCreateEditDto;
 import ru.alex.bookstore.service.BookService;
 
@@ -24,4 +25,11 @@ public class BookRestController {
         bookService.create(bookDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @GetMapping("/{id}/image")
+    public byte[] findImage(@PathVariable("id") Integer id){
+        return bookService.findImage(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
 }

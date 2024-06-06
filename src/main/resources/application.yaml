@@ -1,3 +1,5 @@
+app.image.bucket: images
+
 spring:
   application:
     name: book-store-v2
