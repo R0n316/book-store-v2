@@ -23,6 +23,8 @@ public class Book {
 
     @Column(name = "is_in_cart")
     private boolean isInCart;
+
+    @Column(name = "image_path")
     private String imagePath;
 
     private String publisher;

@@ -13,4 +13,12 @@ public class CategoryMapper implements Mapper<Category, CategoryDto> {
                 object.getName()
         );
     }
+
+    @Override
+    public Category unmap(CategoryDto object) {
+        Category category = new Category();
+        category.setId(object.id());
+        category.setName(object.name());
+        return category;
+    }
 }

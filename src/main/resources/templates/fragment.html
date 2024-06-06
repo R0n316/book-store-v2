@@ -2,15 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Header</title>
+    <title>Fragments</title>
 </head>
 <body>
 <header th:fragment="header">
-    <a th:href="@{/books}"><img th:src="@{/static/images/logo.svg}" alt="logotype"></a>
+    <span class="logo"></span>
     <div class="dropdown">
         <div class="catalog-button">
             <span class="catalog-button-text">Каталог</span>
-            <img class="catalog-image" th:src="@{/static/images/catalogButtonDetails.svg}" alt="details">
+            <img th:src="@{/static/images/catalogButtonDetails.svg}" alt="">
         </div>
         <div class="menu" id="my-menu">
             <div>Лекарственные препараты и бады</div>
@@ -29,57 +29,56 @@
             <div>Товары для активного отдыха</div>
         </div>
     </div>
-    <form method="GET" th:action="@{/books/found-books}">
+    <form method="GET">
         <label>
-            <input type="text" placeholder="Поиск" class="search" name="name">
+            <input type="text" placeholder="Поиск" class="search">
         </label>
     </form>
-    <a th:href="@{/books/favorites}">
-        <div class="nav-button">
-            <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites icon">
-            Избранное
-        </div>
-    </a>
-    <a th:href="@{/books/inCart}">
-        <div class="nav-button">
-            <img class="nav-icon" th:src="@{/static/images/cartIcon.svg}" alt="cart icon">
-            Корзина
-        </div>
-    </a>
-    <a>
-        <button class="login-button">Войти</button>
-    </a>
-<!--    <form th:if="${person!=null}" method="POST" th:action="@{/auth/logout}">-->
-<!--        <button class="login-button" type="submit">-->
-<!--            Выйти-->
-<!--        </button>-->
-<!--    </form>-->
+    <div class="nav-button">
+        <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+        Избранное
+    </div>
+    <div class="nav-button">
+        <img class="nav-icon" th:src="@{/static/images/cartIcon.svg}" alt="favorites">
+        Корзина
+    </div>
+    <button class="login-button">Войти</button>
 </header>
 
 
-
-
-<div class="categories" th:fragment="category">
-    <a th:each="category:${categories}" th:href="@{/books/category(category=__${category.name}__)}">
-        <div class="category" th:text="${category.name}">category name</div>
-    </a>
-</div>
-<div class="banner1">
-    <h1 class="banner1-h1">
-        Читай книги — маркетплейс книжных товаров
-    </h1>
-    <h2 class="banner1-h2">
-        Сравнивайте цены и бронируйте книги в ближайших магазинах!
-    </h2>
-    <a th:if="${person==null}" th:href="@{/auth/login}">
-        <div class="login-div banner1-button">Войти</div>
-    </a>
-</div>
-<div class="div1">
-    Популярное
-    <div class="watch-all">
-        Смотреть все
-        <div class="watch-all-button">→</div>
+<div class="categories" th:fragment="categories">
+    <div class="category">
+        Фэнтези
+    </div>
+    <div class="category">
+        Детективы
+    </div>
+    <div class="category">
+        Боевики
+    </div>
+    <div class="category">
+        Проза
+    </div>
+    <div class="category">
+        Бизнес
+    </div>
+    <div class="category">
+        Эзотерика
+    </div>
+    <div class="category">
+        Психология
+    </div>
+    <div class="category">
+        Мода
+    </div>
+    <div class="category">
+        Кулинария
+    </div>
+    <div class="category">
+        Биография
+    </div>
+    <div class="category">
+        Хобби
     </div>
 </div>
 </body>
