@@ -2,49 +2,187 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Магазин книг</title>
-    <link rel="stylesheet" th:href="@{/static/styles/mainStyle.css}">
-    <link rel="stylesheet" th:href="@{/static/styles/headerStyle.css}">
+    <title>Главная</title>
+    <link rel="stylesheet" th:href="@{/static/styles/style.css}">
+    <link rel="stylesheet" th:href="@{/static/styles/header.css}">
 </head>
 <body>
 <div th:insert="~{fragment :: header}"></div>
-
-<div th:insert="~{fragment :: category}"></div>
-
 <div class="container1" style="padding-top: 85px">
+    <div th:insert="~{fragment :: categories}"></div>
+    <div class="banner1">
+        <h1 class="banner1-h1">
+            Читай книги — маркетплейс книжных товаров
+        </h1>
+        <h2 class="banner1-h2">
+            Сравнивайте цены и бронируйте книги в ближайших магазинах!
+        </h2>
+        <div class="div-button banner1-button">Войти</div>
+    </div>
+    <div class="div1">
+        Популярное
+        <div class="watch-all">
+            Смотреть все
+            <div class="watch-all-button">→</div>
+        </div>
+    </div>
     <div class="book-cards">
-        <div class="book-card" th:each="book:${highRatingBooks}">
-            <a th:href="@{/books/{bookId}(bookId=${book.getId})}">
-                <img class="book-image" th:src="@{/static/images/bookImages/{image}(image=${book.imagePath})}" alt="book image">
-            </a>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage1.png}" alt="book image">
             <div class="book-card-container1">
                 <div class="book-card-container2">
                     <img class="star" th:src="@{/static/images/star.svg}" alt="star">
-                    <span class="rating" th:text="${book.rating}">book rating</span>
-                    <div th:if="${person==null}">
-                        <a th:href="@{/auth/login}">
-                            <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
-                        </a>
-                    </div>
-                    <div th:if="${person!=null}">
-                        <img th:if="${!book.favorite}" class="nav-icon favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
-                        <img th:if="${book.favorite}" class="marked nav-icon favorites" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="favorites">
-                    </div>
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
                 </div>
-                <div class="book-info">
-                    <h2 class="book-name" th:text="${book.name}">book name</h2>
-                    <h2 class="book-author" th:text="${book.author}">Алексей марков</h2>
-                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
                 <div class="book-card-container3">
-                    <div th:if="${person==null}">
-                        <a th:href="@{/auth/login}">
-                            <div class="to-cart-div">В корзину</div>
-                        </a>
-                    </div>
-                    <div th:if="${person!=null}">
-                        <div th:if="${!book.inCart}" class="add-to-cart-button">В корзину</div>
-                        <div th:if="${book.inCart}" class="add-to-cart-button in-cart">Удалить</div>
-                    </div>
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage2.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage3.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage4.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage1.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage2.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage3.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage4.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="nav-icon favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
                     <span class="book-price">575₽</span>
                 </div>
             </div>
@@ -54,38 +192,82 @@
 <div class="best-sellers">
     <h1 class="best-seller-title">Хиты продаж</h1>
     <div class="best-sellers-container">
-        <div class="book-card" th:each="book:${popularBooks}">
-            <a th:href="@{/books/{bookId}(bookId=${book.getId})}">
-                <img class="book-image" th:src="@{/static/images/bookImages/{image}(image=${book.imagePath})}" alt="book image">
-            </a>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage1.png}" alt="book image">
             <div class="book-card-container1">
                 <div class="book-card-container2">
                     <img class="star" th:src="@{/static/images/star.svg}" alt="star">
-                    <span class="rating" th:text="${book.rating}">book rating</span>
-                    <div th:if="${person==null}">
-                        <a th:href="@{/auth/login}">
-                            <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
-                        </a>
-                    </div>
-                    <div th:if="${person!=null}">
-                        <img th:if="${!book.favorite}" class="nav-icon favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
-                        <img th:if="${book.favorite}" class="marked nav-icon favorites" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="favorites">
-                    </div>
+                    <span class="rate">4.9</span>
+                    <span class="nav-icon favorites-icon"></span>
                 </div>
-                <div class="book-info">
-                    <h2 class="book-name" th:text="${book.name}">book name</h2>
-                    <h2 class="book-author" th:text="${book.author}">Алексей марков</h2>
-                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
                 <div class="book-card-container3">
-                    <div th:if="${person==null}">
-                        <a th:href="@{/auth/login}">
-                            <div class="to-cart-div">В корзину</div>
-                        </a>
-                    </div>
-                    <div th:if="${person!=null}">
-                        <div th:if="${!book.inCart}" class="add-to-cart-button">В корзину</div>
-                        <div th:if="${book.inCart}" class="in-cart add-to-cart-button">Удалить</div>
-                    </div>
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage2.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="nav-icon favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage3.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="nav-icon favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage4.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="nav-icon favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
                     <span class="book-price">575₽</span>
                 </div>
             </div>
@@ -101,38 +283,162 @@
         </div>
     </div>
     <div class="book-cards">
-        <div class="book-card" th:each="book:${highRatingBooks}">
-            <a th:href="@{/books/{bookId}(bookId=${book.getId})}">
-                <img class="book-image" th:src="@{/static/images/bookImages/{image}(image=${book.imagePath})}" alt="book image">
-            </a>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage1.png}" alt="book image">
             <div class="book-card-container1">
                 <div class="book-card-container2">
                     <img class="star" th:src="@{/static/images/star.svg}" alt="star">
-                    <span class="rating" th:text="${book.rating}">book rating</span>
-                    <div th:if="${person==null}">
-                        <a th:href="@{/auth/login}">
-                            <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
-                        </a>
-                    </div>
-                    <div th:if="${person!=null}">
-                        <img th:if="${!book.favorite}" class="nav-icon favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
-                        <img th:if="${book.favorite}" class="marked nav-icon favorites" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="favorites">
-                    </div>
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
                 </div>
-                <div class="book-info">
-                    <h2 class="book-name" th:text="${book.name}">book name</h2>
-                    <h2 class="book-author" th:text="${book.author}">Алексей марков</h2>
-                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
                 <div class="book-card-container3">
-                    <div th:if="${person==null}">
-                        <a th:href="@{/auth/login}">
-                            <div class="to-cart-div">В корзину</div>
-                        </a>
-                    </div>
-                    <div th:if="${person!=null}">
-                        <div th:if="${!book.inCart}" class="add-to-cart-button">В корзину</div>
-                        <div th:if="${book.inCart}" class="in-cart add-to-cart-button">Удалить</div>
-                    </div>
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage2.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage3.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage4.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage1.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage2.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage3.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+        <div class="book-card">
+            <img class="book-image" th:src="@{/static/images/bookImage4.png}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate">4.9</span>
+                    <span class="nav-icon favorites-icon"></span>
+                </div>
+                <h2 class="book-name">
+                    Лягушка, слон и брокколи.
+                    <br>
+                    Как жить и как не надо
+                </h2>
+                <h2 class="book-author">Алексей марков</h2>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
                     <span class="book-price">575₽</span>
                 </div>
             </div>
@@ -216,9 +522,5 @@
     </footer>
 </div>
 <div class="overlay" id="overlay"></div>
-<script th:src="@{/static/scripts/favoritesScript.js}"></script>
-<script th:src="@{/static/scripts/mainScript.js}"></script>
-<script th:src="@{/static/scripts/script.js}"></script>
-<script th:src="@{/static/scripts/cartScript.js}"></script>
 </body>
 </html>

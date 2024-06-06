@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.alex.bookstore.service.BookService;
 import ru.alex.bookstore.service.CategoryService;
 
-@Controller("/books")
+@Controller
+@RequestMapping("/books")
 public class BookController {
 
     private final BookService bookService;
