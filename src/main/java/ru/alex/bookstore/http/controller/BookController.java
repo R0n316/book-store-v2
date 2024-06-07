@@ -24,8 +24,8 @@ public class BookController {
 
     @GetMapping
     public String index(Model model){
-        model.addAttribute("topBooksByRating",bookService.findTopByRating(10));
-        model.addAttribute("topBooksByCirculation",bookService.findTopByCirculation(5));
+        model.addAttribute("topBooksByRating",bookService.findTopByRating(8));
+        model.addAttribute("topBooksByCirculation",bookService.findTopByCirculation(4));
         model.addAttribute("categories",categoryService.findAll());
         return "books/index";
     }

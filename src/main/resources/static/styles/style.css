@@ -249,3 +249,9 @@ footer{
     z-index: 999;
     backdrop-filter: blur(5px);
 }
+
+.book-info{
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+}

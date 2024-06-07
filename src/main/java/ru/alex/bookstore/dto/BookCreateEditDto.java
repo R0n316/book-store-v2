@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 public record BookCreateEditDto(
         String name,
         String author,
-        Integer rating,
+        Float rating,
         Integer price,
         MultipartFile image,
         String publisher,

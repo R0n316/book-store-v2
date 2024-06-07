@@ -15,7 +15,7 @@ public class Book {
     private Integer id;
     private String name;
     private String author;
-    private Integer rating;
+    private Float rating;
     private Integer price;
 
     @Column(name = "is_in_favorites")
@@ -45,6 +45,8 @@ public class Book {
 
     @Column(name = "age_restrictions")
     private Integer ageRestrictions;
+    private String description;
+    private String language;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")

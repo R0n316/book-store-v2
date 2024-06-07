@@ -1,11 +1,11 @@
 package ru.alex.bookstore.http.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import ru.alex.bookstore.dto.BookCreateEditDto;
 import ru.alex.bookstore.service.BookService;
 
@@ -27,9 +27,13 @@ public class BookRestController {
     }
 
     @GetMapping("/{id}/image")
-    public byte[] findImage(@PathVariable("id") Integer id){
+    public ResponseEntity<byte[]> findImage(@PathVariable("id") Integer id){
         return bookService.findImage(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .map(content -> ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_TYPE,MediaType.APPLICATION_OCTET_STREAM_VALUE)
+                        .contentLength(content.length)
+                        .body(content))
+                .orElseGet(ResponseEntity.notFound()::build);
     }
 
 }

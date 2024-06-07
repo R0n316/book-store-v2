@@ -5,7 +5,7 @@ public record BookPreviewDto(
         Integer id,
         String name,
         String author,
-        Integer rating,
+        Float rating,
         Integer price,
         String imagePath,
         boolean isInFavorites,
