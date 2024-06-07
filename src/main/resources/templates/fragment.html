@@ -6,27 +6,11 @@
 </head>
 <body>
 <header th:fragment="header">
-    <span class="logo"></span>
+    <a href="/books"><img th:src="@{/static/images/logo.svg}" alt="logo"></a>
     <div class="dropdown">
         <div class="catalog-button">
             <span class="catalog-button-text">Каталог</span>
             <img th:src="@{/static/images/catalogButtonDetails.svg}" alt="">
-        </div>
-        <div class="menu" id="my-menu">
-            <div>Лекарственные препараты и бады</div>
-            <div>Медицинская техника</div>
-            <div>Медицинские изделия</div>
-            <div>Гигиена и уход</div>
-            <div>Красота и здоровье</div>
-            <div>Мать и дитя</div>
-            <div>Детское питание</div>
-            <div>Ортопедические изделия</div>
-            <div>Канцелярские товары</div>
-            <div>Одежда, обувь аксессуары</div>
-            <div>Оптика</div>
-            <div>Продукты питания</div>
-            <div>Спортивные товары</div>
-            <div>Товары для активного отдыха</div>
         </div>
     </div>
     <form method="GET">

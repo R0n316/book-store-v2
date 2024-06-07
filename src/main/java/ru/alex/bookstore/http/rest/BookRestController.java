@@ -35,5 +35,4 @@ public class BookRestController {
                         .body(content))
                 .orElseGet(ResponseEntity.notFound()::build);
     }
-
 }

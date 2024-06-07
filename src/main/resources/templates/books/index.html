@@ -28,7 +28,9 @@
     </div>
     <div class="book-cards">
         <div class="book-card" th:each="book:${topBooksByRating}">
-            <img class="book-image" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">
+            <a th:href="@{/books/{id}(id=${book.id()})}">
+                <img class="book-image" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">
+            </a>
             <div class="book-card-container1">
                 <div class="book-card-container2">
                     <img class="star" th:src="@{/static/images/star.svg}" alt="star">
@@ -51,7 +53,9 @@
     <h1 class="best-seller-title">Хиты продаж</h1>
     <div class="best-sellers-container">
         <div class="book-card" th:each="book:${topBooksByCirculation}">
-            <img class="book-image" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">
+            <a th:href="@{/books/{id}(id=${book.id()})}">
+                <img class="book-image" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">
+            </a>
             <div class="book-card-container1">
                 <div class="book-card-container2">
                     <img class="star" th:src="@{/static/images/star.svg}" alt="star">

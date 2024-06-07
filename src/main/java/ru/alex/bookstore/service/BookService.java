@@ -7,9 +7,11 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.alex.bookstore.database.entity.Book;
 import ru.alex.bookstore.dto.BookCreateEditDto;
 import ru.alex.bookstore.dto.BookPreviewDto;
+import ru.alex.bookstore.dto.BookReadDto;
 import ru.alex.bookstore.mapper.BookCreateEditMapper;
 import ru.alex.bookstore.mapper.BookPreviewMapper;
 import ru.alex.bookstore.database.repository.BookRepository;
+import ru.alex.bookstore.mapper.BookReadMapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,17 +22,24 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookPreviewMapper bookPreviewMapper;
     private final BookCreateEditMapper bookCreateEditMapper;
+    private final BookReadMapper bookReadMapper;
     private final ImageService imageService;
 
     @Autowired
     public BookService(BookRepository bookRepository,
                        BookPreviewMapper bookPreviewMapper,
                        BookCreateEditMapper bookCreateEditMapper,
+                       BookReadMapper bookReadMapper,
                        ImageService imageService) {
         this.bookRepository = bookRepository;
         this.bookPreviewMapper = bookPreviewMapper;
         this.bookCreateEditMapper = bookCreateEditMapper;
+        this.bookReadMapper = bookReadMapper;
         this.imageService = imageService;
+    }
+
+    public Optional<BookReadDto> findById(Integer id){
+        return bookRepository.findById(id).map(bookReadMapper::map);
     }
 
     public List<BookPreviewDto> findTopByRating(Integer limit){
