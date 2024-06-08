@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.alex.bookstore.dto.BookCreateEditDto;
 import ru.alex.bookstore.service.BookService;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
 @RestController
 @RequestMapping("/api/books")
 public class BookRestController {
@@ -23,7 +25,7 @@ public class BookRestController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<HttpStatus> addBook(@ModelAttribute BookCreateEditDto bookDto){
         bookService.create(bookDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(CREATED);
     }
 
     @GetMapping("/{id}/image")

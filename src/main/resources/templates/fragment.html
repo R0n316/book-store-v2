@@ -6,7 +6,7 @@
 </head>
 <body>
 <header th:fragment="header">
-    <a href="/books"><img th:src="@{/static/images/logo.svg}" alt="logo"></a>
+    <a href="/"><img th:src="@{/static/images/logo.svg}" alt="logo"></a>
     <div class="dropdown">
         <div class="catalog-button">
             <span class="catalog-button-text">Каталог</span>
@@ -31,39 +31,17 @@
 
 
 <div class="categories" th:fragment="categories">
-    <div class="category">
-        Фэнтези
-    </div>
-    <div class="category">
-        Детективы
-    </div>
-    <div class="category">
-        Боевики
-    </div>
-    <div class="category">
-        Проза
-    </div>
-    <div class="category">
-        Бизнес
-    </div>
-    <div class="category">
-        Эзотерика
-    </div>
-    <div class="category">
-        Психология
-    </div>
-    <div class="category">
-        Мода
-    </div>
-    <div class="category">
-        Кулинария
-    </div>
-    <div class="category">
-        Биография
-    </div>
-    <div class="category">
-        Хобби
-    </div>
+    <a href="/books"><div class="category">Все</div></a>
+    <a href="/books?category=Фэнтези"> <div class="category">Фэнтези</div></a>
+    <a href="/books?category=Детективы"> <div class="category">Детективы</div></a>
+    <a href="/books?category=Боевики"> <div class="category">Боевики</div></a>
+    <a href="/books?category=Проза"> <div class="category">Проза</div></a>
+    <a href="/books?category=Бизнес"> <div class="category">Бизнес</div></a>
+    <a href="/books?category=Психология"> <div class="category">Психология</div></a>
+    <a href="/books?category=Мода"> <div class="category">Мода</div></a>
+    <a href="/books?category=Кулинария"> <div class="category">Кулинария</div></a>
+    <a href="/books?category=Биография"> <div class="category">Биография</div></a>
+    <a href="/books?category=Хобби"> <div class="category">Хобби</div></a>
 </div>
 </body>
 </html>

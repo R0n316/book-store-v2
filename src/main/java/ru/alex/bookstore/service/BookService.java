@@ -1,6 +1,7 @@
 package ru.alex.bookstore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,13 +44,20 @@ public class BookService {
     }
 
     public List<BookPreviewDto> findTopByRating(Integer limit){
-        return bookRepository.findTopByRating(limit).stream().map(bookPreviewMapper::map).toList();
+        return bookRepository.findTopByRating(limit)
+                .stream()
+                .map(bookPreviewMapper::map)
+                .toList();
     }
 
     public List<BookPreviewDto> findTopByCirculation(Integer limit){
-        return bookRepository.findTopByCirculation(limit).stream().map(bookPreviewMapper::map).toList();
+        return bookRepository.findTopByCirculation(limit)
+                .stream()
+                .map(bookPreviewMapper::map)
+                .toList();
     }
 
+    @Cacheable("images")
     public Optional<byte[]> findImage(Integer id){
         return bookRepository.findById(id)
                 .map(Book::getImagePath)

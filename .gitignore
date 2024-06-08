@@ -5,7 +5,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-images
+src/main/java/ru/alex/bookstore/util/CacheUtils.java
 
 ### STS ###
 .apt_generated
