@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Philosopher, serif;
+}
+
 header{
     height: 85px;
     display: flex;
@@ -7,6 +15,11 @@ header{
     position: fixed;
     z-index: 1000;
     background-color: white;
+}
+
+.container1{
+    padding-left: 340px;
+    padding-right: 340px;
 }
 
 .catalog-button{

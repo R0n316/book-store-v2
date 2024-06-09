@@ -2,6 +2,8 @@ package ru.alex.bookstore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +39,27 @@ public class BookService {
         this.bookCreateEditMapper = bookCreateEditMapper;
         this.bookReadMapper = bookReadMapper;
         this.imageService = imageService;
+    }
+
+
+    public Slice<BookPreviewDto> findAll(Pageable pageable){
+        return bookRepository.findAllBy(pageable)
+                .map(bookPreviewMapper::map);
+    }
+
+    public Slice<BookPreviewDto> findAllByCategory(String category, Pageable pageable){
+//        if(category == null){
+//            return findAll();
+//        }
+//        return bookRepository.findAllByCategory(category)
+//                .stream()
+//                .map(bookPreviewMapper::map)
+//                .toList();
+        if(category == null){
+            return findAll(pageable);
+        }
+        return bookRepository.findAllByCategory(category,pageable)
+                .map(bookPreviewMapper::map);
     }
 
     public Optional<BookReadDto> findById(Integer id){

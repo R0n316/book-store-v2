@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Найденные книги</title>
+    <link rel="stylesheet" th:href="@{/static/styles/header.css}">
+    <link rel="stylesheet" th:href="@{/static/styles/books.css}">
+</head>
+<body>
+<div th:insert="~{fragment :: header}"></div>
+<div class="container1" style="padding-top: 85px">
+    <div th:insert="~{fragment :: categories}"></div>
+    <div class="div1">
+        Найденные книги
+    </div>
+<!--    <div class="switch-page" id="prev"><&#45;&#45;</div>-->
+<!--    <div class="switch-page" id="next">&ndash;&gt;</div>-->
+    <div class="book-cards">
+        <div class="book-card" th:each="book:${books.content()}">
+            <a th:href="@{/books/{bookId}(bookId=${book.id()})}">
+                <img class="book-image" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">
+            </a>
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate" th:text="${book.rating}">book rating</span>
+                    <img class="nav-icon favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                </div>
+                <div class="book-info">
+                    <h2 class="book-name" th:text="${book.name}">book name</h2>
+                    <h2 class="book-author" th:text="${book.author}">Алексей марков</h2>
+                </div>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <img class="switch-page" th:src="@{/static/images/left-arrow.svg}" alt="prev" id="prev">
+        <img class="switch-page" th:src="@{/static/images/right-arrow.svg}" alt="next" id="next">
+    </div>
+</div>
+<div class="overlay" id="overlay"></div>
+<script th:src="@{/scripts/switch-page.js}"></script>
+</body>
+</html>
