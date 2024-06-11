@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Найденные книги</title>
-    <link rel="stylesheet" th:href="@{/static/styles/header.css}">
-    <link rel="stylesheet" th:href="@{/static/styles/books.css}">
+    <link rel="stylesheet" th:href="@{/styles/header.css}">
+    <link rel="stylesheet" th:href="@{/styles/books.css}">
 </head>
 <body>
 <div th:insert="~{fragment :: header}"></div>
@@ -13,8 +13,6 @@
     <div class="div1">
         Найденные книги
     </div>
-<!--    <div class="switch-page" id="prev"><&#45;&#45;</div>-->
-<!--    <div class="switch-page" id="next">&ndash;&gt;</div>-->
     <div class="book-cards">
         <div class="book-card" th:each="book:${books.content()}">
             <a th:href="@{/books/{bookId}(bookId=${book.id()})}">
