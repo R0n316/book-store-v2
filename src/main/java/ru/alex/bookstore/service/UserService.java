@@ -7,16 +7,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.alex.bookstore.database.repository.UserRepository;
+import ru.alex.bookstore.dto.UserCreateEditDto;
+import ru.alex.bookstore.mapper.UserCreateEditMapper;
 
 import java.util.Collections;
 
 @Service
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
+    private final UserCreateEditMapper userCreateEditMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,
+                       UserCreateEditMapper userCreateEditMapper) {
         this.userRepository = userRepository;
+        this.userCreateEditMapper = userCreateEditMapper;
     }
 
     @Override
@@ -28,5 +33,9 @@ public class UserService implements UserDetailsService {
                         Collections.singleton(user.getRole())
                 ))
                 .orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
+    }
+
+    public void register(UserCreateEditDto userDto){
+        userRepository.save(userCreateEditMapper.map(userDto));
     }
 }
