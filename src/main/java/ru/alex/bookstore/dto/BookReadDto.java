@@ -6,7 +6,6 @@ public record BookReadDto(
         String author,
         Float rating,
         Integer price,
-        boolean isInFavorites,
         String imagePath,
         String publisher,
         String series,

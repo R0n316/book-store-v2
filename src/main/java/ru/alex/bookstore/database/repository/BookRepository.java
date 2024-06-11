@@ -22,4 +22,8 @@ public interface BookRepository extends JpaRepository<Book,Integer> {
     Slice<Book> findAllByCategory(String category, Pageable pageable);
 
     Slice<Book> findAllBy(Pageable pageable);
+
+
+    // TODO SELECT* FROM books ORDER BY circulation DESC LEFT JOIN user_book
+    // TODO на страницу будем возвращать UserBookDto
 }

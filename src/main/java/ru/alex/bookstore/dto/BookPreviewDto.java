@@ -7,9 +7,7 @@ public record BookPreviewDto(
         String author,
         Float rating,
         Integer price,
-        String imagePath,
-        boolean isInFavorites,
-        boolean isInCart
+        String imagePath
 ) {
 
 }

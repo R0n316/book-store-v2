@@ -18,12 +18,6 @@ public class Book {
     private Float rating;
     private Integer price;
 
-    @Column(name = "is_in_favorites")
-    private boolean isInFavorites;
-
-    @Column(name = "is_in_cart")
-    private boolean isInCart;
-
     @Column(name = "image_path")
     private String imagePath;
 

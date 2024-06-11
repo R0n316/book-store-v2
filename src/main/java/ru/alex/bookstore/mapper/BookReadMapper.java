@@ -14,7 +14,6 @@ public class BookReadMapper implements Mapper<Book, BookReadDto>{
                 object.getAuthor(),
                 object.getRating(),
                 object.getPrice(),
-                object.isInFavorites(),
                 object.getImagePath(),
                 object.getPublisher(),
                 object.getSeries(),

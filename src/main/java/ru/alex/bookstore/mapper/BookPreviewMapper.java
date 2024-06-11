@@ -19,8 +19,7 @@ public class BookPreviewMapper implements Mapper<Book, BookPreviewDto> {
                 object.getAuthor(),
                 object.getRating(),
                 object.getPrice(),
-                object.getImagePath(),
-                object.isInFavorites(),
-                object.isInCart());
+                object.getImagePath()
+        );
     }
 }
