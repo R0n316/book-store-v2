@@ -1,16 +1,16 @@
 package ru.alex.bookstore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.alex.bookstore.database.repository.UserRepository;
 import ru.alex.bookstore.dto.UserCreateEditDto;
+import ru.alex.bookstore.dto.UserDto;
 import ru.alex.bookstore.mapper.UserCreateEditMapper;
 
-import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -27,10 +27,11 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
          return userRepository.findByUsername(username)
-                .map(user -> new User(
+                .map(user -> new UserDto(
+                        user.getId(),
                         user.getUsername(),
                         user.getPassword(),
-                        Collections.singleton(user.getRole())
+                        List.of(user.getRole())
                 ))
                 .orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
     }

@@ -24,6 +24,11 @@ public interface BookRepository extends JpaRepository<Book,Integer> {
     Slice<Book> findAllBy(Pageable pageable);
 
 
-    // TODO SELECT* FROM books ORDER BY circulation DESC LEFT JOIN user_book
-    // TODO на страницу будем возвращать UserBookDto
+    /*
+    User authenticatedUser = userService.findById(SecurityContext.getAuthenticatedUserid())
+    userBookRepository.findBy(pageable)     // List<UserBook>
+                      .map(userBook -> {
+                            if(userBook.)
+                      })
+     */
 }
