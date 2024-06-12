@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Избранное</title>
+    <link rel="stylesheet" th:href="@{/static/styles/header.css}">
+    <link rel="stylesheet" th:href="@{/static/styles/books.css}">
+</head>
+<body>
+<div th:insert="~{fragment :: header}"></div>
+<div class="container1" style="padding-top: 85px">
+    <div th:insert="~{fragment :: categories}"></div>
+    <div class="div1">
+        Избранное
+    </div>
+    <div class="book-cards">
+        <div class="book-card" th:each="book:${favoriteBooks}">
+            <a th:href="@{/books/{bookId}(bookId=${book.id()})}">
+                <img class="book-image" th:src="@{/api/books/{id}/image(id=${book.id()})}" alt="book image">
+            </a>
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate" th:text="${book.rating()}">book rate</span>
+                    <img class="nav-icon favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                </div>
+                <div class="book-info">
+                    <h2 class="book-name" th:text="${book.name()}">book name</h2>
+                    <h2 class="book-author" th:text="${book.author()}">Алексей марков</h2>
+                </div>
+                <div class="book-card-container3">
+                    <span class="book-price" th:text="${book.price()} + '₽'">book price</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="overlay" id="overlay"></div>
+<script th:src="@{/static/scripts/mainScript.js}"></script>
+<script th:src="@{/static/scripts/script.js}"></script>
+<script th:src="@{/static/scripts/favoritesScript.js}"></script>
+</body>
+</html>

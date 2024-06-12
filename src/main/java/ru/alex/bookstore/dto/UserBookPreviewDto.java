@@ -6,6 +6,7 @@ public interface UserBookPreviewDto{
     String getAuthor();
     Float getRating();
     Integer getPrice();
+    Integer getUserId();
     Boolean getIsInFavorites();
     Boolean getIsInCart();
 }

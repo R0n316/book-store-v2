@@ -4,11 +4,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import ru.alex.bookstore.dto.UserBookPreviewDto;
+import ru.alex.bookstore.dto.UserBookReadDto;
 import ru.alex.bookstore.integration.IntegrationTestBase;
 import ru.alex.bookstore.service.UserBookService;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -54,7 +57,7 @@ class UserBookServiceIT extends IntegrationTestBase {
     @Test
     void findAllByCategory(){
         String category = "Фэнтези";
-        List<UserBookPreviewDto> booksByCategory = userBookService.findAllByCategory(category, PageRequest.of(0,3));
+        Slice<UserBookPreviewDto> booksByCategory = userBookService.findAllByCategory(category, PageRequest.of(0,3));
         assertThat(booksByCategory).hasSize(3);
         List<String> expectedAuthors = List.of("Jane Austen","Herman Melville","Emily Bronte");
         List<String> actualAuthors = booksByCategory
@@ -67,7 +70,17 @@ class UserBookServiceIT extends IntegrationTestBase {
 
     @Test
     void findAllBy(){
-        List<UserBookPreviewDto> books = userBookService.findAllBy(Pageable.ofSize(5));
+        Slice<UserBookPreviewDto> books = userBookService.findAllBy(Pageable.ofSize(5));
         assertThat(books).hasSize(5);
+    }
+
+    @Test
+    void findById(){
+        Optional<UserBookReadDto> bookOptional = userBookService.findById(7);
+        assertThat(bookOptional).isPresent();
+        UserBookReadDto book = bookOptional.get();
+        assertThat(book.getName()).isEqualTo("Pride and Prejudice");
+        assertThat(book.getAuthor()).isEqualTo("Jane Austen");
+
     }
 }

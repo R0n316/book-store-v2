@@ -2,11 +2,14 @@ package ru.alex.bookstore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import ru.alex.bookstore.database.repository.UserBookRepository;
 import ru.alex.bookstore.dto.UserBookPreviewDto;
+import ru.alex.bookstore.dto.UserBookReadDto;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserBookService {
@@ -27,12 +30,18 @@ public class UserBookService {
         return userBookRepository.findTopByCirculation(limit);
     }
 
-    public List<UserBookPreviewDto> findAllByCategory(String category,Pageable pageable){
+    public Slice<UserBookPreviewDto> findAllByCategory(String category,Pageable pageable){
+        if(category == null){
+            return findAllBy(pageable);
+        }
         return userBookRepository.findAllByCategory(category,pageable);
     }
 
-    public List<UserBookPreviewDto> findAllBy(Pageable pageable){
+    public Slice<UserBookPreviewDto> findAllBy(Pageable pageable){
         return userBookRepository.findAllBy(pageable);
     }
 
+    public Optional<UserBookReadDto> findById(Integer id){
+        return userBookRepository.findBookById(id);
+    }
 }
