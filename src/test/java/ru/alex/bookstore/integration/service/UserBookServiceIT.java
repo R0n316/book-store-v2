@@ -81,6 +81,31 @@ class UserBookServiceIT extends IntegrationTestBase {
         UserBookReadDto book = bookOptional.get();
         assertThat(book.getName()).isEqualTo("Pride and Prejudice");
         assertThat(book.getAuthor()).isEqualTo("Jane Austen");
+    }
 
+    @Test
+    void findFavorites(){
+        Slice<UserBookPreviewDto> favoriteBooks = userBookService.findFavorites(7,Pageable.ofSize(3));
+        assertThat(favoriteBooks).hasSize(3);
+        List<String> expectedBookNames = List.of("Pride and Prejudice","Far from the Madding Crowd","War and Peace");
+        List<String> actualBookNames = favoriteBooks
+                .stream()
+                .map(UserBookPreviewDto::getName)
+                .toList();
+
+        assertThat(actualBookNames).containsAll(expectedBookNames);
+    }
+
+    @Test
+    void findInCart(){
+        Slice<UserBookPreviewDto> booksInCart = userBookService.findInCart(7,Pageable.ofSize(3));
+        assertThat(booksInCart).hasSize(3);
+        List<String> expectedBookNames = List.of("War and Peace","Adventures of Huckleberry Finn","Pride and Prejudice");
+        List<String> actualBookNames = booksInCart
+                .stream()
+                .map(UserBookPreviewDto::getName)
+                .toList();
+
+        assertThat(actualBookNames).containsAll(expectedBookNames);
     }
 }

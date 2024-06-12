@@ -61,4 +61,26 @@ public class UserBookController {
         model.addAttribute("books", PageResponse.of(slice));
         return "books/books";
     }
+
+    @GetMapping("/books/favorites")
+    public String favoriteBooks(@AuthenticationPrincipal UserDto userDto,
+                                @RequestParam(value = "page",defaultValue = "0") Integer page,
+                                Model model){
+        model.addAttribute(
+                "favoriteBooks",
+                userBookService.findFavorites(userDto.id(),PageRequest.of(page,30))
+        );
+        return "books/favorites";
+    }
+
+    @GetMapping("/books/cart")
+    public String booksInCart(@AuthenticationPrincipal UserDto userDto,
+                              @RequestParam(value = "page", defaultValue = "0") Integer page,
+                              Model model){
+        model.addAttribute(
+                "booksInCart",
+                userBookService.findInCart(userDto.id(),PageRequest.of(page,30))
+        );
+        return "books/cart";
+    }
 }

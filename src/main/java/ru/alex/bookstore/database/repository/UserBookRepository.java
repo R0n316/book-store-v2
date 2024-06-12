@@ -61,4 +61,21 @@ public interface UserBookRepository extends JpaRepository<UserBook,Integer> {
             """,nativeQuery = true)
     Optional<UserBookReadDto> findBookById(Integer id);
 
+    @Query(value = """
+            SELECT book.*,is_in_favorites
+            FROM user_book
+            JOIN book ON user_book.book_id = book.id
+            WHERE is_in_favorites AND user_id = :userId
+            ORDER BY book.id
+            """,nativeQuery = true)
+    Slice<UserBookPreviewDto> findFavorites(Integer userId,Pageable pageable);
+
+    @Query(value = """
+            SELECT book.*,is_in_favorites
+            FROM user_book
+            JOIN book ON user_book.book_id = book.id
+            WHERE is_in_cart AND user_id = :userId
+            """, nativeQuery = true)
+    Slice<UserBookPreviewDto> findInCart(Integer userId,Pageable pageable);
+
 }

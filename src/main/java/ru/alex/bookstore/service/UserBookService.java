@@ -44,4 +44,12 @@ public class UserBookService {
     public Optional<UserBookReadDto> findById(Integer id){
         return userBookRepository.findBookById(id);
     }
+
+    public Slice<UserBookPreviewDto> findFavorites(Integer userId,Pageable pageable){
+        return userBookRepository.findFavorites(userId,pageable);
+    }
+
+    public Slice<UserBookPreviewDto> findInCart(Integer userId,Pageable pageable){
+        return userBookRepository.findInCart(userId,pageable);
+    }
 }

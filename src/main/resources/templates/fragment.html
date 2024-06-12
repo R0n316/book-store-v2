@@ -24,10 +24,12 @@
         Избранное
     </div>
     </a>
-    <div class="nav-button">
-        <img class="nav-icon" th:src="@{/static/images/cartIcon.svg}" alt="favorites">
-        Корзина
-    </div>
+    <a href="/books/cart">
+        <div class="nav-button">
+            <img class="nav-icon" th:src="@{/static/images/cartIcon.svg}" alt="favorites">
+            Корзина
+        </div>
+    </a>
     <a href="/auth/login"> <button class="login-button">Войти</button></a>
 </header>
 

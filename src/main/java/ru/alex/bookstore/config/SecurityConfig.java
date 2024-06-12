@@ -17,6 +17,7 @@ public class SecurityConfig  {
                 .loginPage("/auth/login")
                 .loginProcessingUrl("/auth/login"))
             .authorizeHttpRequests(urlConfig -> urlConfig
+                    .requestMatchers("/books/favorites","/books/cart").authenticated()
                     .requestMatchers("/auth/**","/styles/**").permitAll()
                     .anyRequest()
                     .permitAll());
