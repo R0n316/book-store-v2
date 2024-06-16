@@ -29,12 +29,14 @@
                     <h2 class="book-author" th:text="${book.author}">Алексей марков</h2>
                 </div>
                 <div class="book-card-container3">
-                    <span class="book-price" th:text="${book.price} + '₽'">book price</span>
+                    <span class="book-price" th:text="${book.price} + ' $'">book price</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div class="overlay" id="overlay"></div>
+<script th:src="@{/static/scripts/book-favorites.js}"></script>
+<script th:src="@{/static/scripts/book-cart.js}"></script>
 </body>
 </html>

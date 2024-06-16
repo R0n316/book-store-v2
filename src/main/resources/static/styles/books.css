@@ -226,3 +226,7 @@ rgba(31, 26, 45, 0.22);
     display: flex;
     justify-content: space-between;
 }
+
+.favorites-icon{
+    cursor: pointer;
+}

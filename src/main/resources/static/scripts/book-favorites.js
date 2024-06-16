@@ -1,11 +1,18 @@
 const favoritesIcon = document.querySelectorAll('.favorites-icon');
-
+const currentPath = window.location.pathname;
 favoritesIcon.forEach(icon => {
     icon.addEventListener('click',handleFavoritesCLick);
 })
 
 function handleFavoritesCLick(event){
-    const bookId = event.target.closest('.book-card').querySelector('a').href.split('/')[4];
+    let bookId;
+    let pattern = /^\/books\/(\d+)$/;
+    if(!pattern.test(currentPath)){
+        bookId = event.target.closest('.book-card').querySelector('a').href.split('/')[4];
+    } else {
+        const parts = currentPath.split('/');
+        bookId = parts[parts.length - 1];
+    }
     const currentSrc = event.target.src;
     let url;
 

@@ -77,15 +77,15 @@
         </div>
         <div class="book-details">
             <div class="book-price-info">
-                <span class="book-price" th:text="${book.price} + ' ₽'">book price</span>
+                <span class="book-price" th:text="${book.price} + ' $'">book price</span>
                 <span class="book-points">+ до 96 баллов</span>
             </div>
             <div class="book-actions">
                 <button class="buy-button">Купить</button>
-                <img th:if="${user == null || user.id() != book.userId}"
-                     class="favorites-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="">
-                <img th:if="${user != null && (user.id() == book.userId && book.getIsInFavorites())}"
+                <img th:if="${user != null && (user.id() == book.userId && book.isInFavorites)}"
                      class="favorites-icon" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="">
+                <img th:unless="${user != null && (user.id() == book.userId && book.isInFavorites)}"
+                     class="favorites-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="">
             </div>
             <div class="obtaining-method">
                 <img th:src="@{/static/images/cartIconAlt.svg}" alt="obtaining icon" class="obtaining-method-icon">
@@ -163,5 +163,6 @@
     </footer>
 </div>
 <div class="overlay" id="overlay"></div>
+<script th:src="@{/static/scripts/book-favorites.js}"></script>
 </body>
 </html>
