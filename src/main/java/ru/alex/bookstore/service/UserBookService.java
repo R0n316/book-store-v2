@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.alex.bookstore.database.entity.UserBook;
 import ru.alex.bookstore.database.repository.UserBookRepository;
 import ru.alex.bookstore.dto.UserBookPreviewDto;
 import ru.alex.bookstore.dto.UserBookReadDto;
@@ -23,7 +24,6 @@ public class UserBookService {
         this.userBookRepository = userBookRepository;
     }
 
-    // TODO после реализации функционала соединить все dto в одно целое
     public List<UserBookPreviewDto> findTopByRating(Integer limit){
         return userBookRepository.findTopByRating(limit);
     }
@@ -57,7 +57,11 @@ public class UserBookService {
 
     @Transactional
     public void addBookToFavorites(Integer bookId,Integer userId){
-        userBookRepository.addBookToFavorites(bookId,userId);
+        Optional<UserBook> bookOptional = userBookRepository.findByBookIdAndUserId(bookId,userId);
+        bookOptional.ifPresentOrElse(book -> {
+            book.setInFavorites(true);
+            userBookRepository.save(book);
+        }, () -> userBookRepository.addUserBook(bookId,userId,true,false));
     }
 
     @Transactional
@@ -67,7 +71,11 @@ public class UserBookService {
 
     @Transactional
     public void addBookToCart(Integer bookId, Integer userId){
-        userBookRepository.addBookToCart(bookId,userId);
+        Optional<UserBook> bookOptional = userBookRepository.findByBookIdAndUserId(bookId,userId);
+        bookOptional.ifPresentOrElse(book -> {
+            book.setInCart(true);
+            userBookRepository.save(book);
+        }, () -> userBookRepository.addUserBook(bookId,userId,false,true));
     }
 
     @Transactional

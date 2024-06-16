@@ -35,10 +35,10 @@
                 <div class="book-card-container2">
                     <img class="star" th:src="@{/static/images/star.svg}" alt="star">
                     <span class="rate" th:text="${book.rating}">4.9</span>
-                    <img th:if="${user == null || user.id() != book.userId}"
-                         class="favorites-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="">
                     <img th:if="${user != null && (user.id() == book.userId && book.isInFavorites)}"
                          class="favorites-icon" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="">
+                    <img th:unless="${user != null && (user.id() == book.userId && book.isInFavorites)}"
+                         class="favorites-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="">
                 </div>
                 <div class="book-info">
                     <h2 class="book-name" th:text="${book.name}">book name</h2>
@@ -46,9 +46,9 @@
                 </div>
                 <div class="book-card-container3">
                     <div class="add-to-cart-button"
-                         th:if="${user == null || (user.id() != book.userId || !book.isInCart)}">В корзину</div>
-                    <div class="add-to-cart-button"
                          th:if="${user != null && (user.id() == book.userId && book.isInCart)}">Удалить</div>
+                    <div class="add-to-cart-button"
+                         th:unless="${user != null && (user.id() == book.userId && book.isInCart)}">В корзину</div>
                     <span class="book-price" th:text="${book.price} + '$'">575₽</span>
                 </div>
             </div>
@@ -66,10 +66,10 @@
                 <div class="book-card-container2">
                     <img class="star" th:src="@{/static/images/star.svg}" alt="star">
                     <span class="rate" th:text="${book.rating}">4.9</span>
-                    <img th:if="${user == null || user.id() != book.userId}"
-                         class="favorites-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="">
                     <img th:if="${user != null && (user.id() == book.userId && book.isInFavorites)}"
                          class="favorites-icon" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="">
+                    <img th:unless="${user != null && (user.id() == book.userId && book.isInFavorites)}"
+                         class="favorites-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="">
                 </div>
                 <div class="book-info">
                     <h2 class="book-name" th:text="${book.name}">book name</h2>
@@ -77,9 +77,9 @@
                 </div>
                 <div class="book-card-container3">
                     <div class="add-to-cart-button"
-                         th:if="${user == null || (user.id() != book.userId || !book.isInCart)}">В корзину</div>
-                    <div class="add-to-cart-button"
                          th:if="${user != null && (user.id() == book.userId && book.isInCart)}">Удалить</div>
+                    <div class="add-to-cart-button"
+                         th:unless="${user != null && (user.id() == book.userId && book.isInCart)}">В корзину</div>
                     <span class="book-price" th:text="${book.price} + '$'">575₽</span>
                 </div>
             </div>
@@ -334,5 +334,6 @@
     </footer>
 </div>
 <div class="overlay" id="overlay"></div>
+<script th:src="@{/static/scripts/book-favorites.js}"></script>
 </body>
 </html>

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import ru.alex.bookstore.database.entity.Book;
 import ru.alex.bookstore.dto.BookCreateEditDto;
 import ru.alex.bookstore.dto.BookPreviewDto;
 import ru.alex.bookstore.mapper.BookCreateEditMapper;
@@ -76,8 +75,7 @@ public class BookService {
 
     @Cacheable("images")
     public Optional<byte[]> findImage(Integer id){
-        return bookRepository.findById(id)
-                .map(Book::getImagePath)
+        return bookRepository.getImagePathById(id)
                 .filter(StringUtils::hasText)
                 .flatMap(imageService::get);
     }

@@ -15,6 +15,16 @@ import java.util.Optional;
 
 @Repository
 public interface UserBookRepository extends JpaRepository<UserBook,Integer> {
+
+    Optional<UserBook> findByBookIdAndUserId(Integer userId, Integer bookId);
+
+    @Modifying
+    @Query(value = """
+                INSERT INTO user_book(book_id,user_id,is_in_favorites,is_in_cart)
+                VALUES (:bookId,:userId,:isInFavorites,:isInCart)""",
+            nativeQuery = true)
+    void addUserBook(Integer bookId,Integer userId,boolean isInFavorites,boolean isInCart);
+
     @Query(
             value = """
             SELECT book.*,is_in_favorites,is_in_cart,user_id
@@ -81,18 +91,12 @@ public interface UserBookRepository extends JpaRepository<UserBook,Integer> {
 
 
     @Modifying
-    @Query("UPDATE UserBook ub SET ub.isInFavorites = true WHERE ub.book.id = :bookId AND ub.user.id = :userId")
-    void addBookToFavorites(Integer bookId, Integer userId);
-
-    @Modifying
     @Query("UPDATE UserBook ub SET ub.isInFavorites = false WHERE ub.book.id = :bookId AND ub.user.id = :userId")
     void deleteBookFromFavorites(Integer bookId, Integer userId);
 
     @Modifying
-    @Query("UPDATE UserBook ub SET ub.isInCart = true WHERE ub.book.id = :bookId AND ub.user.id = :userId")
-    void addBookToCart(Integer bookId, Integer userId);
-
-    @Modifying
     @Query("UPDATE UserBook ub SET ub.isInCart = false WHERE ub.book.id = :bookId AND ub.user.id = :userId")
     void deleteBookFromCart(Integer bookId, Integer userId);
+
+
 }

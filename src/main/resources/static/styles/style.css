@@ -241,3 +241,7 @@ footer{
     flex-direction: column;
     height: 50px;
 }
+
+.favorites-icon{
+    cursor: pointer;
+}
