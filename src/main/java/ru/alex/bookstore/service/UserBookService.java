@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.alex.bookstore.database.repository.UserBookRepository;
 import ru.alex.bookstore.dto.UserBookPreviewDto;
 import ru.alex.bookstore.dto.UserBookReadDto;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
 public class UserBookService {
 
     private final UserBookRepository userBookRepository;
@@ -51,5 +53,25 @@ public class UserBookService {
 
     public Slice<UserBookPreviewDto> findInCart(Integer userId,Pageable pageable){
         return userBookRepository.findInCart(userId,pageable);
+    }
+
+    @Transactional
+    public void addBookToFavorites(Integer bookId,Integer userId){
+        userBookRepository.addBookToFavorites(bookId,userId);
+    }
+
+    @Transactional
+    public void deleteBookFromFavorites(Integer bookId, Integer userId){
+        userBookRepository.deleteBookFromFavorites(bookId,userId);
+    }
+
+    @Transactional
+    public void addBookToCart(Integer bookId, Integer userId){
+        userBookRepository.addBookToCart(bookId,userId);
+    }
+
+    @Transactional
+    public void deleteBookFromCart(Integer bookId, Integer userId){
+        userBookRepository.deleteBookFromCart(bookId,userId);
     }
 }

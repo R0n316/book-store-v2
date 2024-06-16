@@ -3,6 +3,7 @@ package ru.alex.bookstore.database.repository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.alex.bookstore.database.entity.UserBook;
@@ -78,4 +79,20 @@ public interface UserBookRepository extends JpaRepository<UserBook,Integer> {
             """, nativeQuery = true)
     Slice<UserBookPreviewDto> findInCart(Integer userId,Pageable pageable);
 
+
+    @Modifying
+    @Query("UPDATE UserBook ub SET ub.isInFavorites = true WHERE ub.book.id = :bookId AND ub.user.id = :userId")
+    void addBookToFavorites(Integer bookId, Integer userId);
+
+    @Modifying
+    @Query("UPDATE UserBook ub SET ub.isInFavorites = false WHERE ub.book.id = :bookId AND ub.user.id = :userId")
+    void deleteBookFromFavorites(Integer bookId, Integer userId);
+
+    @Modifying
+    @Query("UPDATE UserBook ub SET ub.isInCart = true WHERE ub.book.id = :bookId AND ub.user.id = :userId")
+    void addBookToCart(Integer bookId, Integer userId);
+
+    @Modifying
+    @Query("UPDATE UserBook ub SET ub.isInCart = false WHERE ub.book.id = :bookId AND ub.user.id = :userId")
+    void deleteBookFromCart(Integer bookId, Integer userId);
 }

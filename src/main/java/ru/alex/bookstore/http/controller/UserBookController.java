@@ -51,46 +51,46 @@ public class UserBookController {
     }
 
     @GetMapping("/books/{id}")
-    public String findById(@AuthenticationPrincipal UserDto userDto,@PathVariable("id") Integer id, Model model){
+    public String findById(@AuthenticationPrincipal UserDto user,@PathVariable("id") Integer id, Model model){
         return userBookService.findById(id)
                 .map(book -> {
                     model.addAttribute("book",book);
-                    model.addAttribute("user",userDto);
+                    model.addAttribute("user",user);
                     return "books/book";
                 })
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
     }
 
     @GetMapping("/books")
-    public String findByCategory(@AuthenticationPrincipal UserDto userDto,
+    public String findByCategory(@AuthenticationPrincipal UserDto user,
                                  @RequestParam(value = "category",required = false) String category,
                                  @RequestParam(value = "page",defaultValue = "0") Integer page,
                                  Model model){
         Pageable pageable = PageRequest.of(page,TOP_BOOKS_BY_RATING_SIZE);
         Slice<UserBookPreviewDto> slice = userBookService.findAllByCategory(category,pageable);
-        model.addAttribute("user",userDto);
+        model.addAttribute("user",user);
         model.addAttribute("books", PageResponse.of(slice));
         return "books/books";
     }
 
     @GetMapping("/books/favorites")
-    public String favoriteBooks(@AuthenticationPrincipal UserDto userDto,
+    public String favoriteBooks(@AuthenticationPrincipal UserDto user,
                                 @RequestParam(value = "page",defaultValue = "0") Integer page,
                                 Model model){
         model.addAttribute(
                 "favoriteBooks",
-                userBookService.findFavorites(userDto.id(),PageRequest.of(page,PAGE_SIZE))
+                userBookService.findFavorites(user.id(),PageRequest.of(page,PAGE_SIZE))
         );
         return "books/favorites";
     }
 
     @GetMapping("/books/cart")
-    public String booksInCart(@AuthenticationPrincipal UserDto userDto,
+    public String booksInCart(@AuthenticationPrincipal UserDto user,
                               @RequestParam(value = "page", defaultValue = "0") Integer page,
                               Model model){
         model.addAttribute(
                 "booksInCart",
-                userBookService.findInCart(userDto.id(),PageRequest.of(page,PAGE_SIZE))
+                userBookService.findInCart(user.id(),PageRequest.of(page,PAGE_SIZE))
         );
         return "books/cart";
     }

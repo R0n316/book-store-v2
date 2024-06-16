@@ -108,4 +108,10 @@ class UserBookServiceIT extends IntegrationTestBase {
 
         assertThat(actualBookNames).containsAll(expectedBookNames);
     }
+
+
+    @Test
+    void addBookToFavorites(){
+        userBookService.addBookToFavorites(7,7);
+    }
 }
