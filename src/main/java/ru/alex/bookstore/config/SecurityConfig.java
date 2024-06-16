@@ -13,10 +13,12 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"));
         http.formLogin(form -> form
                 .loginPage("/auth/login")
                 .loginProcessingUrl("/auth/login"))
             .authorizeHttpRequests(urlConfig -> urlConfig
+                    .requestMatchers("/books/favorites","/books/cart").authenticated()
                     .requestMatchers("/auth/**","/styles/**").permitAll()
                     .anyRequest()
                     .permitAll());

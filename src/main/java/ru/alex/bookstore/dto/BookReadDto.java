@@ -6,7 +6,6 @@ public record BookReadDto(
         String author,
         Float rating,
         Integer price,
-        String imagePath,
         String publisher,
         String series,
         Integer yearOfPublishing,

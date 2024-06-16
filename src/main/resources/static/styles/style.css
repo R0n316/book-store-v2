@@ -129,6 +129,7 @@
     margin-right: 18px;
     background: rgb(41, 2, 71);
     color: white;
+    cursor: pointer;
 }
 
 .book-price{
@@ -240,4 +241,8 @@ footer{
     display: flex;
     flex-direction: column;
     height: 50px;
+}
+
+.favorites-icon{
+    cursor: pointer;
 }

@@ -1,4 +1,11 @@
-app.image.bucket: images
+app:
+  image:
+    bucket: images
+  page:
+    size:
+      top_by_rating_books: 8
+      top_by_circulation_books: 4
+      page_size: 30
 
 spring:
   application:

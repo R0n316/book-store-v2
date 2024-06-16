@@ -18,14 +18,18 @@
             <input type="text" placeholder="Поиск" class="search">
         </label>
     </form>
-    <div class="nav-button">
+    <a href="/books/favorites">
+        <div class="nav-button">
         <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
         Избранное
     </div>
-    <div class="nav-button">
-        <img class="nav-icon" th:src="@{/static/images/cartIcon.svg}" alt="favorites">
-        Корзина
-    </div>
+    </a>
+    <a href="/books/cart">
+        <div class="nav-button">
+            <img class="nav-icon" th:src="@{/static/images/cartIcon.svg}" alt="favorites">
+            Корзина
+        </div>
+    </a>
     <a href="/auth/login"> <button class="login-button">Войти</button></a>
 </header>
 

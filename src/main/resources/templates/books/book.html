@@ -18,11 +18,11 @@
                 <span class="rate" th:text="${book.rating}">book rating</span>
                 <span class="reviews"><ins>15 отзывов</ins></span>
             </div>
-            <span class="book-name" th:text="${book.name()}">book name</span>
+            <span class="book-name" th:text="${book.name}">book name</span>
             <span class="book-author"><ins th:text="${book.author}">book author</ins></span>
             <div class="book-attribute">
                 <span class="attribute-name">ID товара</span>
-                <span class="attribute-value" th:text="${book.id()}">book id</span>
+                <span class="attribute-value" th:text="${book.id}">book id</span>
             </div>
             <hr class="attribute-hr">
             <div class="book-attribute">
@@ -82,9 +82,10 @@
             </div>
             <div class="book-actions">
                 <button class="buy-button">Купить</button>
-                <a th:href="@{/auth/login}">
-                    <img class="favorites-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
-                </a>
+                <img th:if="${user == null || user.id() != book.userId}"
+                     class="favorites-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="">
+                <img th:if="${user != null && (user.id() == book.userId && book.getIsInFavorites())}"
+                     class="favorites-icon" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="">
             </div>
             <div class="obtaining-method">
                 <img th:src="@{/static/images/cartIconAlt.svg}" alt="obtaining icon" class="obtaining-method-icon">
