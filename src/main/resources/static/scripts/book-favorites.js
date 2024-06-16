@@ -19,7 +19,7 @@ function handleFavoritesCLick(event){
     fetch(url, {
         method: 'PATCH',
     })
-        .then((response) => {
+        .then(response => {
             if (response.ok) {
                 event.target.src = currentSrc.endsWith('favoritesIcon.svg')
                     ? '/static/images/markedFavoritesIcon.svg'

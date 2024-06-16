@@ -129,6 +129,7 @@
     margin-right: 18px;
     background: rgb(41, 2, 71);
     color: white;
+    cursor: pointer;
 }
 
 .book-price{

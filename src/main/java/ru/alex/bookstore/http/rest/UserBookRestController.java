@@ -42,7 +42,7 @@ public class UserBookRestController {
         return processRequest(userBookService::addBookToCart,user,bookId);
     }
 
-    @PatchMapping("/{bookId}/FromCart")
+    @PatchMapping("/{bookId}/fromCart")
     public ResponseEntity<HttpStatus> deleteBookFromCart(@AuthenticationPrincipal UserDto user,
                                                               @PathVariable("bookId") Integer bookId){
         return processRequest(userBookService::deleteBookFromCart,user,bookId);
