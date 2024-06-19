@@ -86,6 +86,7 @@ public interface UserBookRepository extends JpaRepository<UserBook,Integer> {
             FROM user_book
             JOIN book ON user_book.book_id = book.id
             WHERE is_in_cart AND user_id = :userId
+            ORDER BY book.id
             """, nativeQuery = true)
     Slice<UserBookPreviewDto> findInCart(Integer userId,Pageable pageable);
 
