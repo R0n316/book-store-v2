@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.0'
     id 'io.spring.dependency-management' version '1.1.5'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'ru.alex'
@@ -15,6 +16,7 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+    querydsl.extendsFrom annotationProcessor, implementation, compilyOnly, runtimeOnly
 }
 
 repositories {
@@ -38,6 +40,19 @@ dependencies {
     implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    implementation 'com.querydsl:querydsl-core:5.0.0'
+}
+
+querydsl {
+    jpa = true
+    library = 'com.querydsl:querydsl-apt:5.0.0:jakarta'
+    querydslSourcesDir = layout.buildDirectory.dir("generated/sources/annotationProcessor/java/main").get().asFile
+}
+
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
 }
 
 tasks.named('test') {

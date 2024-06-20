@@ -73,6 +73,8 @@ public class UserBookController {
         return "books/books";
     }
 
+    // TODO подключить querydsl и сделать динамический запрос на получение книг по названии и категории
+
     @GetMapping("/books/favorites")
     public String favoriteBooks(@AuthenticationPrincipal UserDto user,
                                 @RequestParam(value = "page",defaultValue = "0") Integer page,
