@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserBookRepository extends JpaRepository<UserBook,Integer> {
+public interface UserBookRepository extends
+        JpaRepository<UserBook,Integer>,
+        UserBookRepositoryCustom{
 
     Optional<UserBook> findByBookIdAndUserId(Integer userId, Integer bookId);
 

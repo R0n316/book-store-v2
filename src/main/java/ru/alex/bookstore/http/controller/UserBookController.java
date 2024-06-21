@@ -9,12 +9,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
-import ru.alex.bookstore.dto.PageResponse;
-import ru.alex.bookstore.dto.UserBookPreviewDto;
-import ru.alex.bookstore.dto.UserDto;
+import ru.alex.bookstore.dto.*;
 import ru.alex.bookstore.service.UserBookService;
 
 import java.util.List;
@@ -61,15 +60,27 @@ public class UserBookController {
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
     }
 
+//    @GetMapping("/books")
+//    public String findByCategory(@AuthenticationPrincipal UserDto user,
+//                                 @RequestParam(value = "category",required = false) String category,
+//                                 @RequestParam(value = "page",defaultValue = "0") Integer page,
+//                                 Model model){
+//        Pageable pageable = PageRequest.of(page,PAGE_SIZE);
+//        Slice<UserBookPreviewDto> slice = userBookService.findAllByCategory(category,pageable);
+//        model.addAttribute("user",user);
+//        model.addAttribute("books", PageResponse.of(slice));
+//        return "books/books";
+//    }
+
     @GetMapping("/books")
-    public String findByCategory(@AuthenticationPrincipal UserDto user,
-                                 @RequestParam(value = "category",required = false) String category,
-                                 @RequestParam(value = "page",defaultValue = "0") Integer page,
-                                 Model model){
-        Pageable pageable = PageRequest.of(page,TOP_BOOKS_BY_RATING_SIZE);
-        Slice<UserBookPreviewDto> slice = userBookService.findAllByCategory(category,pageable);
+    public String findByFilter(@AuthenticationPrincipal UserDto user,
+                               @ModelAttribute BookFilter filter,
+                               @RequestParam(value = "page",defaultValue = "0") Integer page,
+                               Model model){
+        Pageable pageable = PageRequest.of(page,PAGE_SIZE);
+        Slice<QUserBookPreviewDto> slice = userBookService.findAllByFilter(filter,pageable);
         model.addAttribute("user",user);
-        model.addAttribute("books", PageResponse.of(slice));
+        model.addAttribute("books",PageResponse.of(slice));
         return "books/books";
     }
 

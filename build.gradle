@@ -49,7 +49,7 @@ querydsl {
     library = 'com.querydsl:querydsl-apt:5.0.0:jakarta'
     querydslSourcesDir = layout.buildDirectory.dir("generated/sources/annotationProcessor/java/main").get().asFile
 }
-
+initQuerydslSourcesDir.dependsOn clean
 
 compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.alex.bookstore.database.entity.UserBook;
 import ru.alex.bookstore.database.repository.UserBookRepository;
+import ru.alex.bookstore.dto.BookFilter;
+import ru.alex.bookstore.dto.QUserBookPreviewDto;
 import ru.alex.bookstore.dto.UserBookPreviewDto;
 import ru.alex.bookstore.dto.UserBookReadDto;
 
@@ -81,5 +83,10 @@ public class UserBookService {
     @Transactional
     public void deleteBookFromCart(Integer bookId, Integer userId){
         userBookRepository.deleteBookFromCart(bookId,userId);
+    }
+
+
+    public Slice<QUserBookPreviewDto> findAllByFilter(BookFilter filter,Pageable pageable){
+        return userBookRepository.findAllByFilter(filter,pageable);
     }
 }
