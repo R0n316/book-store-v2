@@ -8,6 +8,8 @@ plugins {
 group = 'ru.alex'
 version = '0.0.1-SNAPSHOT'
 
+apply from: 'version.gradle'
+
 java {
     sourceCompatibility = '17'
 }
@@ -37,16 +39,16 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     runtimeOnly 'org.postgresql:postgresql'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
+    implementation "com.github.ben-manes.caffeine:caffeine:${versions.caffeine}"
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 
-    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-    implementation 'com.querydsl:querydsl-core:5.0.0'
+    implementation "com.querydsl:querydsl-jpa:${versions.querydsl}:jakarta"
+    implementation "com.querydsl:querydsl-core:${versions.querydsl}"
 }
 
 querydsl {
     jpa = true
-    library = 'com.querydsl:querydsl-apt:5.0.0:jakarta'
+    library = "com.querydsl:querydsl-apt:${versions.querydsl}:jakarta"
     querydslSourcesDir = layout.buildDirectory.dir("generated/sources/annotationProcessor/java/main").get().asFile
 }
 initQuerydslSourcesDir.dependsOn clean
