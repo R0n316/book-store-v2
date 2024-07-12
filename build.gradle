@@ -40,10 +40,13 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation "com.github.ben-manes.caffeine:caffeine:${versions.caffeine}"
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${versions.openapi}"
 
     implementation "com.querydsl:querydsl-jpa:${versions.querydsl}:jakarta"
     implementation "com.querydsl:querydsl-core:${versions.querydsl}"
+
+    testImplementation "org.testcontainers:postgresql:${versions.testcontainers}"
+
 }
 
 querydsl {

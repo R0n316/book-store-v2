@@ -1,9 +1,7 @@
 package ru.alex.bookstore.database.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,6 +9,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "books")
+@ToString(exclude = "books")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

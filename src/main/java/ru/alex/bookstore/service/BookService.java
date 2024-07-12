@@ -2,12 +2,16 @@ package ru.alex.bookstore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ru.alex.bookstore.dto.BookCreateEditDto;
+import ru.alex.bookstore.dto.BookFilter;
 import ru.alex.bookstore.dto.BookPreviewDto;
+import ru.alex.bookstore.dto.QUserBookPreviewDto;
 import ru.alex.bookstore.mapper.BookCreateEditMapper;
 import ru.alex.bookstore.mapper.BookPreviewMapper;
 import ru.alex.bookstore.database.repository.BookRepository;
@@ -72,6 +76,10 @@ public class BookService {
 //                .map(bookPreviewMapper::map)
 //                .toList();
 //    }
+
+    public Slice<QUserBookPreviewDto> findAllByFilter(BookFilter filter, Pageable pageable){
+        return bookRepository.findAllByFilter(filter,pageable);
+    }
 
     @Cacheable("images")
     public Optional<byte[]> findImage(Integer id){

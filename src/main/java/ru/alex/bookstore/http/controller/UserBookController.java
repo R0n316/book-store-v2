@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import ru.alex.bookstore.dto.*;
+import ru.alex.bookstore.service.BookService;
 import ru.alex.bookstore.service.UserBookService;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @Controller
 public class UserBookController {
 
+    private final BookService bookService;
     @Value("${app.page.size.top_by_rating_books}")
     private Integer TOP_BOOKS_BY_RATING_SIZE;
 
@@ -35,8 +37,9 @@ public class UserBookController {
     private final UserBookService userBookService;
 
     @Autowired
-    public UserBookController(UserBookService userBookService) {
+    public UserBookController(UserBookService userBookService, BookService bookService) {
         this.userBookService = userBookService;
+        this.bookService = bookService;
     }
 
     @GetMapping
@@ -78,13 +81,17 @@ public class UserBookController {
                                @RequestParam(value = "page",defaultValue = "0") Integer page,
                                Model model){
         Pageable pageable = PageRequest.of(page,PAGE_SIZE);
-        Slice<QUserBookPreviewDto> slice = userBookService.findAllByFilter(filter,pageable);
+        Slice<QUserBookPreviewDto> slice;
+        if(user != null){
+            filter.setUserId(user.id());
+            slice = userBookService.findAllByFilter(filter,pageable);
+        } else{
+            slice = bookService.findAllByFilter(filter,pageable);
+        }
         model.addAttribute("user",user);
         model.addAttribute("books",PageResponse.of(slice));
         return "books/books";
     }
-
-    // TODO подключить querydsl и сделать динамический запрос на получение книг по названии и категории
 
     @GetMapping("/books/favorites")
     public String favoriteBooks(@AuthenticationPrincipal UserDto user,

@@ -49,24 +49,6 @@ public interface UserBookRepository extends
     List<UserBookPreviewDto> findTopByCirculation(Integer limit);
 
     @Query(value = """
-            SELECT book.*,is_in_favorites,is_in_cart,user_id
-            FROM book
-            LEFT JOIN public.user_book ub on book.id = ub.book_id
-            JOIN category ON category_id = category.id
-            WHERE category.name = :category
-            ORDER BY book.id
-            """,nativeQuery = true)
-    Slice<UserBookPreviewDto> findAllByCategory(String category, Pageable pageable);
-
-    @Query(value = """
-            SELECT book.*,is_in_favorites,is_in_cart,user_id
-            FROM book
-            LEFT JOIN public.user_book ub on book.id = ub.book_id
-            ORDER BY book.id
-            """,nativeQuery = true)
-    Slice<UserBookPreviewDto> findAllBy(Pageable pageable);
-
-    @Query(value = """
             SELECT book.*,is_in_favorites,user_id
             FROM book
             LEFT JOIN public.user_book ub on book.id = ub.book_id

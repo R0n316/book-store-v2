@@ -2,6 +2,7 @@ package ru.alex.bookstore.database.repository.impl;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,21 +11,20 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Component;
 import ru.alex.bookstore.database.querydsl.QPredicates;
-import ru.alex.bookstore.database.repository.UserBookRepositoryCustom;
+import ru.alex.bookstore.database.repository.BookRepositoryCustom;
 import ru.alex.bookstore.dto.BookFilter;
 import ru.alex.bookstore.dto.QUserBookPreviewDto;
 
 import static ru.alex.bookstore.database.entity.QBook.book;
 import static ru.alex.bookstore.database.entity.QUserBook.userBook;
 
-
 @Component
-public class UserBookRepositoryImpl implements UserBookRepositoryCustom {
+public class BookRepositoryImpl implements BookRepositoryCustom {
 
     private final EntityManager entityManager;
 
     @Autowired
-    public UserBookRepositoryImpl(EntityManager entityManager) {
+    public BookRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -42,16 +42,14 @@ public class UserBookRepositoryImpl implements UserBookRepositoryCustom {
                 book.author,
                 book.rating,
                 book.price,
-                userBook.user.id,
-                userBook.isInFavorites,
-                userBook.isInCart
+                Expressions.constant(-1),
+                Expressions.constant(false),
+                Expressions.constant(false)
         );
         var result = new JPAQuery<>(entityManager)
                 .select(constructor)
                 .distinct()
                 .from(book)
-                .leftJoin(userBook)
-                .on(book.id.eq(userBook.book.id).and(userBook.user.id.eq(filter.getUserId())))
                 .where(predicate)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

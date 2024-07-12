@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    username: test
+    password: test
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true

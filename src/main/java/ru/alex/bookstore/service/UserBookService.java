@@ -34,16 +34,6 @@ public class UserBookService {
         return userBookRepository.findTopByCirculation(limit);
     }
 
-    public Slice<UserBookPreviewDto> findAllByCategory(String category,Pageable pageable){
-        if(category == null){
-            return findAllBy(pageable);
-        }
-        return userBookRepository.findAllByCategory(category,pageable);
-    }
-
-    public Slice<UserBookPreviewDto> findAllBy(Pageable pageable){
-        return userBookRepository.findAllBy(pageable);
-    }
 
     public Optional<UserBookReadDto> findById(Integer id){
         return userBookRepository.findBookById(id);
@@ -64,6 +54,7 @@ public class UserBookService {
             book.setInFavorites(true);
             userBookRepository.save(book);
         }, () -> userBookRepository.addUserBook(bookId,userId,true,false));
+
     }
 
     @Transactional

@@ -2,7 +2,6 @@ package ru.alex.bookstore.integration.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import ru.alex.bookstore.dto.UserBookPreviewDto;
@@ -54,25 +53,6 @@ class UserBookServiceIT extends IntegrationTestBase {
         assertThat(actualAuthors).isEqualTo(expectedAuthors);
     }
 
-    @Test
-    void findAllByCategory(){
-        String category = "Фэнтези";
-        Slice<UserBookPreviewDto> booksByCategory = userBookService.findAllByCategory(category, PageRequest.of(0,3));
-        assertThat(booksByCategory).hasSize(3);
-        List<String> expectedAuthors = List.of("Jane Austen","Herman Melville","Emily Bronte");
-        List<String> actualAuthors = booksByCategory
-                .stream()
-                .map(UserBookPreviewDto::getAuthor)
-                .toList();
-
-        assertThat(actualAuthors).containsAll(expectedAuthors);
-    }
-
-    @Test
-    void findAllBy(){
-        Slice<UserBookPreviewDto> books = userBookService.findAllBy(Pageable.ofSize(5));
-        assertThat(books).hasSize(5);
-    }
 
     @Test
     void findById(){

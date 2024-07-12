@@ -8,7 +8,7 @@ import ru.alex.bookstore.database.entity.Book;
 import java.util.Optional;
 
 @Repository
-public interface BookRepository extends JpaRepository<Book,Integer> {
+public interface BookRepository extends JpaRepository<Book,Integer>,BookRepositoryCustom {
 
 //    @Query("SELECT b FROM Book b ORDER BY b.rating DESC LIMIT :limit")
 //    List<Book> findTopByRating(Integer limit);
