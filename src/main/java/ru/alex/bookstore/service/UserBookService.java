@@ -26,17 +26,17 @@ public class UserBookService {
         this.userBookRepository = userBookRepository;
     }
 
-    public List<UserBookPreviewDto> findTopByRating(Integer limit){
-        return userBookRepository.findTopByRating(limit);
+    public List<UserBookPreviewDto> findTopByRating(Integer userId,Integer limit){
+        return userBookRepository.findTopByRating(userId,limit);
     }
 
-    public List<UserBookPreviewDto> findTopByCirculation(Integer limit){
-        return userBookRepository.findTopByCirculation(limit);
+    public List<UserBookPreviewDto> findTopByCirculation(Integer userId,Integer limit){
+        return userBookRepository.findTopByCirculation(userId,limit);
     }
 
 
-    public Optional<UserBookReadDto> findById(Integer id){
-        return userBookRepository.findBookById(id);
+    public Optional<UserBookReadDto> findById(Integer id,Integer userId){
+        return userBookRepository.findBookById(id,userId);
     }
 
     public Slice<UserBookPreviewDto> findFavorites(Integer userId,Pageable pageable){

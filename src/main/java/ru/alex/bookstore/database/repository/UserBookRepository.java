@@ -31,30 +31,30 @@ public interface UserBookRepository extends
             value = """
             SELECT book.*,is_in_favorites,is_in_cart,user_id
             FROM book
-            LEFT JOIN user_book ON book.id = user_book.book_id
+            LEFT JOIN user_book ON book.id = user_book.book_id AND user_id = :userId
             ORDER BY rating DESC
             LIMIT :limit
             """,
             nativeQuery = true
     )
-    List<UserBookPreviewDto> findTopByRating(Integer limit);
+    List<UserBookPreviewDto> findTopByRating(Integer userId,Integer limit);
 
     @Query(value = """
             SELECT book.*,is_in_favorites,is_in_cart,user_id
             FROM book
-            LEFT JOIN public.user_book ub on book.id = ub.book_id
+            LEFT JOIN public.user_book ub on book.id = ub.book_id AND user_id = :userId
             ORDER BY circulation DESC
             LIMIT :limit
             """,nativeQuery = true)
-    List<UserBookPreviewDto> findTopByCirculation(Integer limit);
+    List<UserBookPreviewDto> findTopByCirculation(Integer userId,Integer limit);
 
     @Query(value = """
             SELECT book.*,is_in_favorites,user_id
             FROM book
-            LEFT JOIN public.user_book ub on book.id = ub.book_id
-            WHERE book.id = :id
+            LEFT JOIN public.user_book ub on book.id = ub.book_id AND user_id = :userId
+            WHERE book.id = :bookId
             """,nativeQuery = true)
-    Optional<UserBookReadDto> findBookById(Integer id);
+    Optional<UserBookReadDto> findBookById(Integer bookId,Integer userId);
 
     @Query(value = """
             SELECT book.*,is_in_favorites

@@ -24,6 +24,8 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @Controller
 public class UserBookController {
 
+    // TODO реализовать все методы для BookService (такие же, как в UserBookService, но без лишних join-ов)
+
     private final BookService bookService;
     @Value("${app.page.size.top_by_rating_books}")
     private Integer TOP_BOOKS_BY_RATING_SIZE;
@@ -43,18 +45,20 @@ public class UserBookController {
     }
 
     @GetMapping
-    public String index(@AuthenticationPrincipal UserDto userDto, Model model){
-        List<UserBookPreviewDto> topByRating = userBookService.findTopByRating(TOP_BOOKS_BY_RATING_SIZE);
+    public String index(@AuthenticationPrincipal UserDto user, Model model){
+        List<UserBookPreviewDto> topByRating = userBookService.findTopByRating(user.id(),TOP_BOOKS_BY_RATING_SIZE);
         model.addAttribute("topBooksByRating", topByRating);
-        List<UserBookPreviewDto> topByCirculation = userBookService.findTopByCirculation(TOP_BOOKS_BY_CIRCULATION_SIZE);
+        List<UserBookPreviewDto> topByCirculation = userBookService.findTopByCirculation(user.id(),TOP_BOOKS_BY_CIRCULATION_SIZE);
         model.addAttribute("topBooksByCirculation", topByCirculation);
-        model.addAttribute("user",userDto);
+        model.addAttribute("user",user);
         return "books/index";
     }
 
     @GetMapping("/books/{id}")
     public String findById(@AuthenticationPrincipal UserDto user,@PathVariable("id") Integer id, Model model){
-        return userBookService.findById(id)
+
+        // TODO если пользователь не зарегистрирован, то будет ошибка, так как будет попытка вызова id() у null-объекта
+        return userBookService.findById(id,user.id())
                 .map(book -> {
                     model.addAttribute("book",book);
                     model.addAttribute("user",user);

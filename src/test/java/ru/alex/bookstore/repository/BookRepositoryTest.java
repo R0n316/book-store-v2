@@ -11,7 +11,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Sql("/db/init-books.sql")
+@Sql("/sql/init-books.sql")
 class BookRepositoryTest extends TestBase {
 
     private final BookRepository bookRepository;
