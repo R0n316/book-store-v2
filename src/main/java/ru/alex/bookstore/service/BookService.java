@@ -16,6 +16,7 @@ import ru.alex.bookstore.mapper.BookPreviewMapper;
 import ru.alex.bookstore.database.repository.BookRepository;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,47 +38,9 @@ public class BookService {
         this.imageService = imageService;
     }
 
-
-//    public Slice<BookPreviewDto> findAll(Pageable pageable){
-//        return bookRepository.findAllBy(pageable)
-//                .map(bookPreviewMapper::map);
-//    }
-//
-//    public Slice<BookPreviewDto> findAllByCategory(String category, Pageable pageable){
-////        if(category == null){
-////            return findAll();
-////        }
-////        return bookRepository.findAllByCategory(category)
-////                .stream()
-////                .map(bookPreviewMapper::map)
-////                .toList();
-//        if(category == null){
-//            return findAll(pageable);
-//        }
-//        return bookRepository.findAllByCategory(category,pageable)
-//                .map(bookPreviewMapper::map);
-//    }
-//
-//    public Optional<BookReadDto> findById(Integer id){
-//        return bookRepository.findById(id).map(bookReadMapper::map);
-//    }
-//
-//    public List<BookPreviewDto> findTopByRating(Integer limit){
-//        return bookRepository.findTopByRating(limit)
-//                .stream()
-//                .map(bookPreviewMapper::map)
-//                .toList();
-//    }
-//
-//    public List<BookPreviewDto> findTopByCirculation(Integer limit){
-//        return bookRepository.findTopByCirculation(limit)
-//                .stream()
-//                .map(bookPreviewMapper::map)
-//                .toList();
-//    }
-
     public Slice<BookPreviewDto> findAllByFilter(BookFilter filter, Pageable pageable){
-        return bookRepository.findAllByFilter(filter,pageable);
+        return bookRepository.findAllByFilter(filter,pageable)
+                .map(bookPreviewMapper::map);
     }
 
     @Cacheable("images")
@@ -108,4 +71,19 @@ public class BookService {
             }
         }
     }
+
+    List<BookPreviewDto> findTopByRating(Integer limit){
+        return bookRepository.findTopByRating(limit)
+                .stream()
+                .map(bookPreviewMapper::map)
+                .toList();
+    }
+
+    List<BookPreviewDto> findTopByCirculation(Integer limit){
+        return bookRepository.findTopByCirculation(limit)
+                .stream()
+                .map(bookPreviewMapper::map)
+                .toList();
+    }
+
 }

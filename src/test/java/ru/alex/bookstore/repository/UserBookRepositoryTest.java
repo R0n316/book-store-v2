@@ -88,9 +88,10 @@ class UserBookRepositoryTest extends TestBase {
         BookFilter filter = new BookFilter(name,category,USER_ID);
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Slice<QUserBookPreviewDto> books = userBookRepository.findAllByFilter(filter,pageable);
+        assertThat(books).hasSize(expectedSize);
+
         List<Integer> actualIds = books.map(QUserBookPreviewDto::id).toList();
 
-        assertThat(books).hasSize(expectedSize);
         assertThat(actualIds).containsAll(expectedIds);
     }
 

@@ -10,7 +10,6 @@ public class BookPreviewMapper implements Mapper<Book, BookPreviewDto> {
     @Override
     public BookPreviewDto map(Book object) {
 
-
         return new BookPreviewDto(
                 object.getId(),
                 object.getName(),
