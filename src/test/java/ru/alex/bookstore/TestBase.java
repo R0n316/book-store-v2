@@ -21,9 +21,6 @@ public abstract class TestBase {
 
     @DynamicPropertySource
     static void postgresProperties(DynamicPropertyRegistry registry){
-//        registry.add("spring.datasource.url",container::getJdbcUrl);
-        String jdbcUrl = container.getJdbcUrl();
-        String updatedJdbcUrl = jdbcUrl + "?encoding=UTF8";
-        registry.add("spring.datasource.url", () -> updatedJdbcUrl);
+        registry.add("spring.datasource.url",container::getJdbcUrl);
     }
 }

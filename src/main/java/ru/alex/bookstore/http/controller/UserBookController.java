@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -85,15 +84,17 @@ public class UserBookController {
                                @RequestParam(value = "page",defaultValue = "0") Integer page,
                                Model model){
         Pageable pageable = PageRequest.of(page,PAGE_SIZE);
-        Slice<QUserBookPreviewDto> slice;
+//        Slice<QUserBookPreviewDto> slice;
         if(user != null){
             filter.setUserId(user.id());
-            slice = userBookService.findAllByFilter(filter,pageable);
+//            slice = userBookService.findAllByFilter(filter,pageable);
+            model.addAttribute("books",PageResponse.of(userBookService.findAllByFilter(filter,pageable)));
         } else{
-            slice = bookService.findAllByFilter(filter,pageable);
+//            slice = bookService.findAllByFilter(filter,pageable);
+            model.addAttribute("books",PageResponse.of(bookService.findAllByFilter(filter,pageable)));
         }
         model.addAttribute("user",user);
-        model.addAttribute("books",PageResponse.of(slice));
+//        model.addAttribute("books",PageResponse.of(slice));
         return "books/books";
     }
 

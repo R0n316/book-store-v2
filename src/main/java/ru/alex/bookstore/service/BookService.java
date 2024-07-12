@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.alex.bookstore.dto.BookCreateEditDto;
 import ru.alex.bookstore.dto.BookFilter;
 import ru.alex.bookstore.dto.BookPreviewDto;
-import ru.alex.bookstore.dto.QUserBookPreviewDto;
 import ru.alex.bookstore.mapper.BookCreateEditMapper;
 import ru.alex.bookstore.mapper.BookPreviewMapper;
 import ru.alex.bookstore.database.repository.BookRepository;
@@ -77,7 +76,7 @@ public class BookService {
 //                .toList();
 //    }
 
-    public Slice<QUserBookPreviewDto> findAllByFilter(BookFilter filter, Pageable pageable){
+    public Slice<BookPreviewDto> findAllByFilter(BookFilter filter, Pageable pageable){
         return bookRepository.findAllByFilter(filter,pageable);
     }
 

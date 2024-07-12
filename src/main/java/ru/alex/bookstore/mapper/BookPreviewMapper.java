@@ -7,8 +7,6 @@ import ru.alex.bookstore.database.entity.Book;
 @Component
 public class BookPreviewMapper implements Mapper<Book, BookPreviewDto> {
 
-
-
     @Override
     public BookPreviewDto map(Book object) {
 
@@ -18,8 +16,7 @@ public class BookPreviewMapper implements Mapper<Book, BookPreviewDto> {
                 object.getName(),
                 object.getAuthor(),
                 object.getRating(),
-                object.getPrice(),
-                object.getImagePath()
+                object.getPrice()
         );
     }
 }

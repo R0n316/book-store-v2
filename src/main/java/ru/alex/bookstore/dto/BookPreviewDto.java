@@ -6,8 +6,7 @@ public record BookPreviewDto(
         String name,
         String author,
         Float rating,
-        Integer price,
-        String imagePath
+        Integer price
 ) {
 
 }
