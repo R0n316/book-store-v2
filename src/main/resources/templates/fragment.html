@@ -30,7 +30,7 @@
             Корзина
         </div>
     </a>
-    <a href="/auth/login"> <button class="login-button">Войти</button></a>
+    <a href="/auth/login"><button class="login-button" th:text="${user != null ? 'Выйти' : 'Войти'}">Войти</button></a>
 </header>
 
 

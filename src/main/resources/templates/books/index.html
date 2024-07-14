@@ -17,7 +17,7 @@
         <h2 class="banner1-h2">
             Сравнивайте цены и бронируйте книги в ближайших магазинах!
         </h2>
-        <div class="div-button banner1-button">Войти</div>
+        <div th:if="${user == null}" class="div-button banner1-button">Войти</div>
     </div>
     <div class="div1">
         Популярное
