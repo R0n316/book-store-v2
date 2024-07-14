@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import ru.alex.bookstore.dto.*;
+import ru.alex.bookstore.service.BookReviewService;
 import ru.alex.bookstore.service.BookService;
 import ru.alex.bookstore.service.UserBookService;
 
@@ -24,21 +25,29 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class BookController {
 
     private final BookService bookService;
+    private final UserBookService userBookService;
+    private final BookReviewService bookReviewService;
+
     @Value("${app.page.size.top_by_rating_books}")
     private Integer TOP_BOOKS_BY_RATING_SIZE;
 
     @Value("${app.page.size.top_by_circulation_books}")
     private Integer TOP_BOOKS_BY_CIRCULATION_SIZE;
 
-    @Value("${app.page.size.page_size}")
+    @Value("${app.page.size.page}")
     private Integer PAGE_SIZE;
 
-    private final UserBookService userBookService;
+    @Value("${app.page.size.reviews}")
+    private Integer REVIEWS_SIZE;
+
 
     @Autowired
-    public BookController(UserBookService userBookService, BookService bookService) {
+    public BookController(UserBookService userBookService,
+                          BookService bookService,
+                          BookReviewService bookReviewService) {
         this.userBookService = userBookService;
         this.bookService = bookService;
+        this.bookReviewService = bookReviewService;
     }
 
     @GetMapping
@@ -60,21 +69,19 @@ public class BookController {
 
     @GetMapping("/books/{id}")
     public String findById(@AuthenticationPrincipal UserDto user, @PathVariable("id") Integer id, Model model) {
+        model.addAttribute("user",user);
+        Pageable pageable = Pageable.ofSize(REVIEWS_SIZE);
         if(user != null){
-            return userBookService.findById(id,user.id())
-                    .map(book -> {
-                        model.addAttribute("book",book);
-                        model.addAttribute("user",user);
-                        return "books/book";
-                    }).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+            UserBookReadDto book = userBookService.findById(id,user.id())
+                    .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+            model.addAttribute("book",book);
         } else{
-            return bookService.findById(id)
-                    .map(book -> {
-                        model.addAttribute("book",book);
-                        model.addAttribute("user",null);
-                        return "books/book";
-                    }).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+            BookReadDto book = bookService.findById(id)
+                    .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+            model.addAttribute("book",book);
         }
+        model.addAttribute("reviews",bookReviewService.findAllByBook(id,pageable));
+        return "books/book";
     }
 
     @GetMapping("/books")

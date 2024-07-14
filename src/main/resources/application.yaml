@@ -5,7 +5,8 @@ app:
     size:
       top_by_rating_books: 8
       top_by_circulation_books: 4
-      page_size: 30
+      page: 30
+      reviews: 18
 
 spring:
   application:
