@@ -17,6 +17,9 @@ public class SecurityConfig  {
         http.formLogin(form -> form
                 .loginPage("/auth/login")
                 .loginProcessingUrl("/auth/login"))
+            .logout(config -> config
+                    .logoutUrl("/auth/logout")
+                    .logoutSuccessUrl("/"))
             .authorizeHttpRequests(urlConfig -> urlConfig
                     .requestMatchers("/books/favorites","/books/cart").authenticated()
                     .requestMatchers("/auth/**","/styles/**").permitAll()
