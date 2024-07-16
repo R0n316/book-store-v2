@@ -23,6 +23,7 @@ public class BookReview {
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 
+    private String content;
     private Integer likes;
     private Integer dislikes;
 }

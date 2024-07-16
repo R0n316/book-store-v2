@@ -125,13 +125,13 @@
     <h1 class="title">Отзывы</h1>
     <div class="swiper reviews">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
+            <div th:each="review:${reviews}" class="swiper-slide">
                 <div class="slide-container">
                     <div class="review">
                         <div class="content">
-                            <h2 class="book-author">Нанетти Анджела</h2>
-                            <h1 class="book-name">Мой дедушка был вишней</h1>
-                            <p class="text">
+                            <h2 class="book-author" th:text="${review.book().author()}">Нанетти Анджела</h2>
+                            <h1 class="book-name" th:text="${review.book().name()}">Мой дедушка был вишней</h1>
+                            <p class="text" th:text="${review.content()}">
                                 Эту историю я прочитала за один день и с самых первых строк глаза
                                 были на мокром месте. Хоть эта история итальянской писательницы,
                                 вы не увидите тут особой разницы между итальянской семьей и русской.
@@ -148,145 +148,16 @@
                             <div class="avatar">
                                 <img th:src="@{/static/images/avatar.jpg}" alt="">
                             </div>
-                            <h3 class="username">Виктория Переска</h3>
+                            <h3 class="username" th:text="${review.user().username()}">Виктория Переска</h3>
                             <h4 class="text">Понравился отзыв?</h4>
                             <div class="likes">
                                 <div class="rating">
                                     <img th:src="@{/static/images/like.svg}" alt="">
-                                    <span>+1</span>
+                                    <span th:text="${review.likes()}">+1</span>
                                 </div>
                                 <div class="rating">
                                     <img th:src="@{/static/images/dislike.svg}" alt="">
-                                    <span>0</span>
-                                </div>
-                            </div>
-                            <div class="reply">
-                                <img th:src="@{/static/images/reply.svg}" alt="">
-                                <span>Ответить</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slide-container">
-                    <div class="review">
-                        <div class="content">
-                            <h2 class="book-author">Нанетти Анджела</h2>
-                            <h1 class="book-name">Мой дедушка был вишней</h1>
-                            <p class="text">
-                                Эту историю я прочитала за один день и с самых первых строк глаза
-                                были на мокром месте. Хоть эта история итальянской писательницы,
-                                вы не увидите тут особой разницы между итальянской семьей и русской.
-                                Мы в разных странах, но такие все одинаковые. Маленький мальчик...
-                            </p>
-                            <div class="full-review">
-                                <span class="text">Читать отзыв целиком</span>
-                                <div class="more-button">
-                                    <img th:src="@{/static/images/more.svg}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <div class="avatar">
-                                <img th:src="@{/static/images/avatar.jpg}" alt="">
-                            </div>
-                            <h3 class="username">Виктория Переска</h3>
-                            <h4 class="text">Понравился отзыв?</h4>
-                            <div class="likes">
-                                <div class="rating">
-                                    <img th:src="@{/static/images/like.svg}" alt="">
-                                    <span>+1</span>
-                                </div>
-                                <div class="rating">
-                                    <img th:src="@{/static/images/dislike.svg}" alt="">
-                                    <span>0</span>
-                                </div>
-                            </div>
-                            <div class="reply">
-                                <img th:src="@{/static/images/reply.svg}" alt="">
-                                <span>Ответить</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slide-container">
-                    <div class="review">
-                        <div class="content">
-                            <h2 class="book-author">Нанетти Анджела</h2>
-                            <h1 class="book-name">Мой дедушка был вишней</h1>
-                            <p class="text">
-                                Эту историю я прочитала за один день и с самых первых строк глаза
-                                были на мокром месте. Хоть эта история итальянской писательницы,
-                                вы не увидите тут особой разницы между итальянской семьей и русской.
-                                Мы в разных странах, но такие все одинаковые. Маленький мальчик...
-                            </p>
-                            <div class="full-review">
-                                <span class="text">Читать отзыв целиком</span>
-                                <div class="more-button">
-                                    <img th:src="@{/static/images/more.svg}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <div class="avatar">
-                                <img th:src="@{/static/images/avatar.jpg}" alt="">
-                            </div>
-                            <h3 class="username">Виктория Переска</h3>
-                            <h4 class="text">Понравился отзыв?</h4>
-                            <div class="likes">
-                                <div class="rating">
-                                    <img th:src="@{/static/images/like.svg}" alt="">
-                                    <span>+1</span>
-                                </div>
-                                <div class="rating">
-                                    <img th:src="@{/static/images/dislike.svg}" alt="">
-                                    <span>0</span>
-                                </div>
-                            </div>
-                            <div class="reply">
-                                <img th:src="@{/static/images/reply.svg}" alt="">
-                                <span>Ответить</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slide-container">
-                    <div class="review">
-                        <div class="content">
-                            <h2 class="book-author">Нанетти Анджела</h2>
-                            <h1 class="book-name">Мой дедушка был вишней</h1>
-                            <p class="text">
-                                Эту историю я прочитала за один день и с самых первых строк глаза
-                                были на мокром месте. Хоть эта история итальянской писательницы,
-                                вы не увидите тут особой разницы между итальянской семьей и русской.
-                                Мы в разных странах, но такие все одинаковые. Маленький мальчик...
-                            </p>
-                            <div class="full-review">
-                                <span class="text">Читать отзыв целиком</span>
-                                <div class="more-button">
-                                    <img th:src="@{/static/images/more.svg}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <div class="avatar">
-                                <img th:src="@{/static/images/avatar.jpg}" alt="">
-                            </div>
-                            <h3 class="username">Виктория Переска</h3>
-                            <h4 class="text">Понравился отзыв?</h4>
-                            <div class="likes">
-                                <div class="rating">
-                                    <img th:src="@{/static/images/like.svg}" alt="">
-                                    <span>+1</span>
-                                </div>
-                                <div class="rating">
-                                    <img th:src="@{/static/images/dislike.svg}" alt="">
-                                    <span>0</span>
+                                    <span th:text="${review.dislikes()}">0</span>
                                 </div>
                             </div>
                             <div class="reply">

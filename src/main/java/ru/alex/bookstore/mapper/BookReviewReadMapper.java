@@ -23,6 +23,7 @@ public class BookReviewReadMapper implements Mapper<BookReview, BookReviewReadDt
                 object.getId(),
                 bookReviewMapper.map(object.getBook()),
                 userReviewMapper.map(object.getUser()),
+                object.getContent(),
                 object.getLikes(),
                 object.getDislikes()
         );

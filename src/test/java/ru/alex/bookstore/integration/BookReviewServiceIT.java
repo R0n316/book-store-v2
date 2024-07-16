@@ -44,6 +44,10 @@ class BookReviewServiceIT extends TestBase {
                 2,
                 bookReviewDto,
                 userReviewDto,
+                "This book was a bit slow to start," +
+                        " but it picked up about halfway through." +
+                        " The author's writing style was unique and captivating," +
+                        " making the story more enjoyable as it progressed.",
                 8,1
         );
         List<BookReviewReadDto> reviews = Collections.singletonList(bookReviewReadDto);
