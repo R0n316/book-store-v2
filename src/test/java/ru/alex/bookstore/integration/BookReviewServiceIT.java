@@ -48,7 +48,7 @@ class BookReviewServiceIT extends TestBase {
                         " but it picked up about halfway through." +
                         " The author's writing style was unique and captivating," +
                         " making the story more enjoyable as it progressed.",
-                8,1
+                1,1
         );
         List<BookReviewReadDto> reviews = Collections.singletonList(bookReviewReadDto);
         Slice<BookReviewReadDto> expectedResult = new SliceImpl<>(reviews);

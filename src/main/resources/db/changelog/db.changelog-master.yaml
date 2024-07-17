@@ -19,3 +19,5 @@ databaseChangeLog:
       file: db/changelog/db.create-user-book-table-1.0.sql
   - include:
       file: db/changelog/db.create-book-review-table-1.0.sql
+  - include:
+      file: db/changelog/db.create-user-like-table-1.0.sql
