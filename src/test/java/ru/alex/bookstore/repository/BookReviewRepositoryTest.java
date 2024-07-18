@@ -7,10 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.test.context.jdbc.Sql;
 import ru.alex.bookstore.TestBase;
-import ru.alex.bookstore.database.entity.BookReview;
+import ru.alex.bookstore.dto.BookReviewSummaryDto;
 import ru.alex.bookstore.database.repository.BookReviewRepository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -29,15 +31,27 @@ class BookReviewRepositoryTest extends TestBase {
 
     @Test
     void findAllByBook(){
-        Slice<BookReview> reviews = bookReviewRepository.findAllByBook(BOOK_ID, Pageable.ofSize(REVIEWS_SIZE));
+        Slice<BookReviewSummaryDto> reviews = bookReviewRepository.findAllByBook(BOOK_ID, Pageable.ofSize(REVIEWS_SIZE));
 
         assertThat(reviews).hasSize(2);
 
         List<Integer> expectedIds = List.of(1,4);
         List<Integer> actualIds = reviews
-                .map(BookReview::getId)
+                .map(BookReviewSummaryDto::getId)
                 .toList();
+        Map<Integer,List<Integer>> expectedReactions = Map.of(
+                1,List.of(1,1),
+                4,List.of(2,0)
+        );
+
+        Map<Integer,List<Integer>> actualReactions = reviews
+                .stream()
+                .collect(Collectors.toMap(
+                        BookReviewSummaryDto::getId,
+                        it -> List.of(it.getLikes(),it.getDislikes())
+                ));
 
         assertThat(actualIds).isEqualTo(expectedIds);
+        assertThat(actualReactions).usingRecursiveComparison().isEqualTo(expectedReactions);
     }
 }

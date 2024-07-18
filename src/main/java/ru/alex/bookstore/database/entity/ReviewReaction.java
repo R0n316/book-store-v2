@@ -6,11 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "user_like")
+@Table(name = "review_reaction")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserLike {
+public class ReviewReaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,8 +23,6 @@ public class UserLike {
     @JoinColumn(name = "book_review_id", referencedColumnName = "id")
     private BookReview bookReview;
 
-    private String reaction;
-
-    @Column(name = "is_reacted")
-    private Boolean isReacted;
+    @Enumerated(EnumType.STRING)
+    private Reaction reaction;
 }

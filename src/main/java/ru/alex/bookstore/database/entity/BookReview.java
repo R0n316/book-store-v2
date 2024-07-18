@@ -24,6 +24,6 @@ public class BookReview {
     private User user;
 
     private String content;
-    private Integer likes;
-    private Integer dislikes;
+//    private Integer likes;
+//    private Integer dislikes;
 }

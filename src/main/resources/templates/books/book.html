@@ -129,9 +129,9 @@
                 <div class="slide-container">
                     <div class="review">
                         <div class="content">
-                            <h2 class="book-author" th:text="${review.book().author()}">Нанетти Анджела</h2>
-                            <h1 class="book-name" th:text="${review.book().name()}">Мой дедушка был вишней</h1>
-                            <p class="text" th:text="${review.content()}">
+                            <h2 class="book-author" th:text="${review.bookAuthor}">Нанетти Анджела</h2>
+                            <h1 class="book-name" th:text="${review.bookName}">Мой дедушка был вишней</h1>
+                            <p class="text" th:text="${review.content}">
                                 Эту историю я прочитала за один день и с самых первых строк глаза
                                 были на мокром месте. Хоть эта история итальянской писательницы,
                                 вы не увидите тут особой разницы между итальянской семьей и русской.
@@ -148,16 +148,16 @@
                             <div class="avatar">
                                 <img th:src="@{/static/images/avatar.jpg}" alt="">
                             </div>
-                            <h3 class="username" th:text="${review.user().username()}">Виктория Переска</h3>
+                            <h3 class="username" th:text="${review.username}">Виктория Переска</h3>
                             <h4 class="text">Понравился отзыв?</h4>
                             <div class="likes">
                                 <div class="rating">
                                     <img th:src="@{/static/images/like.svg}" alt="">
-                                    <span th:text="${review.likes()}">+1</span>
+                                    <span th:text="${review.likes}">+1</span>
                                 </div>
                                 <div class="rating">
                                     <img th:src="@{/static/images/dislike.svg}" alt="">
-                                    <span th:text="${review.dislikes()}">0</span>
+                                    <span th:text="${review.dislikes}">0</span>
                                 </div>
                             </div>
                             <div class="reply">

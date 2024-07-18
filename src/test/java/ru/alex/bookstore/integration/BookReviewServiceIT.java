@@ -5,15 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
 import org.springframework.test.context.jdbc.Sql;
 import ru.alex.bookstore.TestBase;
-import ru.alex.bookstore.dto.BookReviewDto;
-import ru.alex.bookstore.dto.BookReviewReadDto;
-import ru.alex.bookstore.dto.UserReviewDto;
+import ru.alex.bookstore.dto.BookReviewSummaryDto;
 import ru.alex.bookstore.service.BookReviewService;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -23,7 +19,7 @@ import static org.assertj.core.api.Assertions.*;
 class BookReviewServiceIT extends TestBase {
     @Value("${app.page.size.reviews}")
     private Integer REVIEWS_SIZE;
-    private final Integer BOOK_ID = 7;
+    private final Integer BOOK_ID = 3;
 
     private final BookReviewService bookReviewService;
 
@@ -34,28 +30,43 @@ class BookReviewServiceIT extends TestBase {
 
     @Test
     void findAllByBook(){
-        BookReviewDto bookReviewDto = new BookReviewDto(
-                7,
-                "Adventures of Huckleberry Finn",
-                "Mark Twain"
-        );
-        UserReviewDto userReviewDto = new UserReviewDto(2,"test");
-        BookReviewReadDto bookReviewReadDto = new BookReviewReadDto(
-                2,
-                bookReviewDto,
-                userReviewDto,
-                "This book was a bit slow to start," +
-                        " but it picked up about halfway through." +
-                        " The author's writing style was unique and captivating," +
-                        " making the story more enjoyable as it progressed.",
-                1,1
-        );
-        List<BookReviewReadDto> reviews = Collections.singletonList(bookReviewReadDto);
-        Slice<BookReviewReadDto> expectedResult = new SliceImpl<>(reviews);
         Pageable pageable = Pageable.ofSize(REVIEWS_SIZE);
-        Slice<BookReviewReadDto> actualResult = bookReviewService.findAllByBook(BOOK_ID,pageable);
+        Slice<BookReviewSummaryDto> bookReviews = bookReviewService.findAllByBook(BOOK_ID, pageable);
+        assertThat(bookReviews).hasSize(2);
+        // id, bookName, bookAuthor, username, content, likes, dislikes
+        List<Object[]> expectedResult = List.of(
+                new Object[]{
+                       1,"A Farewell to Arms","Ernest Hemingway","alex",
+                        "I thoroughly enjoyed this book." +
+                            " The plot was engaging, and" +
+                            " the characters were well-developed." +
+                            " I found myself unable to put it down until " +
+                            "I reached the very end.",
+                        1,1
+                },
+                new Object[]{
+                        4,"A Farewell to Arms","Ernest Hemingway","test",
+                        "This book was a fantastic read! The mystery kept" +
+                                " me guessing until the very end, and the" +
+                                " twists and turns were expertly executed." +
+                                " I highly recommend it to anyone who loves" +
+                                " a good thriller.",
+                        2,0
+                }
+        );
 
-        assertThat(actualResult).hasSize(1);
+        List<Object[]> actualResult = bookReviews.map(
+                review -> new Object[]{
+                        review.getId(),
+                        review.getBookName(),
+                        review.getBookAuthor(),
+                        review.getUsername(),
+                        review.getContent(),
+                        review.getLikes(),
+                        review.getDislikes()
+                }
+        ).toList();
+
         assertThat(actualResult).usingRecursiveComparison().isEqualTo(expectedResult);
     }
 }
