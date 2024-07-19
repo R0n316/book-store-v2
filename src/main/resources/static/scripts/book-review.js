@@ -7,6 +7,13 @@ dislikeIcons.forEach(icon => icon.addEventListener('click',reactToReview));
 function reactToReview(event){
     const reviewId = event.target.dataset.id;
     const reaction = event.target.className.toUpperCase();
+    let reviewContainer = event.target.closest('.review');
+    const likeIcon = reviewContainer.querySelector('.like');
+    const dislikeIcon = reviewContainer.querySelector('.dislike');
+    const likeCount = reviewContainer.querySelector('.like-count');
+    const dislikeCount = reviewContainer.querySelector('.dislike-count')
+    let likeFileName = likeIcon.src.substring(likeIcon.src.lastIndexOf('/') + 1);
+    let dislikeFileName = dislikeIcon.src.substring(dislikeIcon.src.lastIndexOf('/') + 1);
 
     fetch(`/api/reviews/${reviewId}`, {
         method: 'PATCH',
@@ -17,7 +24,39 @@ function reactToReview(event){
     })
         .then(response => {
             if(response.ok){
-                console.log(`${reaction} sent successfully`)
+                console.log(`${reaction} sent successfully`);
+
+                if(reaction === 'LIKE'){
+                    if(likeFileName === 'markedLike.svg'){
+                        likeFileName = 'like.svg';
+                        likeCount.textContent = parseInt(likeCount.textContent) - 1;
+                    }
+                    else {
+                        if(dislikeFileName === 'markedDislike.svg'){
+                            dislikeFileName = 'dislike.svg'
+                            dislikeCount.textContent = parseInt(dislikeCount.textContent) - 1;
+                        }
+                        likeFileName = 'markedLike.svg';
+                        likeCount.textContent = parseInt(likeCount.textContent) + 1;
+                    }
+                }
+                else if (reaction === 'DISLIKE') {
+                    if (dislikeFileName === 'markedDislike.svg') {
+                        dislikeFileName = 'dislike.svg';
+                        dislikeCount.textContent = parseInt(dislikeCount.textContent) - 1;
+                    }
+                    else {
+                        if (likeFileName === 'markedLike.svg') {
+                            likeFileName = 'like.svg';
+                            likeCount.textContent = parseInt(likeCount.textContent) - 1;
+                        }
+                        dislikeFileName = 'markedDislike.svg';
+                        dislikeCount.textContent = parseInt(dislikeCount.textContent) + 1;
+                    }
+                }
+
+                likeIcon.src = likeIcon.src.substring(0,likeIcon.src.lastIndexOf('/') + 1) + likeFileName;
+                dislikeIcon.src = dislikeIcon.src.substring(0,dislikeIcon.src.lastIndexOf('/') + 1) + dislikeFileName;
             } else if(response.status === 403){
                 console.log('Forbidden: Redirecting to login page');
                 window.location.href = '/auth/login';

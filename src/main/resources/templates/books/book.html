@@ -161,7 +161,7 @@
                                     <div th:unless="${review.userReaction == 'LIKE'}">
                                         <img class="like" th:src="@{/static/images/like.svg}" th:attr="data-id=${review.id}" alt="">
                                     </div>
-                                    <span th:text="${review.likes}" style="margin-top: 1px">+1</span>
+                                    <span class="like-count" th:text="${review.likes}" style="margin-top: 1px">+1</span>
                                 </div>
                                 <div class="rating">
                                     <div th:if="${review.userReaction == 'DISLIKE'}">
@@ -170,7 +170,7 @@
                                     <div th:unless="${review.userReaction == 'DISLIKE'}">
                                         <img class="dislike" th:src="@{/static/images/dislike.svg}" th:attr="data-id=${review.id}" alt="">
                                     </div>
-                                    <span th:text="${review.dislikes}">0</span>
+                                    <span class="dislike-count" th:text="${review.dislikes}">0</span>
                                 </div>
                             </div>
                             <div class="reply">

@@ -373,3 +373,7 @@ footer{
     font-weight: 400;
     color: #110C1F;
 }
+
+.like,.dislike{
+    cursor: pointer;
+}
