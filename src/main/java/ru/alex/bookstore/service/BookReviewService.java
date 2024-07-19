@@ -16,6 +16,10 @@ public class BookReviewService {
         this.bookReviewRepository = bookReviewRepository;
     }
 
+    public Slice<BookReviewSummaryDto> findAllByBook(Integer bookId,Integer userId, Pageable pageable){
+        return bookReviewRepository.findAllByBook(bookId,userId,pageable);
+    }
+
     public Slice<BookReviewSummaryDto> findAllByBook(Integer bookId, Pageable pageable){
         return bookReviewRepository.findAllByBook(bookId,pageable);
     }

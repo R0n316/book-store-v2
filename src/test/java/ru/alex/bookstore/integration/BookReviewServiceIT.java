@@ -31,7 +31,7 @@ class BookReviewServiceIT extends TestBase {
     @Test
     void findAllByBook(){
         Pageable pageable = Pageable.ofSize(REVIEWS_SIZE);
-        Slice<BookReviewSummaryDto> bookReviews = bookReviewService.findAllByBook(BOOK_ID, pageable);
+        Slice<BookReviewSummaryDto> bookReviews = bookReviewService.findAllByBook(BOOK_ID, 1,pageable);
         assertThat(bookReviews).hasSize(2);
         // id, bookName, bookAuthor, username, content, likes, dislikes
         List<Object[]> expectedResult = List.of(

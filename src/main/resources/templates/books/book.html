@@ -152,11 +152,24 @@
                             <h4 class="text">Понравился отзыв?</h4>
                             <div class="likes">
                                 <div class="rating">
-                                    <img th:src="@{/static/images/like.svg}" alt="">
-                                    <span th:text="${review.likes}">+1</span>
+<!--                                    if(user.id() == review.userId && review.reaction != null){-->
+<!--                                        review.reaction == 'LIKE' ? окрасить лайк : окрасить дизлайк        -->
+<!--                                    }-->
+                                    <div th:if="${review.userReaction == 'LIKE'}">
+                                        <img class="like" th:src="@{/static/images/markedLike.svg}" th:attr="data-id=${review.id}" alt="">
+                                    </div>
+                                    <div th:unless="${review.userReaction == 'LIKE'}">
+                                        <img class="like" th:src="@{/static/images/like.svg}" th:attr="data-id=${review.id}" alt="">
+                                    </div>
+                                    <span th:text="${review.likes}" style="margin-top: 1px">+1</span>
                                 </div>
                                 <div class="rating">
-                                    <img th:src="@{/static/images/dislike.svg}" alt="">
+                                    <div th:if="${review.userReaction == 'DISLIKE'}">
+                                        <img class="dislike" th:src="@{/static/images/markedDislike.svg}" th:attr="data-id=${review.id}" alt="">
+                                    </div>
+                                    <div th:unless="${review.userReaction == 'DISLIKE'}">
+                                        <img class="dislike" th:src="@{/static/images/dislike.svg}" th:attr="data-id=${review.id}" alt="">
+                                    </div>
                                     <span th:text="${review.dislikes}">0</span>
                                 </div>
                             </div>
@@ -216,5 +229,6 @@
 <div class="overlay" id="overlay"></div>
 <script th:src="@{/static/scripts/book-favorites.js}"></script>
 <script th:src="@{/static/scripts/reviews.js}"></script>
+<script th:src="@{/static/scripts/book-review.js}"></script>
 </body>
 </html>

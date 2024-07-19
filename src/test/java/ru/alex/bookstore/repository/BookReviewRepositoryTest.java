@@ -31,7 +31,7 @@ class BookReviewRepositoryTest extends TestBase {
 
     @Test
     void findAllByBook(){
-        Slice<BookReviewSummaryDto> reviews = bookReviewRepository.findAllByBook(BOOK_ID, Pageable.ofSize(REVIEWS_SIZE));
+        Slice<BookReviewSummaryDto> reviews = bookReviewRepository.findAllByBook(BOOK_ID,1, Pageable.ofSize(REVIEWS_SIZE));
 
         assertThat(reviews).hasSize(2);
 

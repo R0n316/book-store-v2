@@ -36,7 +36,7 @@ class ReviewReactionServiceIT extends TestBase {
         ReviewReaction reaction = reviewReactionOptional.get();
         assertThat(reaction.getReaction()).isEqualTo(Reaction.LIKE);
 
-        reviewReactionService.respondReview(Reaction.DISLIKE, REVIEW_ID, USER_ID);
+        reviewReactionService.respondToReview(Reaction.DISLIKE, REVIEW_ID, USER_ID);
         entityManager.refresh(reaction);
         assertThat(reaction.getReaction()).isEqualTo(Reaction.DISLIKE);
     }
@@ -49,7 +49,7 @@ class ReviewReactionServiceIT extends TestBase {
 
         assertThat(reviewReactionOptional).isEmpty();
 
-        reviewReactionService.respondReview(Reaction.LIKE,reviewId,userId);
+        reviewReactionService.respondToReview(Reaction.LIKE,reviewId,userId);
         reviewReactionOptional = reviewReactionService.findByReviewAndUser(reviewId,userId);
         assertThat(reviewReactionOptional).isPresent();
         ReviewReaction reaction = reviewReactionOptional.get();

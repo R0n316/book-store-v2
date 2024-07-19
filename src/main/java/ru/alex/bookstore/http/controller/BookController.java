@@ -74,13 +74,14 @@ public class BookController {
         if(user != null){
             UserBookReadDto book = userBookService.findById(id,user.id())
                     .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+            model.addAttribute("reviews",bookReviewService.findAllByBook(id,user.id(),pageable));
             model.addAttribute("book",book);
         } else{
             BookReadDto book = bookService.findById(id)
                     .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+            model.addAttribute("reviews",bookReviewService.findAllByBook(id,pageable));
             model.addAttribute("book",book);
         }
-        model.addAttribute("reviews",bookReviewService.findAllByBook(id,pageable));
         return "books/book";
     }
 

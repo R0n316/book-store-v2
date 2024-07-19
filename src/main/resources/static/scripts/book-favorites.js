@@ -1,8 +1,6 @@
 const favoritesIcon = document.querySelectorAll('.favorites-icon');
 const currentPath = window.location.pathname;
-favoritesIcon.forEach(icon => {
-    icon.addEventListener('click',handleFavoritesCLick);
-})
+favoritesIcon.forEach(icon => icon.addEventListener('click',handleFavoritesCLick));
 
 function handleFavoritesCLick(event){
     let bookId;

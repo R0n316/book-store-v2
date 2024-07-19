@@ -25,5 +25,12 @@ public interface ReviewReactionRepository extends JpaRepository<ReviewReaction, 
             """,nativeQuery = true)
     @Modifying
     void addReaction(String reaction,Integer reviewId,Integer userId);
+
+    @Query(
+            value = "UPDATE review_reaction SET reaction = null WHERE book_review_id = :reviewId AND user_id = :userId",
+            nativeQuery = true
+    )
+    @Modifying
+    void deleteReaction(Integer reviewId,Integer userId);
 }
 
