@@ -21,7 +21,7 @@ public class SecurityConfig  {
                     .logoutUrl("/auth/logout")
                     .logoutSuccessUrl("/"))
             .authorizeHttpRequests(urlConfig -> urlConfig
-                    .requestMatchers("/books/favorites","/books/cart","api/reviews/{id}").authenticated()
+                    .requestMatchers("/books/favorites","/books/cart","/api/reviews/**").authenticated()
                     .requestMatchers("/auth/**","/styles/**").permitAll()
                     .anyRequest()
                     .permitAll());

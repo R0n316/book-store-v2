@@ -143,6 +143,11 @@
                                     <img th:src="@{/static/images/more.svg}" alt="">
                                 </div>
                             </div>
+                            <div th:if="${user != null && user.id() == review.userId}">
+                                <button class="delete-button" th:attr="data-review-id=${review.id}">
+                                    Удалить
+                                </button>
+                            </div>
                         </div>
                         <div class="info">
                             <div class="avatar">
@@ -152,12 +157,9 @@
                             <h4 class="text">Понравился отзыв?</h4>
                             <div class="likes">
                                 <div class="rating">
-<!--                                    if(user.id() == review.userId && review.reaction != null){-->
-<!--                                        review.reaction == 'LIKE' ? окрасить лайк : окрасить дизлайк        -->
-<!--                                    }-->
-                                    <div th:if="${review.userReaction == 'LIKE'}">
-                                        <img class="like" th:src="@{/static/images/markedLike.svg}" th:attr="data-id=${review.id}" alt="">
-                                    </div>
+                                <div th:if="${review.userReaction == 'LIKE'}">
+                                    <img class="like" th:src="@{/static/images/markedLike.svg}" th:attr="data-id=${review.id}" alt="">
+                                </div>
                                     <div th:unless="${review.userReaction == 'LIKE'}">
                                         <img class="like" th:src="@{/static/images/like.svg}" th:attr="data-id=${review.id}" alt="">
                                     </div>
@@ -230,5 +232,6 @@
 <script th:src="@{/static/scripts/book-favorites.js}"></script>
 <script th:src="@{/static/scripts/reviews.js}"></script>
 <script th:src="@{/static/scripts/book-review.js}"></script>
+<script th:src="@{/static/scripts/delete-review.js}"></script>
 </body>
 </html>

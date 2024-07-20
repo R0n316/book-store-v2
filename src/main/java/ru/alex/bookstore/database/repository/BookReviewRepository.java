@@ -3,6 +3,7 @@ package ru.alex.bookstore.database.repository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.alex.bookstore.database.entity.BookReview;
@@ -44,4 +45,8 @@ public interface BookReviewRepository extends JpaRepository<BookReview,Integer> 
             GROUP BY br.id,b.name, br.id, b.author, u.username
             """,nativeQuery = true)
     Slice<BookReviewSummaryDto> findAllByBook(Integer bookId, Pageable pageable);
+
+    @Query(value = "DELETE FROM book_review WHERE id = :reviewId AND user_id = :userId",nativeQuery = true)
+    @Modifying
+    void deleteReview(Integer reviewId, Integer userId);
 }

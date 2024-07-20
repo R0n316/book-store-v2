@@ -377,3 +377,17 @@ footer{
 .like,.dislike{
     cursor: pointer;
 }
+
+.delete-button{
+    color: black;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition-duration: 200ms;
+    transition-property: color;
+}
+
+.delete-button:hover{
+    color: red;
+    transition-duration: 200ms;
+}
