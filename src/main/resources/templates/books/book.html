@@ -5,6 +5,7 @@
     <title>Главная</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" th:href="@{/styles/header.css}">
     <link rel="stylesheet" th:href="@{/styles/book.css}">
 </head>
@@ -122,7 +123,10 @@
         </div>
     </div>
     <div class="book-description" th:text="${book.description}"></div>
-    <h1 class="title">Отзывы</h1>
+    <div class="title">
+        Отзывы
+        <button class="add-review" th:attr="data-user-id=${user != null ? user.id() : null}">Добавить отзыв</button>
+    </div>
     <div class="swiper reviews">
         <div class="swiper-wrapper">
             <div th:each="review:${reviews}" class="swiper-slide">
@@ -157,9 +161,9 @@
                             <h4 class="text">Понравился отзыв?</h4>
                             <div class="likes">
                                 <div class="rating">
-                                <div th:if="${review.userReaction == 'LIKE'}">
-                                    <img class="like" th:src="@{/static/images/markedLike.svg}" th:attr="data-id=${review.id}" alt="">
-                                </div>
+                                    <div th:if="${review.userReaction == 'LIKE'}">
+                                        <img class="like" th:src="@{/static/images/markedLike.svg}" th:attr="data-id=${review.id}" alt="">
+                                    </div>
                                     <div th:unless="${review.userReaction == 'LIKE'}">
                                         <img class="like" th:src="@{/static/images/like.svg}" th:attr="data-id=${review.id}" alt="">
                                     </div>
@@ -233,5 +237,6 @@
 <script th:src="@{/static/scripts/reviews.js}"></script>
 <script th:src="@{/static/scripts/book-review.js}"></script>
 <script th:src="@{/static/scripts/delete-review.js}"></script>
+<script th:src="@{/static/scripts/add-review.js}"></script>
 </body>
 </html>

@@ -192,8 +192,12 @@ footer{
 }
 
 .title{
-    font-size: 26px;
-    font-weight: 400;
+    width: 100%;
+    margin-top: 72px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 32px;
+    align-items: center;
 }
 
 
@@ -390,4 +394,10 @@ footer{
 .delete-button:hover{
     color: red;
     transition-duration: 200ms;
+}
+
+.add-review{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }

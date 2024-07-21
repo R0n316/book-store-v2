@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import ru.alex.bookstore.http.hanler.CustomAuthenticationSuccessHandler;
 
 @Configuration
 public class SecurityConfig  {
@@ -16,7 +17,8 @@ public class SecurityConfig  {
         http.csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"));
         http.formLogin(form -> form
                 .loginPage("/auth/login")
-                .loginProcessingUrl("/auth/login"))
+                .loginProcessingUrl("/auth/login")
+                .successHandler(new CustomAuthenticationSuccessHandler()))
             .logout(config -> config
                     .logoutUrl("/auth/logout")
                     .logoutSuccessUrl("/"))

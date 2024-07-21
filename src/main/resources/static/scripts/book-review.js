@@ -1,8 +1,8 @@
-const likeIcons = document.querySelectorAll('.like');
-const dislikeIcons = document.querySelectorAll('.dislike');
-
-likeIcons.forEach(icon => icon.addEventListener('click',reactToReview));
-dislikeIcons.forEach(icon => icon.addEventListener('click',reactToReview));
+document.querySelector('.swiper').addEventListener('click', event => {
+    if (event.target.closest('.like') || event.target.closest('.dislike')) {
+        reactToReview(event);
+    }
+});
 
 function reactToReview(event){
     const reviewId = event.target.dataset.id;
