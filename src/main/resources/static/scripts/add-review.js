@@ -113,7 +113,7 @@ function showReviewModal(event) {
     </div>
                                 `;
                             const swiper = document.querySelector('.swiper').swiper;
-                            swiper.appendSlide(newReviewHtml);
+                            swiper.prependSlide(newReviewHtml);
                             swiper.update();
                         })
                         .catch(error => {

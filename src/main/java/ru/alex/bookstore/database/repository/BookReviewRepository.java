@@ -50,10 +50,4 @@ public interface BookReviewRepository extends JpaRepository<BookReview,Integer> 
     @Modifying
     void deleteReview(Integer reviewId, Integer userId);
 
-//    @Query(
-//            value = "INSERT INTO book_review(book_id, user_id, content) VALUES (:bookId,:userId,:content)",
-//            nativeQuery = true
-//    )
-//    @Modifying
-//    void saveReview(Integer bookId, Integer userId,String content);
 }

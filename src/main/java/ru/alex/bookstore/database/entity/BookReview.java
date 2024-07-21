@@ -3,14 +3,16 @@ package ru.alex.bookstore.database.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "book_review")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookReview {
+public class BookReview extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -24,6 +26,4 @@ public class BookReview {
     private User user;
 
     private String content;
-//    private Integer likes;
-//    private Integer dislikes;
 }

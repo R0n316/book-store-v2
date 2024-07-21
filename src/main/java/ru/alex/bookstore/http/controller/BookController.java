@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,7 +71,8 @@ public class BookController {
     @GetMapping("/books/{id}")
     public String findById(@AuthenticationPrincipal UserDto user, @PathVariable("id") Integer id, Model model) {
         model.addAttribute("user",user);
-        Pageable pageable = Pageable.ofSize(REVIEWS_SIZE);
+//        Pageable pageable = Pageable.ofSize(REVIEWS_SIZE);
+        Pageable pageable = PageRequest.of(0,REVIEWS_SIZE, Sort.by("created_at").descending());
         if(user != null){
             UserBookReadDto book = userBookService.findById(id,user.id())
                     .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
