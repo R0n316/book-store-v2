@@ -42,7 +42,6 @@ public class BookReviewRestController {
                                                    @AuthenticationPrincipal UserDto user){
         bookReviewService.deleteReview(reviewId,user.id());
         return new ResponseEntity<>(OK);
-        // TODO сделать сортировку отзывов (как минимум по дате написания по дефолту, а может ещё и по количеству лайков/дизлайков)
     }
 
     @PostMapping
