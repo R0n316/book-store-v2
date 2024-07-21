@@ -15,7 +15,7 @@ function reactToReview(event){
     let likeFileName = likeIcon.src.substring(likeIcon.src.lastIndexOf('/') + 1);
     let dislikeFileName = dislikeIcon.src.substring(dislikeIcon.src.lastIndexOf('/') + 1);
 
-    fetch(`/api/reviews/${reviewId}`, {
+    fetch(`/api/reviews/${reviewId}/respond`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'text/plain'

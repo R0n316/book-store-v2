@@ -386,6 +386,7 @@ footer{
     color: black;
     background-color: transparent;
     border: none;
+    margin-right: 15%;
     cursor: pointer;
     transition-duration: 200ms;
     transition-property: color;
@@ -400,4 +401,23 @@ footer{
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.review-buttons{
+    margin-top: 5px;
+    display: flex;
+}
+
+.edit-button{
+    color: black;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition-duration: 200ms;
+    transition-property: color;
+}
+
+.edit-button:hover{
+    color: #290247;
+    transition-duration: 200ms;
 }

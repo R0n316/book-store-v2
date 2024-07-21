@@ -9,7 +9,7 @@ import ru.alex.bookstore.database.entity.BookReview;
 import ru.alex.bookstore.database.repository.BookReviewRepository;
 import ru.alex.bookstore.dto.BookReviewReadDto;
 import ru.alex.bookstore.dto.BookReviewSummaryDto;
-import ru.alex.bookstore.dto.ReviewCreateDto;
+import ru.alex.bookstore.dto.ReviewCreateEditDto;
 import ru.alex.bookstore.mapper.BookReviewReadMapper;
 import ru.alex.bookstore.mapper.ReviewCreateEditMapper;
 
@@ -51,8 +51,14 @@ public class BookReviewService {
 //        );
 //    }
 
-    public BookReviewReadDto saveReview(ReviewCreateDto review){
+    public BookReviewReadDto saveReview(ReviewCreateEditDto review){
         BookReview savedReview = bookReviewRepository.save(reviewCreateEditMapper.map(review));
         return bookReviewReadMapper.map(savedReview);
+    }
+
+    public BookReviewReadDto editReview(ReviewCreateEditDto review, Integer id){
+        review.setId(id);
+        BookReview updatedReview = bookReviewRepository.save(reviewCreateEditMapper.map(review));
+        return bookReviewReadMapper.map(updatedReview);
     }
 }

@@ -147,9 +147,12 @@
                                     <img th:src="@{/static/images/more.svg}" alt="">
                                 </div>
                             </div>
-                            <div th:if="${user != null && user.id() == review.userId}">
+                            <div th:if="${user != null && user.id() == review.userId}" class="review-buttons">
                                 <button class="delete-button" th:attr="data-review-id=${review.id}">
                                     Удалить
+                                </button>
+                                <button class="edit-button" th:attr="data-review-id=${review.id}, data-user-id=${review.userId}">
+                                    Изменить
                                 </button>
                             </div>
                         </div>
@@ -238,5 +241,6 @@
 <script th:src="@{/static/scripts/book-review.js}"></script>
 <script th:src="@{/static/scripts/delete-review.js}"></script>
 <script th:src="@{/static/scripts/add-review.js}"></script>
+<script th:src="@{/static/scripts/edit-review.js}"></script>
 </body>
 </html>

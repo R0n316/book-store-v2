@@ -7,10 +7,10 @@ import ru.alex.bookstore.database.entity.BookReview;
 import ru.alex.bookstore.database.entity.User;
 import ru.alex.bookstore.database.repository.BookRepository;
 import ru.alex.bookstore.database.repository.UserRepository;
-import ru.alex.bookstore.dto.ReviewCreateDto;
+import ru.alex.bookstore.dto.ReviewCreateEditDto;
 
 @Component
-public class ReviewCreateEditMapper implements Mapper<ReviewCreateDto, BookReview>{
+public class ReviewCreateEditMapper implements Mapper<ReviewCreateEditDto, BookReview>{
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
 
@@ -22,7 +22,7 @@ public class ReviewCreateEditMapper implements Mapper<ReviewCreateDto, BookRevie
     }
 
     @Override
-    public BookReview map(ReviewCreateDto object) {
+    public BookReview map(ReviewCreateEditDto object) {
         Book book = bookRepository.findById(object.getBookId())
                 .orElseThrow(() -> new RuntimeException("Book not found"));
 
@@ -30,6 +30,7 @@ public class ReviewCreateEditMapper implements Mapper<ReviewCreateDto, BookRevie
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         BookReview bookReview = new BookReview();
+        bookReview.setId(object.getId());
         bookReview.setBook(book);
         bookReview.setUser(user);
         bookReview.setContent(object.getContent());

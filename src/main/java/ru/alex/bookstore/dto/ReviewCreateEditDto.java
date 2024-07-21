@@ -9,7 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ReviewCreateDto{
+public class ReviewCreateEditDto {
+    private Integer id;
     private Integer bookId;
     private Integer userId;
     private String content;
