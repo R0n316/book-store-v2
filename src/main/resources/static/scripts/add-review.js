@@ -78,8 +78,9 @@ function showReviewModal(event) {
                 <img src="/static/images/more.svg" alt="">
               </div>
             </div>
-            <div>
+            <div class="review-buttons">
               <button class="delete-button" data-review-id="${data.id}">Удалить</button>
+              <button class="edit-button" data-review-id="${data.id}" data-user-id="${data.user.id}">Изменить</button>
             </div>
           </div>
           <div class="info">
@@ -114,6 +115,7 @@ function showReviewModal(event) {
                             const swiper = document.querySelector('.swiper').swiper;
                             swiper.prependSlide(newReviewHtml);
                             swiper.update();
+                            swiper.slideTo(0);
                         })
                         .catch(error => {
                             console.error('Произошла ошибка при отправке отзыва:', error);

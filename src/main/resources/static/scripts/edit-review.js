@@ -1,12 +1,14 @@
-const reviewContent = document.querySelector('.text').textContent;
+document.querySelector('.swiper').addEventListener('click', event => {
+    if (event.target.closest('.edit-button')) {
+        const reviewTextElement = event.target.closest('.review').querySelector('.text');
+        const reviewContent = reviewTextElement.textContent;
+        editReview(event,reviewContent);
+    }
+});
 
-
-const editButtons = document.querySelectorAll('.edit-button');
-editButtons.forEach(button => button.addEventListener('click',editReview));
-function editReview(event) {
+function editReview(event,reviewContent) {
     const reviewId = event.target.dataset.reviewId;
     const userId = event.target.dataset.userId;
-    const reviewTextElement = event.target.closest('.review').querySelector('.text');
     Swal.fire({
         title: bookTitle,
         html: `
@@ -41,7 +43,7 @@ function editReview(event) {
             .then(response => {
                 if(response.status === 200){
                     console.log('response update successfully');
-                    reviewTextElement.textContent = result.value.reviewText;
+                    event.target.closest('.review').querySelector('.text').textContent = result.value.reviewText;
                 } else{
                     throw new Error('ошибка сервера');
                 }
