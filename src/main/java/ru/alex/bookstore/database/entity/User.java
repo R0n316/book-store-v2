@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    // TODO сделать личный кабинет пользователя
+    // TODO добавить пользователю возможность установки аватара
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

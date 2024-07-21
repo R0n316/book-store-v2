@@ -1,5 +1,6 @@
 package ru.alex.bookstore.http.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,8 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String loginPage(){
+    public String loginPage(HttpServletRequest request){
+        request.getSession().setAttribute("referer",request.getHeader("Referer"));
         return "auth/login";
     }
 

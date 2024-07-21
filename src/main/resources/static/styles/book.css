@@ -1,6 +1,7 @@
 .container-info1{
     display: flex;
     margin-top: 24px;
+    margin-bottom: 20px;
 }
 
 .book-image{
@@ -188,4 +189,235 @@ footer{
 .logo{
     width: 105px;
     height: 40px;
+}
+
+.title{
+    width: 100%;
+    margin-top: 72px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 32px;
+    align-items: center;
+}
+
+
+.swiper{
+    width: 90%;
+    height: 300px;
+    margin-left: 0;
+    padding-left: 15px;
+}
+
+.slide-container{
+    height: 100%;
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+}
+
+.swiper-pagination{
+    margin-bottom: -3px;
+}
+
+.swiper-pagination-bullet{
+    background-color: transparent !important;
+    border: 1px solid #110C1F;
+    opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #000 !important;
+}
+
+
+.swiper-pagination-bullet-inactive{
+    border: 1px solid black;
+}
+
+.review {
+    width: 450px;
+    height: 210px;
+    background-image: url("../images/Ellipse 22.svg");
+    background-repeat: no-repeat;
+    background-position: left top;
+    box-shadow: 1px 0 27px -5px rgba(31, 26, 45, 0.22);
+    padding-top: 32px;
+    padding-left: 32px;
+    padding-right: 23px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.review .content{
+    display: flex;
+    flex-direction: column;
+}
+
+.book-author{
+    font-size: 16px;
+    font-weight: 400;
+    color: #8D8D8D;
+    margin-bottom: 4px;
+}
+
+.book-name{
+    font-size: 20px;
+    font-weight: 400;
+    color: #290247;
+    margin-bottom: 8px;
+}
+
+.review .text{
+    width: 263px;
+    height: 85px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 123.5%;
+    margin-bottom: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.full-review{
+    height: auto;
+    width: auto;
+    display: flex;
+    align-items: center;
+}
+
+.full-review .text{
+    width: auto;
+    height: auto;
+    margin-bottom: 0;
+    margin-right: 4px;
+}
+
+.full-review .more-button{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #110c1f;
+    border-radius: 2px;
+}
+
+.review .info{
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar{
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid black;
+    margin-bottom: 8px;
+}
+
+.avatar img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+}
+
+.username{
+    font-size: 14px;
+    font-weight: 400;
+    color: #110C1F;
+    margin-bottom: 27px;
+}
+
+.info .text{
+    width: auto;
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.likes{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.rating{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.rating img{
+    margin-right: 4px;
+}
+
+.rating span{
+    color: #290247;
+}
+
+.reply{
+    display: flex;
+    /*align-items: center;*/
+}
+
+.reply span{
+    margin-left: 6px;
+}
+
+.reply span{
+    margin-top: 3px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #110C1F;
+}
+
+.like,.dislike{
+    cursor: pointer;
+}
+
+.delete-button{
+    color: black;
+    background-color: transparent;
+    border: none;
+    margin-right: 15%;
+    cursor: pointer;
+    transition-duration: 200ms;
+    transition-property: color;
+}
+
+.delete-button:hover{
+    color: red;
+    transition-duration: 200ms;
+}
+
+.add-review{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.review-buttons{
+    margin-top: 5px;
+    display: flex;
+}
+
+.edit-button{
+    color: black;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition-duration: 200ms;
+    transition-property: color;
+}
+
+.edit-button:hover{
+    color: #290247;
+    transition-duration: 200ms;
 }
