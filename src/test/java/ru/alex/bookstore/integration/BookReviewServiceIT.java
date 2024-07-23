@@ -15,11 +15,10 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 
 
-@Sql({"/sql/init-books.sql","/sql/init-user-books.sql","/sql/init-book-reviews.sql"})
+@Sql({"/sql/init-books.sql","/sql/init-users.sql","/sql/init-user-books.sql","/sql/init-book-reviews.sql"})
 class BookReviewServiceIT extends TestBase {
-    @Value("${app.page.size.reviews}")
+    @Value("${app.page.size.reviews_page}")
     private Integer REVIEWS_SIZE;
-    private final Integer BOOK_ID = 3;
 
     private final BookReviewService bookReviewService;
 
@@ -31,7 +30,8 @@ class BookReviewServiceIT extends TestBase {
     @Test
     void findAllByBook(){
         Pageable pageable = Pageable.ofSize(REVIEWS_SIZE);
-        Slice<BookReviewSummaryDto> bookReviews = bookReviewService.findAllByBook(BOOK_ID, 1,pageable);
+        Integer bookId = 3;
+        Slice<BookReviewSummaryDto> bookReviews = bookReviewService.findAllByBook(bookId, 1,pageable);
         assertThat(bookReviews).hasSize(2);
         // id, bookName, bookAuthor, username, content, likes, dislikes
         List<Object[]> expectedResult = List.of(

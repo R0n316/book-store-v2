@@ -16,12 +16,11 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Sql({"/sql/init-books.sql","/sql/init-user-books.sql","/sql/init-book-reviews.sql"})
+@Sql({"/sql/init-books.sql","/sql/init-users.sql","/sql/init-user-books.sql","/sql/init-book-reviews.sql"})
 class BookReviewRepositoryTest extends TestBase {
 
-    @Value("${app.page.size.reviews}")
+    @Value("${app.page.size.reviews_page}")
     private Integer REVIEWS_SIZE;
-    private final Integer BOOK_ID = 3;
 
     private final BookReviewRepository bookReviewRepository;
     @Autowired
@@ -31,7 +30,8 @@ class BookReviewRepositoryTest extends TestBase {
 
     @Test
     void findAllByBook(){
-        Slice<BookReviewSummaryDto> reviews = bookReviewRepository.findAllByBook(BOOK_ID,1, Pageable.ofSize(REVIEWS_SIZE));
+        Integer bookId = 3;
+        Slice<BookReviewSummaryDto> reviews = bookReviewRepository.findAllByBook(bookId,1, Pageable.ofSize(REVIEWS_SIZE));
 
         assertThat(reviews).hasSize(2);
 

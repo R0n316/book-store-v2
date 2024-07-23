@@ -13,11 +13,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Sql({"/sql/init-books.sql", "/sql/init-user-books.sql", "/sql/init-book-reviews.sql"})
+@Sql({"/sql/init-books.sql", "/sql/init-users.sql","/sql/init-user-books.sql", "/sql/init-book-reviews.sql"})
 class ReviewReactionServiceIT extends TestBase {
-
-    private final Integer REVIEW_ID = 1;
-    private final Integer USER_ID = 1;
 
     private final EntityManager entityManager;
     private final ReviewReactionService reviewReactionService;
@@ -31,12 +28,14 @@ class ReviewReactionServiceIT extends TestBase {
 
     @Test
     void respondViewWhenReviewReactionExists() {
-        Optional<ReviewReaction> reviewReactionOptional = reviewReactionService.findByReviewAndUser(REVIEW_ID, USER_ID);
+        Integer reviewId = 1;
+        Integer userId = 1;
+        Optional<ReviewReaction> reviewReactionOptional = reviewReactionService.findByReviewAndUser(reviewId, userId);
         assertThat(reviewReactionOptional).isPresent();
         ReviewReaction reaction = reviewReactionOptional.get();
         assertThat(reaction.getReaction()).isEqualTo(Reaction.LIKE);
 
-        reviewReactionService.respondToReview(Reaction.DISLIKE, REVIEW_ID, USER_ID);
+        reviewReactionService.respondToReview(Reaction.DISLIKE, reviewId, userId);
         entityManager.refresh(reaction);
         assertThat(reaction.getReaction()).isEqualTo(Reaction.DISLIKE);
     }

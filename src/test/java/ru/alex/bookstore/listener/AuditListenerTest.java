@@ -12,7 +12,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Sql({"/sql/init-books.sql","/sql/init-user-books.sql","/sql/init-book-reviews.sql"})
+@Sql({"/sql/init-books.sql","/sql/init-users.sql","/sql/init-user-books.sql","/sql/init-book-reviews.sql"})
 class AuditListenerTest extends TestBase {
     private final BookReviewRepository bookReviewRepository;
     private final EntityManager entityManager;

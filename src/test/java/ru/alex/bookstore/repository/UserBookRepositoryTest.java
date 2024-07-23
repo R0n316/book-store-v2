@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Sql({"/sql/init-books.sql","/sql/init-user-books.sql"})
+@Sql({"/sql/init-books.sql","/sql/init-users.sql","/sql/init-user-books.sql"})
 class UserBookRepositoryTest extends TestBase {
 
     private final UserBookRepository userBookRepository;
