@@ -13,9 +13,9 @@
             <img th:src="@{/static/images/catalogButtonDetails.svg}" alt="">
         </div>
     </div>
-    <form method="GET">
+    <form method="GET" th:action="@{/books}">
         <label>
-            <input type="text" placeholder="Поиск" class="search">
+            <input type="text" name="name" placeholder="Поиск" class="search">
         </label>
     </form>
     <a href="/books/favorites">

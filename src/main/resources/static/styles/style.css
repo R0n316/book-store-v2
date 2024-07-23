@@ -130,6 +130,7 @@
     background: rgb(41, 2, 71);
     color: white;
     cursor: pointer;
+    text-align: center;
 }
 
 .book-price{

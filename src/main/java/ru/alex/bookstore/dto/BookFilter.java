@@ -1,14 +1,5 @@
 package ru.alex.bookstore.dto;
 
-//public record BookFilter(
-//        String name,
-//        String category,
-//        Integer userId
-//) {
-//
-//}
-
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
