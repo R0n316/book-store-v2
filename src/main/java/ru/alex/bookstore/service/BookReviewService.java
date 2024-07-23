@@ -14,7 +14,7 @@ import ru.alex.bookstore.mapper.BookReviewReadMapper;
 import ru.alex.bookstore.mapper.ReviewCreateEditMapper;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class BookReviewService {
     private final BookReviewRepository bookReviewRepository;
     private final ReviewCreateEditMapper reviewCreateEditMapper;
@@ -29,33 +29,39 @@ public class BookReviewService {
         this.bookReviewReadMapper = bookReviewReadMapper;
     }
 
-    @Transactional(readOnly = true)
+
+    public Slice<BookReviewSummaryDto> findAll(Pageable pageable){
+        return bookReviewRepository.findAllReviews(pageable);
+    }
+
+    public Slice<BookReviewSummaryDto> findAll(Integer userId,Pageable pageable){
+        return bookReviewRepository.findAllReviews(userId,pageable);
+    }
+
+    public Integer getReviewsCountByBook(Integer bookId){
+        return bookReviewRepository.getReviewsCountByBook(bookId);
+    }
+
     public Slice<BookReviewSummaryDto> findAllByBook(Integer bookId,Integer userId, Pageable pageable){
         return bookReviewRepository.findAllByBook(bookId,userId,pageable);
     }
 
-    @Transactional(readOnly = true)
     public Slice<BookReviewSummaryDto> findAllByBook(Integer bookId, Pageable pageable){
         return bookReviewRepository.findAllByBook(bookId,pageable);
     }
 
+    @Transactional
     public void deleteReview(Integer reviewId, Integer userId){
         bookReviewRepository.deleteReview(reviewId,userId);
     }
 
-//    public void saveReview(ReviewCreateDto review){
-//        bookReviewRepository.saveReview(
-//                review.getBookId(),
-//                review.getUserId(),
-//                review.getContent()
-//        );
-//    }
-
+    @Transactional
     public BookReviewReadDto saveReview(ReviewCreateEditDto review){
         BookReview savedReview = bookReviewRepository.save(reviewCreateEditMapper.map(review));
         return bookReviewReadMapper.map(savedReview);
     }
 
+    @Transactional
     public BookReviewReadDto editReview(ReviewCreateEditDto review, Integer id){
         review.setId(id);
         BookReview updatedReview = bookReviewRepository.save(reviewCreateEditMapper.map(review));

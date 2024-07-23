@@ -1,4 +1,9 @@
-document.querySelector('.swiper').addEventListener('click', event => {
+const url = window.location.pathname;
+const regex = /\/books\/(\d+)/;
+const matches = url.match(regex);
+const bookId = matches ? matches[1] : null;
+
+document.querySelector('.reviews').addEventListener('click', event => {
     if (event.target.closest('.edit-button')) {
         const reviewTextElement = event.target.closest('.review').querySelector('.text');
         const reviewContent = reviewTextElement.textContent;
@@ -7,6 +12,9 @@ document.querySelector('.swiper').addEventListener('click', event => {
 });
 
 function editReview(event,reviewContent) {
+    const reviewElement = event.target.closest('.review');
+    const bookTitle = reviewElement.querySelector('.book-name').textContent.trim();
+    const bookAuthor = reviewElement.querySelector('.book-author').textContent.trim();
     const reviewId = event.target.dataset.reviewId;
     const userId = event.target.dataset.userId;
     Swal.fire({

@@ -1,4 +1,4 @@
-document.querySelector('.swiper').addEventListener('click', event => {
+document.querySelector('.reviews').addEventListener('click', event => {
     if (event.target.closest('.delete-button')) {
         deleteReview(event);
     }
@@ -27,21 +27,26 @@ function deleteReview(event) {
                 },
                 body: reviewId
             })
-                .then(response => {
-                    if (response.ok) {
-                        console.log(`Review ${reviewId} deleted successfully`);
-                        const slide = event.target.closest('.swiper-slide');
-                        const swiper = slide.closest('.swiper').swiper;
+        .then(response => {
+                if (response.ok) {
+                    console.log(`Review ${reviewId} deleted successfully`);
+                    const slide = event.target.closest('.swiper-slide');
+                    const swiperEl = slide.closest('.swiper');
+                    if(swiperEl != null){
+                        const swiper = swiperEl.swiper;
                         slide.remove();
                         swiper.update();
-
-                        Swal.fire(
-                            'Удалено!',
-                            'Ваш отзыв был успешно удален.',
-                            'success'
-                        );
+                    } else{
+                        slide.remove();
                     }
-                })
+
+                    Swal.fire(
+                        'Удалено!',
+                        'Ваш отзыв был успешно удален.',
+                        'success'
+                    );
+                }
+            })
                 .catch(error => console.error(`Error: ${error}`));
         }
     });

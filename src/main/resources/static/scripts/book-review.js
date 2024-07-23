@@ -1,4 +1,4 @@
-document.querySelector('.swiper').addEventListener('click', event => {
+document.querySelector('.reviews').addEventListener('click', event => {
     if (event.target.closest('.like') || event.target.closest('.dislike')) {
         reactToReview(event);
     }

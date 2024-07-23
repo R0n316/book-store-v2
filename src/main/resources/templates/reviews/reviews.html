@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все отзывы</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" th:href="@{/static/styles/header.css}">
+    <link rel="stylesheet" th:href="@{/static/styles/reviews.css}">
+</head>
+<body>
+<div th:insert="~{fragment :: header}"></div>
+<div class="container1" style="padding-top: 85px">
+    <div th:insert="~{fragment :: categories}"></div>
+    <div th:if="${book != null}">
+        <div class="title" th:text="|Отзывы к книге &quot;${book.name()}&quot; ${book.author()}|">
+            Отзывы к книге ${автор книги} "${Название книги}"
+        </div>
+    </div>
+    <div class="title" th:unless="${book != null}">
+        Все отзывы
+    </div>
+    <div class="reviews">
+        <div class="review swiper-slide" th:each="review:${reviews}">
+            <div class="content">
+                <h2 class="book-author" th:text="${review.bookAuthor}">Нанетти Анджела</h2>
+                <h1 class="book-name" th:text="${review.bookName}">Мой дедушка был вишней</h1>
+                <p class="text" th:text="${review.content}">
+                    Эту историю я прочитала за один день и с самых первых строк глаза
+                    были на мокром месте. Хоть эта история итальянской писательницы,
+                    вы не увидите тут особой разницы между итальянской семьей и русской.
+                    Мы в разных странах, но такие все одинаковые. Маленький мальчик...
+                </p>
+                <div class="full-review">
+                    <span class="text">Читать отзыв целиком</span>
+                    <div class="more-button">
+                        <img th:src="@{/static/images/more.svg}" alt="">
+                    </div>
+                </div>
+                <div th:if="${user != null && user.id() == review.userId}" class="review-buttons">
+                    <button class="delete-button" th:attr="data-review-id=${review.id}">
+                        Удалить
+                    </button>
+                    <button class="edit-button" th:attr="data-review-id=${review.id}, data-user-id=${review.userId}">
+                        Изменить
+                    </button>
+                </div>
+            </div>
+            <div class="info">
+                <div class="avatar">
+                    <img th:src="@{/static/images/avatar.jpg}" alt="">
+                </div>
+                <h3 class="username" th:text="${review.username}">Виктория Переска</h3>
+                <h4 class="text">Понравился отзыв?</h4>
+                <div class="likes">
+                    <div class="rating">
+                        <div th:if="${review.userReaction == 'LIKE'}">
+                            <img class="like" th:src="@{/static/images/markedLike.svg}" th:attr="data-id=${review.id}" alt="">
+                        </div>
+                        <div th:unless="${review.userReaction == 'LIKE'}">
+                            <img class="like" th:src="@{/static/images/like.svg}" th:attr="data-id=${review.id}" alt="">
+                        </div>
+                        <span class="like-count" th:text="${review.likes}" style="margin-top: 1px">+1</span>
+                    </div>
+                    <div class="rating">
+                        <div th:if="${review.userReaction == 'DISLIKE'}">
+                            <img class="dislike" th:src="@{/static/images/markedDislike.svg}" th:attr="data-id=${review.id}" alt="">
+                        </div>
+                        <div th:unless="${review.userReaction == 'DISLIKE'}">
+                            <img class="dislike" th:src="@{/static/images/dislike.svg}" th:attr="data-id=${review.id}" alt="">
+                        </div>
+                        <span class="dislike-count" th:text="${review.dislikes}">0</span>
+                    </div>
+                </div>
+                <div class="reply">
+                    <img th:src="@{/static/images/reply.svg}" alt="">
+                    <span>Ответить</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <img class="switch-page" th:src="@{/static/images/left-arrow.svg}" alt="prev" id="prev">
+        <img class="switch-page" th:src="@{/static/images/right-arrow.svg}" alt="next" id="next">
+    </div>
+</div>
+<div class="overlay" id="overlay"></div>
+<script th:src="@{/static/scripts/switch-review-page.js}"></script>
+<script th:src="@{/static/scripts/book-review.js}"></script>
+<script th:src="@{/static/scripts/delete-review.js}"></script>
+<script th:src="@{/static/scripts/edit-review.js}"></script>
+</body>
+</html>

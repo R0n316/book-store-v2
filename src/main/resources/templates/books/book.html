@@ -19,7 +19,11 @@
             <div class="rating-container">
                 <img class="star" th:src="@{/static/images/star.svg}" alt="star">
                 <span class="rate" th:text="${book.rating}">book rating</span>
-                <span class="reviews"><ins>15 отзывов</ins></span>
+                <span class="reviews-count">
+                    <a th:href="@{/reviews?book={id}(id=${book.id()})}">
+                        <ins th:text="${reviewsCount} + ' отзывов'">15 отзывов</ins>
+                    </a>
+                </span>
             </div>
             <span class="book-name" th:text="${book.name}">book name</span>
             <span class="book-author"><ins th:text="${book.author}">book author</ins></span>
@@ -125,7 +129,12 @@
     <div class="book-description" th:text="${book.description}"></div>
     <div class="title">
         Отзывы
-        <button class="add-review" th:attr="data-user-id=${user != null ? user.id() : null}">Добавить отзыв</button>
+        <button class="add-review"
+                th:attr="data-user-id=${user != null ? user.id() : null},
+                data-book-title=${book.name},
+                data-book-author=${book.author}">
+            Добавить отзыв
+        </button>
     </div>
     <div class="swiper reviews">
         <div class="swiper-wrapper">

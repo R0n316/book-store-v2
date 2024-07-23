@@ -1,13 +1,10 @@
-const bookTitle = document.querySelector('.book-name').textContent.trim();
-const bookAuthor = document.querySelector('.book-author').textContent.trim();
-const url = window.location.pathname;
-const regex = /\/books\/(\d+)/;
-const matches = url.match(regex);
-const bookId = matches ? matches[1] : null;
+
 
 // Функция для отображения модального окна отзыва
 function showReviewModal(event) {
     const userId = event.target.dataset.userId;
+    const bookTitle = event.target.dataset.bookTitle;
+    const bookAuthor = event.target.dataset.bookAuthor;
     if (!userId) {
         // Пользователь не авторизован
         Swal.fire({

@@ -6,7 +6,8 @@ app:
       top_by_rating_books: 8
       top_by_circulation_books: 4
       page: 30
-      reviews: 18
+      reviews_page: 18
+      reviews_slider: 10
 
 spring:
   application:
