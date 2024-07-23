@@ -1,4 +1,4 @@
-package ru.alex.bookstore.http.hanler;
+package ru.alex.bookstore.http.handler;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import ru.alex.bookstore.http.hanler.CustomAuthenticationSuccessHandler;
+import ru.alex.bookstore.http.handler.CustomAuthenticationSuccessHandler;
 
 @Configuration
 public class SecurityConfig  {
