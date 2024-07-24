@@ -7,3 +7,6 @@ spring:
       force: true
       charset: UTF-8
       enabled: true
+app:
+  image:
+    bucket: src/test/resources/static/images

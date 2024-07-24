@@ -10,8 +10,8 @@ SELECT SETVAL('category_id_seq',(SELECT MAX(id) FROM category));
 
 INSERT INTO book (id,author, rating, price, image_path, publisher, series, year_of_publishing, isbn, number_of_pages, size, cover_type, circulation, weight, age_restrictions, name, language,category_id)
 VALUES
-    (1,'George Orwell', 4.17, 999, 'https://placeholder.com/150x200?text=1984', 'Secker & Warburg', null, 1949, '9780451524935', 328, 'Paperback', 'Softcover', 30000000, 198, 0, '1984', 'en',1),
-    (2,'J.K. Rowling', 4.44, 1200, 'https://placeholder.com/150x200?text=Harry+Potter+and+the+Philosopher''s+Stone', 'Bloomsbury Publishing', 'Harry Potter', 1997, '9780545790352', 309, 'Paperback', 'Softcover', 500000000, 368, 9, 'Harry Potter and the Philosopher''s Stone', 'en',2),
+    (1,'1984', 4.17, 999, 'test-image.jpg', 'Secker & Warburg', null, 1949, '9780451524935', 328, 'Paperback', 'Softcover', 30000000, 198, 0, '1984', 'en',1),
+    (2,'J.K. Rowling', 4.44, 1200, 'dummy', 'Bloomsbury Publishing', 'Harry Potter', 1997, '9780545790352', 309, 'Paperback', 'Softcover', 500000000, 368, 9, 'Harry Potter and the Philosopher''s Stone', 'en',2),
     (3,'Ernest Hemingway', 3.88, 799, 'https://placeholder.com/150x200?text=A+Farewell+to+Arms', 'Charles Scribner''s Sons', null, 1929, '9780684803393', 251, 'Paperback', 'Softcover', 5000000, 216, 0, 'A Farewell to Arms', 'en',3),
     (4,'F. Scott Fitzgerald', 3.82, 899, 'https://placeholder.com/150x200?text=The+Great+Gatsby', 'Charles Scribner''s Sons', null, 1925, '9780743273565', 180, 'Paperback', 'Softcover', 25000000, 134, 0, 'The Great Gatsby', 'en',3),
     (5,'Jane Austen', 4.03, 699, 'https://placeholder.com/150x200?text=Pride+and+Prejudice', 'Thomas Egerton', null, 1813, '9780140432108', 432, 'Paperback', 'Softcover', 20000000, 272, 0, 'Pride and Prejudice', 'en',4),
