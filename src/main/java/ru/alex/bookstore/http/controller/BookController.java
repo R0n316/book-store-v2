@@ -63,8 +63,10 @@ public class BookController {
             List<BookPreviewDto> topByCirculation = bookService.findTopByCirculation(TOP_BOOKS_BY_CIRCULATION_SIZE);
             model.addAttribute("topBooksByCirculation",topByCirculation);
         }
-        model.addAttribute("user",user);
-        return "books/index";
+//        model.addAttribute("user",user);
+//        return "books/index";
+        model.addAttribute("userId",user != null ? user.id() : null);
+        return "adaptive/books/index";
     }
 
     @GetMapping("/books/{id}")
