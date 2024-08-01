@@ -71,7 +71,7 @@ public class BookController {
 
     @GetMapping("/books/{id}")
     public String findById(@AuthenticationPrincipal UserDto user, @PathVariable("id") Integer id, Model model) {
-        model.addAttribute("user",user);
+        model.addAttribute("userId", user != null ? user.id() : null);
         Pageable pageable = PageRequest.of(0,REVIEWS_SIZE, Sort.by("created_at").descending());
         if(user != null){
             UserBookReadDto book = userBookService.findById(id,user.id())
@@ -85,7 +85,7 @@ public class BookController {
             model.addAttribute("book",book);
         }
         model.addAttribute("reviewsCount",bookReviewService.getReviewsCountByBook(id));
-        return "books/book";
+        return "adaptive/books/book";
     }
 
     @GetMapping("/books")

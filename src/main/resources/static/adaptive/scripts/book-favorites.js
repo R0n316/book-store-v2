@@ -4,21 +4,14 @@ favoritesIcon.forEach(icon => icon.addEventListener('click',handleFavoritesCLick
 
 function handleFavoritesCLick(event){
     let bookId = Number(event.target.dataset.userId);
-    let pattern = /^\/books\/(\d+)$/;
-    // if(!pattern.test(currentPath)){
-    //     bookId = event.target.closest('.book-card').querySelector('a').href.split('/')[4];
-    // } else {
-    //     const parts = currentPath.split('/');
-    //     bookId = parts[parts.length - 1];
-    // }
     const currentSrc = event.target.src;
     let url;
 
-    if(currentSrc.endsWith('favorites.svg')){
-        url = `/api/books/${bookId}/toFavorites`;
-    }
-    else if(currentSrc.endsWith('marked-favorites.svg')){
+    if(currentSrc.endsWith('marked-favorites.svg')){
         url = `/api/books/${bookId}/fromFavorites`;
+    }
+    else if(currentSrc.endsWith('favorites.svg')){
+        url = `/api/books/${bookId}/toFavorites`;
     }
 
     fetch(url, {
@@ -26,9 +19,9 @@ function handleFavoritesCLick(event){
     })
         .then(response => {
             if (response.ok) {
-                event.target.src = currentSrc.endsWith('favoritesIcon.svg')
-                    ? '/static/adaptive/images/marked-favorites.svg'
-                    : '/static/adaptive/images/favorites.svg';
+                event.target.src = currentSrc.endsWith('marked-favorites.svg')
+                    ? '/static/adaptive/images/favorites.svg'
+                    : '/static/adaptive/images/marked-favorites.svg';
             } else if (response.status === 403) {
                 window.location.href = '/auth/login';
             } else {

@@ -8,12 +8,14 @@
 <div th:fragment="header">
     <header>
         <div class="container1">
-            <img class="logo" th:src="@{/static/adaptive/images/logo.svg}" alt="site logo">
+            <a href="/"><img class="logo" th:src="@{/static/adaptive/images/logo.svg}" alt="site logo"></a>
             <div class="burger-button">
                 <span>Каталог</span>
                 <img th:src="@{/static/adaptive/images/catalog-button-details.svg}" alt="catalog">
             </div>
-            <input class="search" type="text" placeholder="Поиск">
+            <label>
+                <input class="search" type="text" placeholder="Поиск">
+            </label>
         </div>
     <div class="header-icons">
         <img class="header-icon" th:src="@{/static/adaptive/images/search-small.svg}" alt="search">
@@ -21,17 +23,22 @@
         <a href="/books/cart"><img class="header-icon" th:src="@{/static/adaptive/images/cart.svg}" alt="cart"></a>
         <a href="/auth/login"><img class="header-icon" th:src="@{/static/adaptive/images/profile.svg}" alt="profile"></a>
         <div class="header-text-icon">
-            <a href="books/favorites"><img th:src="@{/static/adaptive/images/favorites.svg}" alt="favorites"></a>
+            <a href="/books/favorites"><img th:src="@{/static/adaptive/images/favorites.svg}" alt="favorites"></a>
             <span>Избранное</span>
         </div>
         <div class="header-text-icon">
             <a href="/books/cart"><img th:src="@{/static/adaptive/images/cart.svg}" alt="cart"></a>
             <span>Корзина</span>
         </div>
-        <a href="/auth/login"><button class="login-button">Войти</button></a>
+        <a th:if="${userId == null}" href="/auth/login"><button class="login-button">Войти</button></a>
+        <form th:if="${userId != null}" method="post" action="/auth/logout">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button class="login-button">Выйти</button>
+        </form>
     </div>
     </header>
 <div class="categories">
+    <a href="/books"><div class="tab">Все</div></a>
     <a href="/books?category=Фэнтези"><div class="tab">Фэнтези</div></a>
     <a href="/books?category=Детективы"><div class="tab">Детективы</div></a>
     <a href="/books?category=Боевики"><div class="tab">Боевики</div></a>

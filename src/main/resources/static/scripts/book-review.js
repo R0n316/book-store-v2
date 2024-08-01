@@ -27,30 +27,30 @@ function reactToReview(event){
                 console.log(`${reaction} sent successfully`);
 
                 if(reaction === 'LIKE'){
-                    if(likeFileName === 'markedLike.svg'){
+                    if(likeFileName === 'marked-like.svg'){
                         likeFileName = 'like.svg';
                         likeCount.textContent = parseInt(likeCount.textContent) - 1;
                     }
                     else {
-                        if(dislikeFileName === 'markedDislike.svg'){
+                        if(dislikeFileName === 'marked-dislike.svg'){
                             dislikeFileName = 'dislike.svg'
                             dislikeCount.textContent = parseInt(dislikeCount.textContent) - 1;
                         }
-                        likeFileName = 'markedLike.svg';
+                        likeFileName = 'marked-like.svg';
                         likeCount.textContent = parseInt(likeCount.textContent) + 1;
                     }
                 }
                 else if (reaction === 'DISLIKE') {
-                    if (dislikeFileName === 'markedDislike.svg') {
+                    if (dislikeFileName === 'marked-dislike.svg') {
                         dislikeFileName = 'dislike.svg';
                         dislikeCount.textContent = parseInt(dislikeCount.textContent) - 1;
                     }
                     else {
-                        if (likeFileName === 'markedLike.svg') {
+                        if (likeFileName === 'marked-like.svg') {
                             likeFileName = 'like.svg';
                             likeCount.textContent = parseInt(likeCount.textContent) - 1;
                         }
-                        dislikeFileName = 'markedDislike.svg';
+                        dislikeFileName = 'marked-dislike.svg';
                         dislikeCount.textContent = parseInt(dislikeCount.textContent) + 1;
                     }
                 }

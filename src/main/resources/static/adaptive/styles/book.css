@@ -72,6 +72,7 @@
 .book-image-container img {
     width: 176px;
     height: 277px;
+    border-radius: 5px;
 }
 
 .book-info {
@@ -125,8 +126,8 @@
 }
 
 .favorites {
-    width: 21px;
-    height: 33px;
+    width: 40px;
+    height: 40px;
 }
 
 .delivery-options {
@@ -326,6 +327,39 @@ p {
     font-weight: 400;
 }
 
+.review-buttons {
+    margin-top: 10px;
+}
+
+.delete-button{
+    color: black;
+    background-color: transparent;
+    border: none;
+    margin-right: 15%;
+    cursor: pointer;
+    transition-duration: 200ms;
+    transition-property: color;
+}
+
+.delete-button:hover{
+    color: red;
+    transition-duration: 200ms;
+}
+
+.edit-button{
+    color: black;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition-duration: 200ms;
+    transition-property: color;
+}
+
+.edit-button:hover{
+    color: #290247;
+    transition-duration: 200ms;
+}
+
 .swiper-wrapper {
     padding-top: 30px;
     padding-bottom: 30px;
@@ -348,6 +382,29 @@ p {
     padding-left: 20px;
     padding-right: 20px;
     max-width: 1180px;
+}
+
+.like,
+.dislike {
+    cursor: pointer;
+}
+
+.review-title {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.review-title h1 {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.add-review{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 @media (min-width: 750px) {
@@ -522,7 +579,7 @@ hr {
 
 @media (min-width: 600px) and (max-width: 899px) {
     .book-full-screen {
-        display: flex;
+        display: flex !important;
     }
     p {
         max-height: 256px;
@@ -538,3 +595,4 @@ hr {
         display: flex;
     }
 }
+
