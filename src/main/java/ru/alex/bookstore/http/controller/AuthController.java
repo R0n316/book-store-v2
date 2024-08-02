@@ -23,12 +23,12 @@ public class AuthController {
     @GetMapping("/login")
     public String loginPage(HttpServletRequest request){
         request.getSession().setAttribute("referer",request.getHeader("Referer"));
-        return "auth/login";
+        return "adaptive/auth/login";
     }
 
     @GetMapping("/registration")
     public String registrationPage(){
-        return "auth/registration";
+        return "adaptive/auth/registration";
     }
 
     @PostMapping("/registration")
