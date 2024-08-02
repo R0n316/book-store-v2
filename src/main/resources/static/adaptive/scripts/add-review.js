@@ -63,35 +63,42 @@ function showReviewModal(event) {
                             const newReviewHtml =
                                 `
         <div class="review swiper-slide">
-            <h2 class="review-book-author">${data.book.author}</h2>
-            <h1 class="review-book-name">${data.book.name}</h1>
+        <div class="container1">
+          <span class="review-book-author">${data.book.author}</span>
+          <span class="review-book-name">${data.book.name}</span>
             <p class="content">${data.content}</p>
             <div class="full-review">
               <span>Читать отзыв целиком</span>
               <div class="more-icon">
-                <img src="/static/images/more.svg" alt="more">
+                <img src="/static/adaptive/images/small-arrow.svg" alt="more">
               </div>
             </div>
+        </div>
+        <div class="container2">
+          <div class="wrapper">
             <div class="user-info">
               <div class="avatar">
                 <img src="/static/adaptive/images/avatar.jpg" alt="avatar">
               </div>
               <span>${data.user.username}</span>
+              <span class="like-review">Понравился отзыв?</span>
             </div>
             <div class="review-reactions">
               <div class="reaction">
-                <img class="like" src="/static/images/like.svg" alt="like" data-id="${data.id}">
+                <img class="like" src="/static/adaptive/images/like.svg" alt="like" data-id="${data.id}">
                 <span class="like-count" style="margin-top: 1px">0</span>
               </div>
               <div class="reaction">
-                <img class="dislike" src="/static/images/dislike.svg" alt="dislike" data-id="${data.id}">
-                <span class="like-count" style="margin-top: 1px">0</span>
+                <img class="dislike" src="/static/adaptive/images/dislike.svg" alt="dislike" data-id="${data.id}">
+                <span class="dislike-count" style="margin-top: 1px">0</span>
               </div>
             </div>
-            <div class="review-buttons">
-              <button class="delete-button" data-review-id="${data.id}">Удалить</button>
-              <button class="edit-button" data-review-id="${data.id}" data-user-id="${data.user.id}">Изменить</button>
-            </div>
+          </div>
+          <div class="review-buttons">
+            <button class="delete-button" data-review-id="${data.id}">Удалить</button>
+            <button class="edit-button" data-review-id="${data.id}" data-user-id="${data.user.id}">Изменить</button>
+          </div>
+        </div>
           </div>
                                 `;
                             const swiper = document.querySelector('.swiper').swiper;

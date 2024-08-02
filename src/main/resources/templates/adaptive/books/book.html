@@ -339,53 +339,60 @@
 <div class="swiper reviews">
     <div class="swiper-wrapper">
         <div class="review swiper-slide" th:each="review:${reviews}">
-            <span class="review-book-author" th:text="${review.bookAuthor}">Нанетти Анджела</span>
-            <span class="review-book-name" th:text="${review.bookName}">Мой дедушка был вишней</span>
-            <p class="content" th:text="${review.content}">
-                Эту историю я прочитала за один день и с самых первых
-                строк глаза были на мокром месте. Хоть эта история
-                итальянской писательницы.
-                ...
-            </p>
-            <div class="full-review">
-                <span>Читать отзыв целиком</span>
-                <div class="more-icon">
-                    <img th:src="@{/static/adaptive/images/small-arrow.svg}" alt="more">
+            <div class="container1">
+                <span class="review-book-author" th:text="${review.bookAuthor}">Нанетти Анджела</span>
+                <span class="review-book-name" th:text="${review.bookName}">Мой дедушка был вишней</span>
+                <p class="content" th:text="${review.content}">
+                    Эту историю я прочитала за один день и с самых первых
+                    строк глаза были на мокром месте. Хоть эта история
+                    итальянской писательницы.
+                    ...
+                </p>
+                <div class="full-review">
+                    <span>Читать отзыв целиком</span>
+                    <div class="more-icon">
+                        <img th:src="@{/static/adaptive/images/small-arrow.svg}" alt="more">
+                    </div>
                 </div>
             </div>
-            <div class="user-info">
-                <div class="avatar">
-                    <img th:src="@{/static/adaptive/images/avatar.jpg}" alt="avatar">
+            <div class="container2">
+                <div class="wrapper">
+                    <div class="user-info">
+                        <div class="avatar">
+                            <img th:src="@{/static/adaptive/images/avatar.jpg}" alt="avatar">
+                        </div>
+                        <span th:text="${review.username}">Виктория Переска</span>
+                        <span class="like-review">Понравился отзыв?</span>
+                    </div>
+                    <div class="review-reactions">
+                        <div class="reaction">
+                            <div th:if="${review.userReaction == 'LIKE'}">
+                                <img class="like" th:src="@{/static/adaptive/images/marked-like.svg}" th:attr="data-id=${review.id}" alt="like">
+                            </div>
+                            <div th:unless="${review.userReaction == 'LIKE'}">
+                                <img class="like" th:src="@{/static/adaptive/images/like.svg}" th:attr="data-id=${review.id}" alt="like">
+                            </div>
+                            <span class="like-count" th:text="${review.likes}" style="margin-top: 1px">+1</span>
+                        </div>
+                        <div class="reaction">
+                            <div th:if="${review.userReaction == 'DISLIKE'}">
+                                <img class="dislike" th:src="@{/static/adaptive/images/marked-dislike.svg}" th:attr="data-id=${review.id}" alt="dislike">
+                            </div>
+                            <div th:unless="${review.userReaction == 'DISLIKE'}">
+                                <img class="dislike" th:src="@{/static/adaptive/images/dislike.svg}" th:attr="data-id=${review.id}" alt="dislike">
+                            </div>
+                            <span class="dislike-count" th:text="${review.dislikes}">0</span>
+                        </div>
+                    </div>
                 </div>
-                <span th:text="${review.username}">Виктория Переска</span>
-            </div>
-            <div class="review-reactions">
-                <div class="reaction">
-                    <div th:if="${review.userReaction == 'LIKE'}">
-                        <img class="like" th:src="@{/static/adaptive/images/marked-like.svg}" th:attr="data-id=${review.id}" alt="like">
-                    </div>
-                    <div th:unless="${review.userReaction == 'LIKE'}">
-                        <img class="like" th:src="@{/static/adaptive/images/like.svg}" th:attr="data-id=${review.id}" alt="like">
-                    </div>
-                    <span class="like-count" th:text="${review.likes}" style="margin-top: 1px">+1</span>
+                <div class="review-buttons" th:if="${userId != null && userId == review.userId}">
+                    <button class="delete-button" th:attr="data-review-id=${review.id}">
+                        Удалить
+                    </button>
+                    <button class="edit-button" th:attr="data-review-id=${review.id}, data-user-id=${review.userId}">
+                        Изменить
+                    </button>
                 </div>
-                <div class="reaction">
-                    <div th:if="${review.userReaction == 'DISLIKE'}">
-                        <img class="dislike" th:src="@{/static/adaptive/images/marked-dislike.svg}" th:attr="data-id=${review.id}" alt="dislike">
-                    </div>
-                    <div th:unless="${review.userReaction == 'DISLIKE'}">
-                        <img class="dislike" th:src="@{/static/adaptive/images/dislike.svg}" th:attr="data-id=${review.id}" alt="dislike">
-                    </div>
-                    <span class="dislike-count" th:text="${review.dislikes}">0</span>
-                </div>
-            </div>
-            <div class="review-buttons" th:if="${userId != null && userId == review.userId}">
-                <button class="delete-button" th:attr="data-review-id=${review.id}">
-                    Удалить
-                </button>
-                <button class="edit-button" th:attr="data-review-id=${review.id}, data-user-id=${review.userId}">
-                    Изменить
-                </button>
             </div>
         </div>
     </div>

@@ -218,7 +218,7 @@ p {
 }
 
 .review {
-    width: 166px;
+    width: 46% !important;
     height: 178px;
     background-image: url("../images/Ellipse 22.svg");
     background-repeat: no-repeat;
@@ -228,6 +228,12 @@ p {
     display: flex;
     flex-direction: column;
     box-shadow: 1px 0 27px -5px rgba(31, 26, 45, 0.22);
+}
+
+@media (max-width: 750px) {
+    .review {
+        height: 198px;
+    }
 }
 
 .review-book-author {
@@ -240,6 +246,8 @@ p {
     font-size: 14px;
     font-weight: 400;
     color: #290247;
+    max-height: 36px;
+    overflow: hidden;
 }
 
 .review-book-name,
@@ -251,7 +259,7 @@ p {
     font-size: 10px;
     font-weight: 400;
     line-height: 123.5%;
-    height: 60px;
+    height: 40px;
     overflow: hidden;
     margin-bottom: 4px;
 }
@@ -366,7 +374,7 @@ p {
 }
 
 .swiper-slide{
-    width: 166px;
+    width: 186px;
 }
 
 .swiper-pagination-bullet {
@@ -596,3 +604,74 @@ hr {
     }
 }
 
+
+.review .container1 {
+    display: flex;
+    flex-direction: column;
+}
+
+.like-review {
+    display: none;
+    margin-top: 19px;
+    margin-bottom: 8px;
+}
+
+@media (min-width: 1180px) {
+    .review {
+        flex-direction: row;
+    }
+
+    .review .container1 {
+        width: 60%;
+        padding-right: 16px;
+        border-right: 1px solid #110C1F;
+    }
+
+    .review .container2 {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .review .user-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .review .avatar {
+        width: 44px;
+        height: 44px;
+        margin-bottom: 12px;
+    }
+
+    .like-review {
+        display: inline;
+    }
+
+    .review-buttons {
+        display: flex;
+        width: 150px;
+        justify-content: space-around;
+    }
+
+    .review .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .delete-button {
+        margin-right: 0;
+    }
+
+    .review .full-review {
+        margin-bottom: 0;
+    }
+
+    .review .content {
+        height: 112px;
+        font-size: 12px;
+    }
+}
