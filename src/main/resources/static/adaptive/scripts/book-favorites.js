@@ -3,7 +3,7 @@ const currentPath = window.location.pathname;
 favoritesIcon.forEach(icon => icon.addEventListener('click',handleFavoritesCLick));
 
 function handleFavoritesCLick(event){
-    let bookId = Number(event.target.dataset.userId);
+    let bookId = Number(event.target.dataset.bookId);
     const currentSrc = event.target.src;
     let url;
 

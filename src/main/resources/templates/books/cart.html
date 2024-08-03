@@ -14,7 +14,7 @@
         Корзина
     </div>
     <div class="book-cards">
-        <div class="book-card" th:each="book:${booksInCart}">
+        <div class="book-card" th:each="book:${books}">
             <a th:href="@{/books/{bookId}(bookId=${book.id})}">
                 <img class="book-image" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">
             </a>

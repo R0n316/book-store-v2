@@ -46,11 +46,11 @@
                         </div>
                         <img th:if="${userId != null && book.userId == userId && book.isInFavorites}"
                              class="favorites" th:src="@{/static/adaptive/images/marked-favorites.svg}"
-                             th:attr="data-user-id=${book.id}"
+                             th:attr="data-book-id=${book.id}"
                              alt="favorites">
                         <img th:unless="${userId != null && book.userId == userId && book.isInFavorites}"
                              class="favorites" th:src="@{/static/adaptive/images/favorites.svg}"
-                             th:attr="data-user-id=${book.id}"
+                             th:attr="data-book-id=${book.id}"
                              alt="favorites">
                     </div>
                     <h1 class="book-name" th:text="${book.name}">Лягушка, слон и брокколи. Как жить и как не надо</h1>
@@ -83,11 +83,11 @@
                     </div>
                     <img th:if="${userId != null && book.userId == userId && book.isInFavorites}"
                          class="favorites" th:src="@{/static/adaptive/images/marked-favorites.svg}"
-                         th:attr="data-user-id=${book.id}"
+                         th:attr="data-book-id=${book.id}"
                          alt="favorites">
                     <img th:unless="${userId != null && book.userId == userId && book.isInFavorites}"
                          class="favorites" th:src="@{/static/adaptive/images/favorites.svg}"
-                         th:attr="data-user-id=${book.id}"
+                         th:attr="data-book-id=${book.id}"
                          alt="favorites">
                 </div>
                 <h1 class="book-name" th:text="${book.name}">Лягушка, слон и брокколи. Как жить и как не надо</h1>
@@ -206,93 +206,7 @@
 </div>
 <hr>
 <div class="container">
-    <footer>
-        <div class="footer-small-screen">
-            <img class="logo" th:src="@{/static/adaptive/images/logo.svg}" alt="">
-            <div class="block one">
-                <div class="block-item">
-                    <div class="block-title">
-                        Основное
-                        <img class="arrow" th:src="@{/static/adaptive/images/footer-arrow.svg}" alt="">
-                    </div>
-                    <div class="block-content">
-                        <div class="info">Каталог</div>
-                        <div class="info">Партнерская программа</div>
-                        <div class="info">Подробнее о нас</div>
-                        <div class="info">Контакты</div>
-                    </div>
-                </div>
-                <div class="block-item">
-                    <div class="block-title">
-                        Связаться с нами
-                        <img class="arrow" th:src="@{/static/adaptive/images/footer-arrow.svg}" alt="">
-                    </div>
-                    <div class="block-content">
-                        <div class="info" style="font-weight: 700">korablik@yandex.ru</div>
-                        <div class="info">
-                            <div class="footer-icons">
-                                <img th:src="@{/static/adaptive/images/VK.svg}" alt="">
-                                <img th:src="@{/static/adaptive/images/OK.svg}" alt="">
-                                <img th:src="@{/static/adaptive/images/twitter.svg}" alt="">
-                                <img th:src="@{/static/adaptive/images/telegram.svg}" alt="">
-                            </div>
-                        </div>
-                        <div class="info">Мы на связи с 9 до 18 часов (GMT +03:00)  </div>
-                    </div>
-                </div>
-            </div>
-            <div class="more-info">
-                <div class="footer-container">
-                    <span>Бесплатный звонок по России</span>
-                    <span class="bold-footer-text">8 (988) 545-55-55</span>
-                </div>
-                <div class="footer-container">
-                    <span>Мы в социальных сетях</span>
-                    <div class="footer-icons">
-                        <img th:src="@{/static/adaptive/images/VK.svg}" alt="">
-                        <img th:src="@{/static/adaptive/images/OK.svg}" alt="">
-                        <img th:src="@{/static/adaptive/images/twitter.svg}" alt="">
-                        <img th:src="@{/static/adaptive/images/telegram.svg}" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-full-screen">
-            <ul>
-                <li class="logo"><img th:src="@{/static/adaptive/images/logo.svg}" alt="logo"></li>
-                <li>Каталог</li>
-                <li>Партнерская программа</li>
-                <li>Подробнее о нас</li>
-                <li>Контакты</li>
-            </ul>
-            <ul>
-                <li>Остались вопросы? Напишите нам</li>
-                <li class="bold-footer-text">korablik@yandex.ru</li>
-                <li>
-                    <div class="footer-icons">
-                        <img th:src="@{/static/adaptive/images/VK.svg}" alt="">
-                        <img th:src="@{/static/adaptive/images/OK.svg}" alt="">
-                        <img th:src="@{/static/adaptive/images/twitter.svg}" alt="">
-                        <img th:src="@{/static/adaptive/images/telegram.svg}" alt="">
-                    </div>
-                </li>
-                <li>Мы на связи с 9 до 18 часов<br> (GMT +03:00)</li>
-            </ul>
-            <ul>
-                <li>Бесплатный звонок по России</li>
-                <li class="bold-footer-text">8 (988) 545-55-55</li>
-                <li>Мы в социальных сетях</li>
-                <li>
-                    <div class="footer-icons">
-                        <img th:src="@{/static/adaptive/images/VK.svg}" alt="">
-                        <img th:src="@{/static/adaptive/images/OK.svg}" alt="">
-                        <img th:src="@{/static/adaptive/images/twitter.svg}" alt="">
-                        <img th:src="@{/static/adaptive/images/telegram.svg}" alt="">
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </footer>
+    <div th:insert="~{adaptive/fragment :: footer}"></div>
 </div>
 <script th:src="@{/static/adaptive/scripts/categories.js}"></script>
 <script th:src="@{/static/adaptive/scripts/main.js}"></script>

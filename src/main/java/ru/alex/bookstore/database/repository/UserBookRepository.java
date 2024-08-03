@@ -57,7 +57,7 @@ public interface UserBookRepository extends
     Optional<UserBookReadDto> findBookById(Integer bookId,Integer userId);
 
     @Query(value = """
-            SELECT book.*,is_in_favorites
+            SELECT book.*,is_in_favorites,is_in_cart
             FROM user_book
             JOIN book ON user_book.book_id = book.id
             WHERE is_in_favorites AND user_id = :userId
@@ -66,7 +66,7 @@ public interface UserBookRepository extends
     Slice<UserBookPreviewDto> findFavorites(Integer userId,Pageable pageable);
 
     @Query(value = """
-            SELECT book.*,is_in_favorites
+            SELECT book.*,is_in_favorites,is_in_cart
             FROM user_book
             JOIN book ON user_book.book_id = book.id
             WHERE is_in_cart AND user_id = :userId

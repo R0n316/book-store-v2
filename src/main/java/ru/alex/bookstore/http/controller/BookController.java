@@ -109,10 +109,10 @@ public class BookController {
                                 @RequestParam(value = "page",defaultValue = "0") Integer page,
                                 Model model){
         model.addAttribute(
-                "favoriteBooks",
+                "books",
                 userBookService.findFavorites(user.id(),PageRequest.of(page,PAGE_SIZE))
         );
-        return "books/favorites";
+        return "adaptive/books/books-by";
     }
 
     @GetMapping("/books/cart")
@@ -120,7 +120,7 @@ public class BookController {
                               @RequestParam(value = "page", defaultValue = "0") Integer page,
                               Model model){
         model.addAttribute(
-                "booksInCart",
+                "books",
                 userBookService.findInCart(user.id(),PageRequest.of(page,PAGE_SIZE))
         );
         return "books/cart";
