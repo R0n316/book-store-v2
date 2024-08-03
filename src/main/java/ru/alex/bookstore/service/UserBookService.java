@@ -44,7 +44,7 @@ public class UserBookService {
         return userBookRepository.findFavorites(userId,pageable);
     }
 
-    public Slice<UserBookPreviewDto> findInCart(Integer userId,Pageable pageable){
+    public Page<UserBookPreviewDto> findInCart(Integer userId,Pageable pageable){
         return userBookRepository.findInCart(userId,pageable);
     }
 

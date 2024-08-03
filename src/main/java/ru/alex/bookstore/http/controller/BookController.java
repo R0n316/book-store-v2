@@ -66,8 +66,6 @@ public class BookController {
             List<BookPreviewDto> topByCirculation = bookService.findTopByCirculation(TOP_BOOKS_BY_CIRCULATION_SIZE);
             model.addAttribute("topBooksByCirculation",topByCirculation);
         }
-//        model.addAttribute("user",user);
-//        return "books/index";
         model.addAttribute("userId",user != null ? user.id() : null);
         return "adaptive/books/index";
     }
@@ -126,11 +124,15 @@ public class BookController {
     public String booksInCart(@AuthenticationPrincipal UserDto user,
                               @RequestParam(value = "page", defaultValue = "0") Integer page,
                               Model model){
-        model.addAttribute(
-                "books",
-                userBookService.findInCart(user.id(),PageRequest.of(page,PAGE_SIZE))
-        );
-        return "books/cart";
+        Page<UserBookPreviewDto> inCartBooks = userBookService.findInCart(user.id(), PageRequest.of(page, PAGE_SIZE));
+        model.addAllAttributes(Map.of(
+                "books",inCartBooks,
+                "currentPage",page,
+                "pageName","Корзина",
+                "pageNumbers",getPageNumbers(inCartBooks.getTotalPages(),page),
+                "userId",user.id()
+        ));
+        return "adaptive/books/books-by";
     }
 
     private List<Integer> getPageNumbers(int totalPages, int currentPage){

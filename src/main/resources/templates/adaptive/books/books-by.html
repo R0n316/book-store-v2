@@ -46,7 +46,6 @@
                 <a th:href="@{/books/{id}(id=${book.id})}">
                     <img class="book-img" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">
                 </a>
-<!--                <img class="book-img" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">-->
                 <div class="content">
                     <div>
                         <div class="container1">
@@ -54,7 +53,12 @@
                                 <img class="star" th:src="@{/static/adaptive/images/star.svg}" alt="star">
                                 <span class="rating" th:text="${book.rating}">4.9</span>
                             </div>
-                            <img class="favorites" th:src="@{/static/adaptive/images/marked-favorites.svg}"
+                            <img th:if="${book.isInFavorites}"
+                                 class="favorites" th:src="@{/static/adaptive/images/marked-favorites.svg}"
+                                 th:attr="data-book-id=${book.id}"
+                                 alt="favorites">
+                            <img th:unless="${book.isInFavorites}"
+                                 class="favorites" th:src="@{/static/adaptive/images/favorites.svg}"
                                  th:attr="data-book-id=${book.id}"
                                  alt="favorites">
                         </div>
