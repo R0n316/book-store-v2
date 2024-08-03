@@ -29,7 +29,7 @@
                 <img th:src="@{/static/adaptive/images/small-arrow.svg}" alt="">
             </div>
         </div>
-        <div class="title">Популярное</div>
+        <div class="title" th:text="${pageName}">Популярное</div>
 <!--        <span class="text book-count">Найдено 4 000 книг</span>-->
         <div class="result-params">
             <button class="result-button filter-button">
@@ -75,10 +75,10 @@
             <div class="pagination">
                 <img class="left-arrow" th:src="@{/static/adaptive/images/left-arrow.svg}" alt="">
                 <ul class="pages-count">
-                    <li class="active-number">1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
+                    <li th:each="pageNumber : ${pageNumbers}"
+                        th:class="${pageNumber == currentPage} ? 'active-number' : ''">
+                        <a th:href="@{/books/favorites(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+                    </li>
                 </ul>
                 <img class="right-arrow" th:src="@{/static/adaptive/images/right-arrow.svg}" alt="">
             </div>
@@ -92,6 +92,7 @@
     <script th:src="@{/static/adaptive/scripts/spoiler.js}"></script>
     <script th:src="@{/static/adaptive/scripts/book-favorites.js}"></script>
     <script th:src="@{/static/adaptive/scripts/book-cart.js}"></script>
+    <script th:src="@{/static/adaptive/scripts/pagination.js}"></script>
 </main>
 </body>
 </html>

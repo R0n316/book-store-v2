@@ -22,7 +22,10 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage(HttpServletRequest request){
-        request.getSession().setAttribute("referer",request.getHeader("Referer"));
+        String referer = request.getHeader("Referer");
+        if (!referer.endsWith("/login")) {
+            request.getSession().setAttribute("referer", referer);
+        }
         return "adaptive/auth/login";
     }
 

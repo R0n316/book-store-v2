@@ -1,6 +1,7 @@
 package ru.alex.bookstore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class UserBookService {
         return userBookRepository.findBookById(id,userId);
     }
 
-    public Slice<UserBookPreviewDto> findFavorites(Integer userId,Pageable pageable){
+    public Page<UserBookPreviewDto> findFavorites(Integer userId, Pageable pageable){
         return userBookRepository.findFavorites(userId,pageable);
     }
 

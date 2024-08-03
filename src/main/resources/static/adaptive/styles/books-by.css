@@ -177,11 +177,21 @@
     margin-left: 31px;
 }
 
+.left-arrow,
+.right-arrow {
+    cursor: pointer;
+}
+
+.unavailable {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 .pages-count {
     display: flex;
     list-style: none;
-    width: 150px;
-    justify-content: space-between;
+    width: 170px;
+    /*justify-content: space-between;*/
 }
 
 .pages-count li {
@@ -189,10 +199,18 @@
     font-weight: 600;
     padding: 5px 11px;
     border-radius: 3px;
+    margin-right: 5px;
+}
+
+.pages-count li:last-child {
+    margin-right: 0;
 }
 
 .pages-count li.active-number {
     background-color: #110C1F;
+}
+
+.active-number a {
     color: white;
 }
 

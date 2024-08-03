@@ -1,5 +1,6 @@
 package ru.alex.bookstore.database.repository;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -63,7 +64,7 @@ public interface UserBookRepository extends
             WHERE is_in_favorites AND user_id = :userId
             ORDER BY book.id
             """,nativeQuery = true)
-    Slice<UserBookPreviewDto> findFavorites(Integer userId,Pageable pageable);
+    Page<UserBookPreviewDto> findFavorites(Integer userId, Pageable pageable);
 
     @Query(value = """
             SELECT book.*,is_in_favorites,is_in_cart
