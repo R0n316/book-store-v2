@@ -13,7 +13,9 @@
                 <span>Каталог</span>
                 <img th:src="@{/static/adaptive/images/catalog-button-details.svg}" alt="catalog">
             </div>
-            <input class="search" type="text" placeholder="Поиск">
+            <form method="GET" action="/books">
+                <input class="search" type="text" placeholder="Поиск">
+            </form>
         </div>
     <div class="header-icons">
         <img class="header-icon" th:src="@{/static/adaptive/images/search-small.svg}" alt="search">

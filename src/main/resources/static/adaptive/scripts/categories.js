@@ -1,11 +1,22 @@
+const url = window.location.pathname;
 const tabs = document.querySelectorAll('.tab');
+const urlParams = new URLSearchParams(window.location.search);
+const category = urlParams.get('category');
 
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-    })
-});
+if(url.endsWith('/books')) {
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        });
+
+        if(category === null) {
+            tabs[0].classList.add('active');
+        } else if(tab.textContent === category) {
+            tab.classList.add('active');
+        }
+    });
+}
 
 const categories = document.querySelector('.categories');
 
