@@ -214,7 +214,22 @@
     color: white;
 }
 
-@media (min-width: 650px) {
+.empty {
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.empty h1 {
+    margin-bottom: 10px;
+}
+
+.empty button {
+    width: 150px;
+}
+
+@media (min-width: 650px) and(max-width: 1023px) {
     .book-card {
         width: 47%;
     }
@@ -224,7 +239,13 @@
 }
 
 @media (min-width: 1024px) {
+
     .book-card {
         width: 30%;
+        margin-right: 33px;
+    }
+
+    .book-cards .book-card:nth-child(3n) {
+        margin-right: 0;
     }
 }

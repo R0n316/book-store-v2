@@ -110,7 +110,7 @@ public class BookController {
             booksByFilter = bookService.findAllByFilter(filter, pageable);
         }
 
-        model.addAttribute("books", PageResponse.of(booksByFilter));
+        model.addAttribute("books", booksByFilter);
         model.addAttribute("pageNumbers", getPageNumbers(booksByFilter.getTotalPages(), page));
         model.addAttribute("userId", user != null ? user.id() : null);
         model.addAllAttributes(Map.of(

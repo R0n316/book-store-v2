@@ -30,6 +30,7 @@
             </div>
         </div>
         <div class="title" th:text="${category}"></div>
+        <span class="text book-count" th:text="|Найдено ${books.totalElements} книг|">Найдено 4 000 книг</span>
         <div class="result-params">
             <button class="result-button filter-button">
                 <span class="text">Фильтр</span>
@@ -40,50 +41,58 @@
                 <img th:src="@{/static/adaptive/images/more-triangle.svg}" alt="filter">
             </button>
         </div>
-        <div class="book-cards">
-            <div class="book-card" th:each="book:${books.content()}">
-                <a th:href="@{/books/{id}(id=${book.id})}">
-                    <img class="book-img" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">
-                </a>
-                <div class="content">
-                    <div>
-                        <div class="container1">
-                            <div class="rating-container">
-                                <img class="star" th:src="@{/static/adaptive/images/star.svg}" alt="star">
-                                <span class="rating" th:text="${book.rating}">4.9</span>
+        <div th:if="${books.empty}">
+            <div class="empty">
+                <h1>Пока что здесь пусто :(</h1>
+                <a href="/books"><button class="login-button">Найти новые книги</button></a>
+            </div>
+        </div>
+        <div th:unless="${books.empty}">
+            <div class="book-cards">
+                <div class="book-card" th:each="book:${books}">
+                    <a th:href="@{/books/{id}(id=${book.id})}">
+                        <img class="book-img" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">
+                    </a>
+                    <div class="content">
+                        <div>
+                            <div class="container1">
+                                <div class="rating-container">
+                                    <img class="star" th:src="@{/static/adaptive/images/star.svg}" alt="star">
+                                    <span class="rating" th:text="${book.rating}">4.9</span>
+                                </div>
+                                <img th:if="${userId != null && book.userId == userId && book.isInFavorites}"
+                                     class="favorites" th:src="@{/static/adaptive/images/marked-favorites.svg}"
+                                     th:attr="data-book-id=${book.id}"
+                                     alt="favorites">
+                                <img th:unless="${userId != null && book.userId == userId && book.isInFavorites}"
+                                     class="favorites" th:src="@{/static/adaptive/images/favorites.svg}"
+                                     th:attr="data-book-id=${book.id}"
+                                     alt="favorites">
                             </div>
-                            <img th:if="${userId != null && book.userId == userId && book.isInFavorites}"
-                                 class="favorites" th:src="@{/static/adaptive/images/marked-favorites.svg}"
-                                 th:attr="data-book-id=${book.id}"
-                                 alt="favorites">
-                            <img th:unless="${userId != null && book.userId == userId && book.isInFavorites}"
-                                 class="favorites" th:src="@{/static/adaptive/images/favorites.svg}"
-                                 th:attr="data-book-id=${book.id}"
-                                 alt="favorites">
+                            <h1 class="book-name">Лягушка, слон и брокколи. Как жить и как не надо</h1>
+                            <h3 class="book-author">Алексей Марков</h3>
                         </div>
-                        <h1 class="book-name">Лягушка, слон и брокколи. Как жить и как не надо</h1>
-                        <h3 class="book-author">Алексей Марков</h3>
-                    </div>
-                    <div class="container2">
-                        <div class="to-cart-button"
-                             th:if="${userId != null && book.userId == userId && book.isInCart}">Удалить</div>
-                        <div class="to-cart-button"
-                             th:unless="${userId != null && book.userId == userId && book.isInCart}">В корзину</div>
-                        <span class="price" th:text="${book.price} + '$'">575$</span>
+                        <div class="container2">
+                            <div class="to-cart-button"
+                                 th:if="${userId != null && book.userId == userId && book.isInCart}">Удалить</div>
+                            <div class="to-cart-button"
+                                 th:unless="${userId != null && book.userId == userId && book.isInCart}">В корзину</div>
+                            <span class="price" th:text="${book.price} + '$'">575$</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="pagination-container">
-            <div class="pagination">
-                <img class="left-arrow" th:src="@{/static/adaptive/images/left-arrow.svg}" alt="">
-                <ul class="pages-count">
-                    <li th:each="pageNumber : ${pageNumbers}"
-                        th:class="${pageNumber == currentPage} ? 'active-number' : ''">
-                        <a th:href="@{/books/favorites(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
-                    </li>
-                </ul>
-                <img class="right-arrow" th:src="@{/static/adaptive/images/right-arrow.svg}" alt="">
+            <div class="pagination-container">
+                <div class="pagination">
+                    <img class="left-arrow" th:src="@{/static/adaptive/images/left-arrow.svg}" alt="">
+                    <ul class="pages-count">
+                        <li th:each="pageNumber : ${pageNumbers}"
+                            th:class="${pageNumber == currentPage} ? 'active-number' : ''">
+                            <a th:href="@{/books/favorites(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+                        </li>
+                    </ul>
+                    <img class="right-arrow" th:src="@{/static/adaptive/images/right-arrow.svg}" alt="">
+                </div>
             </div>
         </div>
     </div>
