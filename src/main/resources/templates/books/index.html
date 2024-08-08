@@ -33,7 +33,7 @@
     </div>
 
     <div class="book-cards">
-        <div class="book-card" th:each="book:${topBooksByCirculation}">
+        <div class="book-card" th:each="book:${topBooksByRating}">
             <a th:href="@{/books/{id}(id=${book.id})}">
                 <img class="book-img" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">
             </a>

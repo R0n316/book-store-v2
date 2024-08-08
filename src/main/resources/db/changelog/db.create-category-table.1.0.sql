@@ -11,4 +11,4 @@ CREATE TABLE category
 --changeset alex:2
 
 ALTER TABLE book
-ADD COLUMN category_id int REFERENCES category(id)
+ADD COLUMN category_id int REFERENCES category(id) NOT NULL

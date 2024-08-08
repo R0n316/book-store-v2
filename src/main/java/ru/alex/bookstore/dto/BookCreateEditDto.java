@@ -18,6 +18,6 @@ public record BookCreateEditDto(
         Double circulation,
         Integer weight,
         Integer ageRestrictions,
-        CategoryDto category
+        Integer categoryId
 ) {
 }

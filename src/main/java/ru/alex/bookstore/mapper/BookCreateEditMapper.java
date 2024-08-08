@@ -1,9 +1,12 @@
 package ru.alex.bookstore.mapper;
 
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import ru.alex.bookstore.database.entity.Book;
 import ru.alex.bookstore.database.entity.Category;
+import ru.alex.bookstore.database.repository.CategoryRepository;
 import ru.alex.bookstore.dto.BookCreateEditDto;
 
 import java.util.Optional;
@@ -13,10 +16,11 @@ import static java.util.function.Predicate.not;
 @Component
 public class BookCreateEditMapper implements Mapper<BookCreateEditDto, Book> {
 
-    private final CategoryMapper categoryMapper;
+    private final CategoryRepository categoryRepository;
 
-    public BookCreateEditMapper(CategoryMapper categoryMapper) {
-        this.categoryMapper = categoryMapper;
+    @Autowired
+    public BookCreateEditMapper(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -28,13 +32,11 @@ public class BookCreateEditMapper implements Mapper<BookCreateEditDto, Book> {
                 .filter(not(MultipartFile::isEmpty))
                 .ifPresent(image -> book.setImagePath(image.getOriginalFilename()));
 
-//        Optional.ofNullable(object.category()).ifPresent(category ->
-//                book.setCategory(categoryMapper.unmap(object.category())));
-
-        Optional.ofNullable(object.category()).ifPresent(categoryDto -> {
-            Category category = categoryMapper.unmap(object.category());
-            book.setCategory(category);
-        });
+        Optional<Category> byId = categoryRepository.findById(object.categoryId());
+        byId.ifPresentOrElse(
+                book::setCategory,
+                () -> { throw new EntityNotFoundException("category not found"); }
+        );
 
         book.setName(object.name());
         book.setAuthor(object.author());

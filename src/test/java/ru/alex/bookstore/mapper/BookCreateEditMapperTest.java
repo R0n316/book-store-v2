@@ -1,16 +1,15 @@
 package ru.alex.bookstore.mapper;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.jdbc.Sql;
 import ru.alex.bookstore.TestBase;
 import ru.alex.bookstore.database.entity.Book;
 import ru.alex.bookstore.database.entity.Category;
 import ru.alex.bookstore.dto.BookCreateEditDto;
-import ru.alex.bookstore.dto.CategoryDto;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -22,16 +21,14 @@ import java.nio.file.Paths;
 import static org.assertj.core.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
+@Sql("/sql/init-books.sql")
 class BookCreateEditMapperTest extends TestBase {
 
-    private CategoryMapper categoryMapper;
+    private final BookCreateEditMapper bookCreateEditMapper;
 
-    private BookCreateEditMapper bookCreateEditMapper;
-
-    @BeforeEach
-    void init(){
-        categoryMapper = Mockito.mock(CategoryMapper.class);
-        bookCreateEditMapper = new BookCreateEditMapper(categoryMapper);
+    @Autowired
+    BookCreateEditMapperTest(BookCreateEditMapper bookCreateEditMapper) {
+        this.bookCreateEditMapper = bookCreateEditMapper;
     }
 
     @Test
@@ -41,7 +38,6 @@ class BookCreateEditMapperTest extends TestBase {
         assert resource != null;
         Path path = Paths.get(resource.toURI());
         byte[] image = Files.readAllBytes(path);
-        CategoryDto categoryDto = new CategoryDto(1,"test category");
         BookCreateEditDto bookCreateEditDto = new BookCreateEditDto(
                 "test name",
                 "test author",
@@ -60,13 +56,12 @@ class BookCreateEditMapperTest extends TestBase {
                 100000000D,
                 250,
                 16,
-                categoryDto
+                1
         );
         Category category = Category.builder()
-                .id(categoryDto.id())
-                .name(categoryDto.name())
+                .id(1)
+                .name("Fantasy")
                 .build();
-        Mockito.when(categoryMapper.unmap(Mockito.any(CategoryDto.class))).thenReturn(category);
         Book actualResult = bookCreateEditMapper.map(bookCreateEditDto);
 
         Book expectedResult = Book.builder()

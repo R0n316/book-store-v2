@@ -110,7 +110,6 @@ class BookServiceIT extends TestBase {
         assert resource != null;
         Path path = Paths.get(resource.toURI());
         byte[] image = Files.readAllBytes(path);
-        CategoryDto categoryDto = new CategoryDto(1,"test category");
 
         BookCreateEditDto bookCreateEditDto = new BookCreateEditDto(
                 "test name",
@@ -130,7 +129,7 @@ class BookServiceIT extends TestBase {
                 100000000D,
                 250,
                 16,
-                categoryDto
+                1
         );
         Integer maxId = entityManager.createQuery("SELECT MAX(b.id) FROM Book b",Integer.class).getSingleResult();
         BookPreviewDto actualResult = bookService.create(bookCreateEditDto);
