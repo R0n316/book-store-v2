@@ -1,11 +1,11 @@
-const url = window.location.pathname;
+// const url = window.location.pathname;
 const regex = /\/books\/(\d+)/;
 const matches = url.match(regex);
 const bookId = matches ? matches[1] : null;
 
 document.querySelector('.reviews').addEventListener('click', event => {
     if (event.target.closest('.edit-button')) {
-        const reviewTextElement = event.target.closest('.review').querySelector('.text');
+        const reviewTextElement = event.target.closest('.review').querySelector('.content');
         const reviewContent = reviewTextElement.textContent;
         editReview(event,reviewContent);
     }
@@ -13,8 +13,8 @@ document.querySelector('.reviews').addEventListener('click', event => {
 
 function editReview(event,reviewContent) {
     const reviewElement = event.target.closest('.review');
-    const bookTitle = reviewElement.querySelector('.book-name').textContent.trim();
-    const bookAuthor = reviewElement.querySelector('.book-author').textContent.trim();
+    const bookTitle = reviewElement.querySelector('.review-book-name').textContent.trim();
+    const bookAuthor = reviewElement.querySelector('.review-book-author').textContent.trim();
     const reviewId = event.target.dataset.reviewId;
     const userId = event.target.dataset.userId;
     Swal.fire({
@@ -51,7 +51,7 @@ function editReview(event,reviewContent) {
             .then(response => {
                 if(response.status === 200){
                     console.log('response update successfully');
-                    event.target.closest('.review').querySelector('.text').textContent = result.value.reviewText;
+                    event.target.closest('.review').querySelector('.content').textContent = result.value.reviewText;
                 } else{
                     throw new Error('ошибка сервера');
                 }

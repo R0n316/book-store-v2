@@ -62,52 +62,44 @@ function showReviewModal(event) {
                             Swal.fire('Спасибо!', 'Ваш отзыв опубликован.', 'success');
                             const newReviewHtml =
                                 `
-                    <div class="swiper-slide">
-      <div class="slide-container">
-        <div class="review">
-          <div class="content">
-            <h2 class="book-author">${data.book.author}</h2>
-            <h1 class="book-name">${data.book.name}</h1>
-            <p class="text">${data.content}</p>
+        <div class="review swiper-slide">
+        <div class="container1">
+          <span class="review-book-author">${data.book.author}</span>
+          <span class="review-book-name">${data.book.name}</span>
+            <p class="content">${data.content}</p>
             <div class="full-review">
-              <span class="text">Читать отзыв целиком</span>
-              <div class="more-button">
-                <img src="/static/images/more.svg" alt="">
+              <span>Читать отзыв целиком</span>
+              <div class="more-icon">
+                <img src="/images/small-arrow.svg" alt="more">
               </div>
             </div>
-            <div class="review-buttons">
-              <button class="delete-button" data-review-id="${data.id}">Удалить</button>
-              <button class="edit-button" data-review-id="${data.id}" data-user-id="${data.user.id}">Изменить</button>
+        </div>
+        <div class="container2">
+          <div class="wrapper">
+            <div class="user-info">
+              <div class="avatar">
+                <img src="/images/avatar.jpg" alt="avatar">
+              </div>
+              <span>${data.user.username}</span>
+              <span class="like-review">Понравился отзыв?</span>
             </div>
-          </div>
-          <div class="info">
-            <div class="avatar">
-              <img src="/static/images/avatar.jpg" alt="">
-            </div>
-            <h3 class="username">${data.user.username}</h3>
-            <h4 class="text">Понравился отзыв?</h4>
-            <div class="likes">
-              <div class="rating">
-                <div>
-                  <img class="like" src="/static/images/like.svg" alt="" data-id="${data.id}">
-                </div>
+            <div class="review-reactions">
+              <div class="reaction">
+                <img class="like" src="/images/like.svg" alt="like" data-id="${data.id}">
                 <span class="like-count" style="margin-top: 1px">0</span>
               </div>
-              <div class="rating">
-                <div>
-                  <img class="dislike" src="/static/images/dislike.svg" alt="" data-id="${data.id}">
-                </div>
-                <span class="dislike-count">0</span>
+              <div class="reaction">
+                <img class="dislike" src="/images/dislike.svg" alt="dislike" data-id="${data.id}">
+                <span class="dislike-count" style="margin-top: 1px">0</span>
               </div>
             </div>
-            <div class="reply">
-              <img src="/static/images/reply.svg" alt="">
-              <span>Ответить</span>
-            </div>
+          </div>
+          <div class="review-buttons">
+            <button class="delete-button" data-review-id="${data.id}">Удалить</button>
+            <button class="edit-button" data-review-id="${data.id}" data-user-id="${data.user.id}">Изменить</button>
           </div>
         </div>
-      </div>
-    </div>
+          </div>
                                 `;
                             const swiper = document.querySelector('.swiper').swiper;
                             swiper.prependSlide(newReviewHtml);

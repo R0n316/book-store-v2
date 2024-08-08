@@ -2,9 +2,9 @@ package ru.alex.bookstore.http.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +15,10 @@ import ru.alex.bookstore.dto.BookReviewSummaryDto;
 import ru.alex.bookstore.dto.UserDto;
 import ru.alex.bookstore.service.BookReviewService;
 import ru.alex.bookstore.service.BookService;
+
+import java.util.Map;
+
+import static ru.alex.bookstore.util.PaginationUtils.getPageNumbers;
 
 @Controller
 @RequestMapping("/reviews")
@@ -39,24 +43,29 @@ public class BookReviewController {
                             @AuthenticationPrincipal UserDto user,
                             Model model){
         Pageable pageable = PageRequest.of(page,REVIEWS_SIZE);
-        Slice<BookReviewSummaryDto> bookReviews;
+        Page<BookReviewSummaryDto> reviews;
         if(user != null){
-            if(bookId != null){
-                bookReviews = bookReviewService.findAllByBook(user.id(),bookId,pageable);
+            model.addAttribute("userId",user.id());
+            if(bookId != null) {
+                reviews = bookReviewService.findAllByBook(bookId,user.id(),pageable);
                 bookService.findById(bookId).ifPresent(book -> model.addAttribute("book",book));
-            } else{
-                bookReviews = bookReviewService.findAll(user.id(), pageable);
+            } else {
+                reviews = bookReviewService.findAll(user.id(), pageable);
             }
-        } else{
-            if(bookId != null){
-                bookReviews = bookReviewService.findAllByBook(bookId,pageable);
+        } else {
+            model.addAttribute("userId",null);
+            if(bookId != null) {
+                reviews = bookReviewService.findAllByBook(bookId,pageable);
                 bookService.findById(bookId).ifPresent(book -> model.addAttribute("book",book));
-            } else{
-                bookReviews = bookReviewService.findAll(pageable);
+            } else {
+                reviews = bookReviewService.findAll(pageable);
             }
         }
-        model.addAttribute("user",user);
-        model.addAttribute("reviews", bookReviews);
+        model.addAllAttributes(Map.of(
+                "reviews",reviews,
+                "currentPage",page,
+                "pageNumbers", getPageNumbers(reviews.getTotalPages(),page)
+        ));
         return "reviews/reviews";
     }
 }

@@ -4,9 +4,7 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 import ru.alex.bookstore.database.entity.Book;
 import ru.alex.bookstore.database.querydsl.QPredicates;
@@ -26,7 +24,7 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
     }
 
     @Override
-    public Slice<Book> findAllByFilter(BookFilter filter, Pageable pageable) {
+    public Page<Book> findAllByFilter(BookFilter filter, Pageable pageable) {
         Predicate predicate = QPredicates.builder()
                 .add(filter.getName(), book.name::containsIgnoreCase)
                 .add(filter.getCategory(), book.category.name::containsIgnoreCase)
@@ -41,7 +39,6 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
                 .limit(pageable.getPageSize())
                 .fetch();
         long total = result.size();
-        boolean hasNext = total > (long) (pageable.getPageNumber() + 1) * pageable.getPageSize();
-        return new SliceImpl<>(result, pageable, hasNext);
+        return new PageImpl<>(result, pageable,total);
     }
 }

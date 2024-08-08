@@ -5,9 +5,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 import ru.alex.bookstore.database.querydsl.QPredicates;
 import ru.alex.bookstore.database.repository.UserBookRepositoryCustom;
@@ -29,7 +27,7 @@ public class UserBookRepositoryImpl implements UserBookRepositoryCustom {
     }
 
     @Override
-    public Slice<QUserBookPreviewDto> findAllByFilter(BookFilter filter, Pageable pageable) {
+    public Page<QUserBookPreviewDto> findAllByFilter(BookFilter filter, Pageable pageable) {
         Predicate predicate = QPredicates.builder()
                 .add(filter.getName(), book.name::containsIgnoreCase)
                 .add(filter.getCategory(), book.category.name::containsIgnoreCase)
@@ -46,6 +44,7 @@ public class UserBookRepositoryImpl implements UserBookRepositoryCustom {
                 userBook.isInFavorites,
                 userBook.isInCart
         );
+
         var result = new JPAQuery<>(entityManager)
                 .select(constructor)
                 .distinct()
@@ -56,8 +55,16 @@ public class UserBookRepositoryImpl implements UserBookRepositoryCustom {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-        long total = result.size();
-        boolean hasNext = total > (long) (pageable.getPageNumber() + 1) * pageable.getPageSize();
-        return new SliceImpl<>(result, pageable, hasNext);
+
+        Long total = new JPAQuery<>(entityManager)
+                .select(book.countDistinct())
+                .from(book)
+                .leftJoin(userBook)
+                .on(book.id.eq(userBook.book.id).and(userBook.user.id.eq(filter.getUserId())))
+                .where(predicate)
+                .fetchOne();
+
+        return new PageImpl<>(result, pageable, total != null ? total : 0L);
     }
+
 }

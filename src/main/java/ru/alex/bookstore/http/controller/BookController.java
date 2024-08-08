@@ -2,9 +2,7 @@ package ru.alex.bookstore.http.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +17,10 @@ import ru.alex.bookstore.service.BookService;
 import ru.alex.bookstore.service.UserBookService;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static ru.alex.bookstore.util.PaginationUtils.getPageNumbers;
 
 @Controller
 public class BookController {
@@ -51,76 +51,104 @@ public class BookController {
     }
 
     @GetMapping
-    public String index(@AuthenticationPrincipal UserDto user, Model model){
-        if(user != null){
-            List<UserBookPreviewDto> topByRating = userBookService.findTopByRating(user.id(),TOP_BOOKS_BY_RATING_SIZE);
-            model.addAttribute("topBooksByRating", topByRating);
-            List<UserBookPreviewDto> topByCirculation = userBookService.findTopByCirculation(user.id(),TOP_BOOKS_BY_CIRCULATION_SIZE);
-            model.addAttribute("topBooksByCirculation", topByCirculation);
-        } else{
-            List<BookPreviewDto> topByRating = bookService.findTopByRating(TOP_BOOKS_BY_RATING_SIZE);
-            model.addAttribute("topBooksByRating",topByRating);
-            List<BookPreviewDto> topByCirculation = bookService.findTopByCirculation(TOP_BOOKS_BY_CIRCULATION_SIZE);
-            model.addAttribute("topBooksByCirculation",topByCirculation);
+    public String index(@AuthenticationPrincipal UserDto user, Model model) {
+        List<?> topByRating;
+        List<?> topByCirculation;
+
+        if (user != null) {
+            topByRating = userBookService.findTopByRating(user.id(), TOP_BOOKS_BY_RATING_SIZE);
+            topByCirculation = userBookService.findTopByCirculation(user.id(), TOP_BOOKS_BY_CIRCULATION_SIZE);
+        } else {
+            topByRating = bookService.findTopByRating(TOP_BOOKS_BY_RATING_SIZE);
+            topByCirculation = bookService.findTopByCirculation(TOP_BOOKS_BY_CIRCULATION_SIZE);
         }
-        model.addAttribute("user",user);
+        model.addAttribute("topBooksByRating", topByRating);
+        model.addAttribute("topBooksByCirculation", topByCirculation);
+        model.addAttribute("userId", user != null ? user.id() : null);
+
         return "books/index";
     }
 
+
     @GetMapping("/books/{id}")
     public String findById(@AuthenticationPrincipal UserDto user, @PathVariable("id") Integer id, Model model) {
-        model.addAttribute("user",user);
-        Pageable pageable = PageRequest.of(0,REVIEWS_SIZE, Sort.by("created_at").descending());
-        if(user != null){
-            UserBookReadDto book = userBookService.findById(id,user.id())
+        model.addAttribute("userId", user != null ? user.id() : null);
+        Pageable pageable = PageRequest.of(0, REVIEWS_SIZE, Sort.by("created_at").descending());
+        Object book;
+        Slice<?> reviews;
+
+        if (user != null) {
+            book = userBookService.findById(id, user.id())
                     .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
-            model.addAttribute("reviews",bookReviewService.findAllByBook(id,user.id(),pageable));
-            model.addAttribute("book",book);
-        } else{
-            BookReadDto book = bookService.findById(id)
+            reviews = bookReviewService.findAllByBook(id, user.id(), pageable);
+        } else {
+            book = bookService.findById(id)
                     .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
-            model.addAttribute("reviews",bookReviewService.findAllByBook(id,pageable));
-            model.addAttribute("book",book);
+            reviews = bookReviewService.findAllByBook(id, pageable);
         }
-        model.addAttribute("reviewsCount",bookReviewService.getReviewsCountByBook(id));
+
+        model.addAttribute("reviews", reviews);
+        model.addAttribute("book", book);
+        model.addAttribute("reviewsCount", bookReviewService.getReviewsCountByBook(id));
+
         return "books/book";
     }
+
 
     @GetMapping("/books")
     public String findByFilter(@AuthenticationPrincipal UserDto user,
                                @ModelAttribute BookFilter filter,
-                               @RequestParam(value = "page",defaultValue = "0") Integer page,
-                               Model model){
-        Pageable pageable = PageRequest.of(page,PAGE_SIZE);
-        if(user != null){
+                               @RequestParam(value = "page", defaultValue = "0") Integer page,
+                               Model model) {
+        Pageable pageable = PageRequest.of(page, PAGE_SIZE);
+        Page<?> booksByFilter;
+
+        if (user != null) {
             filter.setUserId(user.id());
-            model.addAttribute("books",PageResponse.of(userBookService.findAllByFilter(filter,pageable)));
-        } else{
-            model.addAttribute("books",PageResponse.of(bookService.findAllByFilter(filter,pageable)));
+            booksByFilter = userBookService.findAllByFilter(filter, pageable);
+        } else {
+            booksByFilter = bookService.findAllByFilter(filter, pageable);
         }
-        model.addAttribute("user",user);
+
+        model.addAttribute("books", booksByFilter);
+        model.addAttribute("pageNumbers", getPageNumbers(booksByFilter.getTotalPages(), page));
+        model.addAttribute("userId", user != null ? user.id() : null);
+        model.addAllAttributes(Map.of(
+                "currentPage", page,
+                "category", filter.getCategory() != null ? filter.getCategory() : "Все"
+        ));
+
         return "books/books";
     }
+
 
     @GetMapping("/books/favorites")
     public String favoriteBooks(@AuthenticationPrincipal UserDto user,
                                 @RequestParam(value = "page",defaultValue = "0") Integer page,
                                 Model model){
-        model.addAttribute(
-                "favoriteBooks",
-                userBookService.findFavorites(user.id(),PageRequest.of(page,PAGE_SIZE))
-        );
-        return "books/favorites";
+        Page<UserBookPreviewDto> favoriteBooks = userBookService.findFavorites(user.id(), PageRequest.of(page, PAGE_SIZE));
+        model.addAllAttributes(Map.of(
+                "books",favoriteBooks,
+                "currentPage",page,
+                "pageName","Избранное",
+                "pageNumbers",getPageNumbers(favoriteBooks.getTotalPages(),page),
+                "userId",user.id()
+        ));
+        return "books/books-by";
     }
 
     @GetMapping("/books/cart")
     public String booksInCart(@AuthenticationPrincipal UserDto user,
                               @RequestParam(value = "page", defaultValue = "0") Integer page,
                               Model model){
-        model.addAttribute(
-                "booksInCart",
-                userBookService.findInCart(user.id(),PageRequest.of(page,PAGE_SIZE))
-        );
-        return "books/cart";
+        Page<UserBookPreviewDto> inCartBooks = userBookService.findInCart(user.id(), PageRequest.of(page, PAGE_SIZE));
+        model.addAllAttributes(Map.of(
+                "books",inCartBooks,
+                "currentPage",page,
+                "pageName","Корзина",
+                "pageNumbers",getPageNumbers(inCartBooks.getTotalPages(),page),
+                "userId",user.id()
+        ));
+        return "books/books-by";
     }
 }

@@ -29,7 +29,7 @@
                 <img th:src="@{/images/small-arrow.svg}" alt="">
             </div>
         </div>
-        <div class="title" th:text="${category}"></div>
+        <div class="title" th:text="${pageName}">Популярное</div>
         <span class="text book-count" th:text="|Найдено ${books.totalElements} книг|">Найдено 4 000 книг</span>
         <div class="result-params">
             <button class="result-button filter-button">
@@ -60,11 +60,11 @@
                                     <img class="star" th:src="@{/images/star.svg}" alt="star">
                                     <span class="rating" th:text="${book.rating}">4.9</span>
                                 </div>
-                                <img th:if="${userId != null && book.userId == userId && book.isInFavorites}"
+                                <img th:if="${book.isInFavorites}"
                                      class="favorites" th:src="@{/images/marked-favorites.svg}"
                                      th:attr="data-book-id=${book.id}"
                                      alt="favorites">
-                                <img th:unless="${userId != null && book.userId == userId && book.isInFavorites}"
+                                <img th:unless="${book.isInFavorites}"
                                      class="favorites" th:src="@{/images/favorites.svg}"
                                      th:attr="data-book-id=${book.id}"
                                      alt="favorites">
@@ -74,9 +74,9 @@
                         </div>
                         <div class="container2">
                             <div class="to-cart-button"
-                                 th:if="${userId != null && book.userId == userId && book.isInCart}">Удалить</div>
+                                 th:if="${book.isInCart}">Удалить</div>
                             <div class="to-cart-button"
-                                 th:unless="${userId != null && book.userId == userId && book.isInCart}">В корзину</div>
+                                 th:unless="${book.isInCart}">В корзину</div>
                             <span class="price" th:text="${book.price} + '$'">575$</span>
                         </div>
                     </div>
