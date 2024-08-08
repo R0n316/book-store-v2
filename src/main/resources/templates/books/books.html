@@ -1,54 +1,110 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Найденные книги</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" th:href="@{/styles/header.css}">
-    <link rel="stylesheet" th:href="@{/styles/books.css}">
+    <link rel="stylesheet" th:href="@{/styles/footer.css}">
+    <link rel="stylesheet" th:href="@{/styles/books-by.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
 </head>
 <body>
-<div th:insert="~{fragment :: header}"></div>
-<div class="container1" style="padding-top: 85px">
-    <div th:insert="~{fragment :: categories}"></div>
-    <div class="div1">
-        Найденные книги
-    </div>
-    <div class="book-cards">
-        <div class="book-card" th:each="book:${books.content()}">
-            <a th:href="@{/books/{bookId}(bookId=${book.id})}">
-                <img class="book-image" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">
-            </a>
-            <div class="book-card-container1">
-                <div class="book-card-container2">
-                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
-                    <span class="rate" th:text="${book.rating}">4.9</span>
-                    <img th:if="${user != null && (user.id() == book.userId && book.isInFavorites)}"
-                         class="favorites-icon" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="">
-                    <img th:unless="${user != null && (user.id() == book.userId && book.isInFavorites)}"
-                         class="favorites-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="">
+<main>
+    <div class="container">
+        <div th:insert="~{fragment :: header}"></div>
+        <div class="current-position">
+            <span>Главная</span>
+            <div class="more-icon">
+                <img th:src="@{/images/small-arrow.svg}" alt="">
+            </div>
+            <span>Каталог</span>
+            <div class="more-icon">
+                <img th:src="@{/images/small-arrow.svg}" alt="">
+            </div>
+            <span>Популярное</span>
+            <div class="more-icon">
+                <img th:src="@{/images/small-arrow.svg}" alt="">
+            </div>
+        </div>
+        <div class="title" th:text="${category}"></div>
+        <span class="text book-count" th:text="|Найдено ${books.totalElements} книг|">Найдено 4 000 книг</span>
+        <div class="result-params">
+            <button class="result-button filter-button">
+                <span class="text">Фильтр</span>
+                <img th:src="@{/images/filter.svg}" alt="filter">
+            </button>
+            <button class="result-button sort-button">
+                <span class="text">По популярности</span>
+                <img th:src="@{/images/more-triangle.svg}" alt="filter">
+            </button>
+        </div>
+        <div th:if="${books.empty}">
+            <div class="empty">
+                <h1>Пока что здесь пусто :(</h1>
+                <a href="/books"><button class="login-button">Найти новые книги</button></a>
+            </div>
+        </div>
+        <div th:unless="${books.empty}">
+            <div class="book-cards">
+                <div class="book-card" th:each="book:${books}">
+                    <a th:href="@{/books/{id}(id=${book.id})}">
+                        <img class="book-img" th:src="@{/api/books/{id}/image(id=${book.id})}" alt="book image">
+                    </a>
+                    <div class="content">
+                        <div>
+                            <div class="container1">
+                                <div class="rating-container">
+                                    <img class="star" th:src="@{/images/star.svg}" alt="star">
+                                    <span class="rating" th:text="${book.rating}">4.9</span>
+                                </div>
+                                <img th:if="${userId != null && book.userId == userId && book.isInFavorites}"
+                                     class="favorites" th:src="@{/images/marked-favorites.svg}"
+                                     th:attr="data-book-id=${book.id}"
+                                     alt="favorites">
+                                <img th:unless="${userId != null && book.userId == userId && book.isInFavorites}"
+                                     class="favorites" th:src="@{/images/favorites.svg}"
+                                     th:attr="data-book-id=${book.id}"
+                                     alt="favorites">
+                            </div>
+                            <h1 class="book-name">Лягушка, слон и брокколи. Как жить и как не надо</h1>
+                            <h3 class="book-author">Алексей Марков</h3>
+                        </div>
+                        <div class="container2">
+                            <div class="to-cart-button"
+                                 th:if="${userId != null && book.userId == userId && book.isInCart}">Удалить</div>
+                            <div class="to-cart-button"
+                                 th:unless="${userId != null && book.userId == userId && book.isInCart}">В корзину</div>
+                            <span class="price" th:text="${book.price} + '$'">575$</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="book-info">
-                    <h2 class="book-name" th:text="${book.name}">book name</h2>
-                    <h2 class="book-author" th:text="${book.author}">Алексей марков</h2>
-                </div>
-                <div class="book-card-container3">
-                    <div class="add-to-cart-button"
-                         th:if="${user != null && (user.id() == book.userId && book.isInCart)}">Удалить</div>
-                    <div class="add-to-cart-button"
-                         th:unless="${user != null && (user.id() == book.userId && book.isInCart)}">В корзину</div>
-                    <span class="book-price" th:text="${book.price} + '$'">575₽</span>
+            </div>
+            <div class="pagination-container">
+                <div class="pagination">
+                    <img class="left-arrow" th:src="@{/images/left-arrow.svg}" alt="">
+                    <ul class="pages-count">
+                        <li th:each="pageNumber : ${pageNumbers}"
+                            th:class="${pageNumber == currentPage} ? 'active-number' : ''">
+                            <a th:href="@{/books/favorites(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+                        </li>
+                    </ul>
+                    <img class="right-arrow" th:src="@{/images/right-arrow.svg}" alt="">
                 </div>
             </div>
         </div>
     </div>
-    <div class="navigation">
-        <img class="switch-page" th:src="@{/static/images/left-arrow.svg}" alt="prev" id="prev">
-        <img class="switch-page" th:src="@{/static/images/right-arrow.svg}" alt="next" id="next">
+    <hr>
+    <div class="container">
+        <div th:insert="~{fragment :: footer}"></div>
     </div>
-</div>
-<div class="overlay" id="overlay"></div>
-<script th:src="@{/scripts/switch-book-page.js}"></script>
-<script th:src="@{/static/scripts/book-favorites.js}"></script>
-<script th:src="@{/static/scripts/book-cart.js}"></script>
+    <script th:src="@{/scripts/categories.js}"></script>
+    <script th:src="@{/scripts/spoiler.js}"></script>
+    <script th:src="@{/scripts/book-favorites.js}"></script>
+    <script th:src="@{/scripts/book-cart.js}"></script>
+    <script th:src="@{/scripts/pagination.js}"></script>
+</main>
 </body>
 </html>

@@ -66,6 +66,6 @@ public class BookReviewController {
                 "currentPage",page,
                 "pageNumbers", getPageNumbers(reviews.getTotalPages(),page)
         ));
-        return "adaptive/reviews/reviews";
+        return "reviews/reviews";
     }
 }

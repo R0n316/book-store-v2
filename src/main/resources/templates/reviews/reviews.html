@@ -1,92 +1,120 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Все отзывы</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/styles/reviews.css}">
+    <link rel="stylesheet" th:href="@{/styles/footer.css}">
+    <link rel="stylesheet" th:href="@{/styles/header.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" th:href="@{/static/styles/header.css}">
-    <link rel="stylesheet" th:href="@{/static/styles/reviews.css}">
+    <title>Document</title>
 </head>
 <body>
-<div th:insert="~{fragment :: header}"></div>
-<div class="container1" style="padding-top: 85px">
-    <div th:insert="~{fragment :: categories}"></div>
-    <div th:if="${book != null}">
-        <div class="title" th:text="|Отзывы к книге &quot;${book.name()}&quot; ${book.author()}|">
-            Отзывы к книге ${автор книги} "${Название книги}"
-        </div>
-    </div>
-    <div class="title" th:unless="${book != null}">
-        Все отзывы
-    </div>
-    <div class="reviews">
-        <div class="review swiper-slide" th:each="review:${reviews}">
-            <div class="content">
-                <h2 class="book-author" th:text="${review.bookAuthor}">Нанетти Анджела</h2>
-                <h1 class="book-name" th:text="${review.bookName}">Мой дедушка был вишней</h1>
-                <p class="text" th:text="${review.content}">
-                    Эту историю я прочитала за один день и с самых первых строк глаза
-                    были на мокром месте. Хоть эта история итальянской писательницы,
-                    вы не увидите тут особой разницы между итальянской семьей и русской.
-                    Мы в разных странах, но такие все одинаковые. Маленький мальчик...
-                </p>
-                <div class="full-review">
-                    <span class="text">Читать отзыв целиком</span>
-                    <div class="more-button">
-                        <img th:src="@{/static/images/more.svg}" alt="">
-                    </div>
-                </div>
-                <div th:if="${user != null && user.id() == review.userId}" class="review-buttons">
-                    <button class="delete-button" th:attr="data-review-id=${review.id}">
-                        Удалить
-                    </button>
-                    <button class="edit-button" th:attr="data-review-id=${review.id}, data-user-id=${review.userId}">
-                        Изменить
-                    </button>
-                </div>
+<main>
+    <div class="container">
+        <div th:insert="~{fragment :: header}"></div>
+        <div class="current-position">
+            <span>Главная</span>
+            <div class="more-icon">
+                <img th:src="@{/images/small-arrow.svg}" alt="">
             </div>
-            <div class="info">
-                <div class="avatar">
-                    <img th:src="@{/static/images/avatar.jpg}" alt="">
-                </div>
-                <h3 class="username" th:text="${review.username}">Виктория Переска</h3>
-                <h4 class="text">Понравился отзыв?</h4>
-                <div class="likes">
-                    <div class="rating">
-                        <div th:if="${review.userReaction == 'LIKE'}">
-                            <img class="like" th:src="@{/static/images/markedLike.svg}" th:attr="data-id=${review.id}" alt="">
-                        </div>
-                        <div th:unless="${review.userReaction == 'LIKE'}">
-                            <img class="like" th:src="@{/static/images/like.svg}" th:attr="data-id=${review.id}" alt="">
-                        </div>
-                        <span class="like-count" th:text="${review.likes}" style="margin-top: 1px">+1</span>
-                    </div>
-                    <div class="rating">
-                        <div th:if="${review.userReaction == 'DISLIKE'}">
-                            <img class="dislike" th:src="@{/static/images/markedDislike.svg}" th:attr="data-id=${review.id}" alt="">
-                        </div>
-                        <div th:unless="${review.userReaction == 'DISLIKE'}">
-                            <img class="dislike" th:src="@{/static/images/dislike.svg}" th:attr="data-id=${review.id}" alt="">
-                        </div>
-                        <span class="dislike-count" th:text="${review.dislikes}">0</span>
-                    </div>
-                </div>
-                <div class="reply">
-                    <img th:src="@{/static/images/reply.svg}" alt="">
-                    <span>Ответить</span>
-                </div>
+            <span>Каталог</span>
+            <div class="more-icon">
+                <img th:src="@{/images/small-arrow.svg}" alt="">
+            </div>
+            <span>Популярное</span>
+            <div class="more-icon">
+                <img th:src="@{/images/small-arrow.svg}" alt="">
             </div>
         </div>
+<!--        <div class="title" th:text="${pageName}">Популярное</div>-->
+<!--        <span class="text book-count" th:text="|Найдено ${books.totalElements} книг|">Найдено 4 000 книг</span>-->
+        <div class="reviews">
+            <div class="review" th:each="review:${reviews}">
+                <div class="container1">
+                    <span class="review-book-author" th:text="${review.bookAuthor}">Нанетти Анджела</span>
+                    <span class="review-book-name" th:text="${review.bookName}">Мой дедушка был вишней</span>
+                    <p class="content" th:text="${review.content}">
+                        Эту историю я прочитала за один день и с самых первых
+                        строк глаза были на мокром месте. Хоть эта история
+                        итальянской писательницы.
+                        ...
+                    </p>
+                    <div class="full-review">
+                        <span>Читать отзыв целиком</span>
+                        <div class="more-icon">
+                            <img th:src="@{/images/small-arrow.svg}" alt="more">
+                        </div>
+                    </div>
+                </div>
+                <div class="container2">
+                    <div class="wrapper">
+                        <div class="user-info">
+                            <div class="avatar">
+                                <img th:src="@{/images/avatar.jpg}" alt="avatar">
+                            </div>
+                            <span th:text="${review.username}">Виктория Переска</span>
+                            <span class="like-review">Понравился отзыв?</span>
+                        </div>
+                        <div class="review-reactions">
+                            <div class="reaction">
+                                <div th:if="${review.userReaction == 'LIKE'}">
+                                    <img class="like" th:src="@{/images/marked-like.svg}" th:attr="data-id=${review.id}" alt="like">
+                                </div>
+                                <div th:unless="${review.userReaction == 'LIKE'}">
+                                    <img class="like" th:src="@{/images/like.svg}" th:attr="data-id=${review.id}" alt="like">
+                                </div>
+                                <span class="like-count" th:text="${review.likes}" style="margin-top: 1px">+1</span>
+                            </div>
+                            <div class="reaction">
+                                <div th:if="${review.userReaction == 'DISLIKE'}">
+                                    <img class="dislike" th:src="@{/images/marked-dislike.svg}" th:attr="data-id=${review.id}" alt="dislike">
+                                </div>
+                                <div th:unless="${review.userReaction == 'DISLIKE'}">
+                                    <img class="dislike" th:src="@{/images/dislike.svg}" th:attr="data-id=${review.id}" alt="dislike">
+                                </div>
+                                <span class="dislike-count" th:text="${review.dislikes}">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-buttons" th:if="${userId != null && userId == review.userId}">
+                        <button class="delete-button" th:attr="data-review-id=${review.id}">
+                            Удалить
+                        </button>
+                        <button class="edit-button" th:attr="data-review-id=${review.id}, data-user-id=${review.userId}">
+                            Изменить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pagination-container">
+            <div class="pagination">
+                <img class="left-arrow" th:src="@{/images/left-arrow.svg}" alt="">
+                <ul class="pages-count">
+                    <li th:each="pageNumber : ${pageNumbers}"
+                        th:class="${pageNumber == currentPage} ? 'active-number' : ''">
+                        <a th:href="@{/books/favorites(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+                    </li>
+                </ul>
+                <img class="right-arrow" th:src="@{/images/right-arrow.svg}" alt="">
+            </div>
+        </div>
     </div>
-    <div class="navigation">
-        <img class="switch-page" th:src="@{/static/images/left-arrow.svg}" alt="prev" id="prev">
-        <img class="switch-page" th:src="@{/static/images/right-arrow.svg}" alt="next" id="next">
+    <hr>
+    <div class="container">
+        <div th:insert="~{fragment :: footer}"></div>
     </div>
-</div>
-<div class="overlay" id="overlay"></div>
-<script th:src="@{/static/scripts/switch-review-page.js}"></script>
-<script th:src="@{/static/scripts/book-review.js}"></script>
-<script th:src="@{/static/scripts/delete-review.js}"></script>
-<script th:src="@{/static/scripts/edit-review.js}"></script>
+    <script th:src="@{/scripts/categories.js}"></script>
+    <script th:src="@{/scripts/spoiler.js}"></script>
+    <script th:src="@{/scripts/book-favorites.js}"></script>
+    <script th:src="@{/scripts/book-cart.js}"></script>
+    <script th:src="@{/scripts/edit-review.js}"></script>
+    <script th:src="@{/scripts/delete-review.js}"></script>
+    <script th:src="@{/scripts/pagination.js}"></script>
+</main>
 </body>
 </html>

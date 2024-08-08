@@ -1,146 +1,129 @@
-.review {
-    width: 450px;
-    height: 210px;
-    background-image: url("/static/images/Ellipse 22.svg");
-    background-repeat: no-repeat;
-    background-position: left top;
-    box-shadow: 1px 0 40px -10px rgba(31, 26, 45, 0.22);
-    padding-top: 32px;
-    padding-left: 32px;
-    padding-right: 23px;
+.reviews-container {
     display: flex;
-    justify-content: center;
-    border-radius: 5px;
-    margin-right: 2%;
-    margin-bottom: 2%;
 }
 
-.review .content{
-    display: flex;
-    flex-direction: column;
+.review-book-name,
+.review-book-author {
+    font-weight: 400;
+    line-height: 18px;
 }
 
-.book-author{
+.review-book-author {
     font-size: 16px;
+}
+
+.reviews {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+.review-book-author{
+    font-size: 12px;
     font-weight: 400;
     color: #8D8D8D;
+}
+
+.review-book-name {
+    font-size: 14px;
+    font-weight: 400;
+    color: #290247;
+}
+
+.review-book-name,
+.review-book-author {
     margin-bottom: 4px;
 }
 
-.book-name{
-    font-size: 20px;
-    font-weight: 400;
-    color: #290247;
-    margin-bottom: 8px;
-}
-
-.review .text{
-    width: 263px;
-    height: 85px;
-    font-size: 12px;
+.content {
+    font-size: 10px;
     font-weight: 400;
     line-height: 123.5%;
-    margin-bottom: 16px;
+    height: 40px;
     overflow: hidden;
-    text-overflow: ellipsis;
+    margin-bottom: 4px;
 }
 
-.full-review{
-    height: auto;
-    width: auto;
+.full-review {
     display: flex;
     align-items: center;
+    margin-bottom: 4px;
 }
 
-.full-review .text{
-    width: auto;
-    height: auto;
-    margin-bottom: 0;
+.full-review span {
+    font-size: 12px;
+    font-weight: 400;
     margin-right: 4px;
 }
 
-.full-review .more-button{
-    width: 20px;
-    height: 20px;
+.more-icon {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #110C1F;
+    border-radius: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #110c1f;
-    border-radius: 2px;
+    cursor: pointer;
 }
 
-.review .info{
-    width: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.avatar{
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid black;
-    margin-bottom: 8px;
-}
-
-.avatar img{
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+.avatar {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
     border-radius: 50%;
 }
 
-.username{
-    font-size: 14px;
-    font-weight: 400;
-    color: #110C1F;
-    margin-bottom: 27px;
-}
-
-.info .text{
-    width: auto;
-    height: auto;
-    margin-bottom: 8px;
-}
-
-.likes{
-    display: flex;
+.avatar img {
     width: 100%;
-    justify-content: space-around;
-    margin-bottom: 20px;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
-.rating{
+.user-info {
     display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.user-info span {
+    margin-left: 5px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.review-reactions {
+    display: flex;
+    width: 85px;
+    height: 16px;
     justify-content: space-between;
 }
 
-.rating img{
+.reaction {
+    display: flex;
+    align-items: center;
+}
+
+.reaction img {
+    width: 16px;
+    height: 16px;
     margin-right: 4px;
 }
 
-.rating span{
-    color: #290247;
-}
-
-.reply{
-    display: flex;
-    /*align-items: center;*/
-}
-
-.reply span{
-    margin-left: 6px;
-}
-
-.reply span{
-    margin-top: 3px;
+.reaction span {
     font-size: 12px;
     font-weight: 400;
-    color: #110C1F;
+}
+
+.review-buttons {
+    margin-top: 5px;
+}
+
+.delete-button,
+.edit-button {
+    font-size: 12px;
 }
 
 .delete-button{
@@ -158,11 +141,6 @@
     transition-duration: 200ms;
 }
 
-.review-buttons{
-    margin-top: 5px;
-    display: flex;
-}
-
 .edit-button{
     color: black;
     background-color: transparent;
@@ -177,34 +155,207 @@
     transition-duration: 200ms;
 }
 
-
-
-.reviews-container{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.reviews{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.title{
-    width: 100%;
-    margin-bottom: 30px;
+.review-title {
     display: flex;
     justify-content: space-between;
-    font-size: 32px;
-    align-items: center;
+    width: 100%;
+    margin-top: 30px;
 }
 
-.prev,.next,.like,.dislike{
+.review-title h1 {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.add-review{
+    background-color: transparent;
+    border: none;
     cursor: pointer;
 }
 
-.navigation{
+.review .container1 {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+}
+
+.like-review {
+    display: none;
+    margin-top: 19px;
+    margin-bottom: 8px;
+}
+
+.review{
+    width: 44.2% !important;
+    height: 178px;
+    background-image: url("../images/Ellipse 22.svg");
+    background-repeat: no-repeat;
+    background-position: left top;
+    border-radius: 5px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 0 27px -5px rgba(31, 26, 45, 0.22);
+    /*margin-right: 15px;*/
+    margin-bottom: 15px;
+}
+
+.current-position {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.more-icon {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #110C1F;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.current-position span {
+    font-size: 10px;
+    font-weight: 400;
+    margin-right: 8px;
+}
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 95px;
+}
+
+.pagination {
+    width: 230px;
+    display: flex;
+}
+
+.left-arrow {
+    margin-right: 31px;
+}
+
+.right-arrow {
+    margin-left: 31px;
+}
+
+.left-arrow,
+.right-arrow {
+    cursor: pointer;
+}
+
+.unavailable {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.pages-count {
+    display: flex;
+    list-style: none;
+    width: 170px;
+    /*justify-content: space-between;*/
+}
+
+.pages-count li {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 11px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.pages-count li:last-child {
+    margin-right: 0;
+}
+
+.pages-count li.active-number {
+    background-color: #110C1F;
+}
+
+.active-number a {
+    color: white !important;
+}
+
+@media (min-width: 1180px) {
+    .review {
+        flex-direction: row;
+    }
+
+    .review .container1 {
+        width: 60%;
+        padding-right: 16px;
+        border-right: 1px solid #110C1F;
+    }
+
+    .review .container2 {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .review .user-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .review .avatar {
+        width: 44px;
+        height: 44px;
+        margin-bottom: 12px;
+    }
+
+    .like-review {
+        display: inline;
+    }
+
+    .review-buttons {
+        display: flex;
+        width: 150px;
+        justify-content: space-around;
+    }
+
+    .review .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .delete-button {
+        margin-right: 0;
+    }
+
+    .review .full-review {
+        margin-bottom: 0;
+    }
+
+    .review .content {
+        height: 112px;
+    }
+}
+
+
+
+@media (max-width: 713px){
+    .review {
+        width: 90% !important;
+    }
+}
+
+@media (min-width: 713px) {
+    .reviews {
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 712px) {
+    .review {
+
+    }
+    .reviews {
+        justify-content: center;
+    }
 }

@@ -26,12 +26,12 @@ public class AuthController {
         if (!referer.endsWith("/login")) {
             request.getSession().setAttribute("referer", referer);
         }
-        return "adaptive/auth/login";
+        return "auth/login";
     }
 
     @GetMapping("/registration")
     public String registrationPage(){
-        return "adaptive/auth/registration";
+        return "auth/registration";
     }
 
     @PostMapping("/registration")

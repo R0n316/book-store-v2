@@ -30,15 +30,21 @@ function deleteReview(event) {
         .then(response => {
                 if (response.ok) {
                     console.log(`Review ${reviewId} deleted successfully`);
-                    const slide = event.target.closest('.swiper-slide');
-                    const swiperEl = slide.closest('.swiper');
-                    if(swiperEl != null){
-                        const swiper = swiperEl.swiper;
-                        slide.remove();
+                    const review = event.target.closest('.review');
+                    const reviewEl = review.closest('.reviews');
+                    // if(reviewEl != null){
+                    //     const swiper = reviewEl.swiper;
+                    //     review.remove();
+                    //     swiper.update();
+                    // } else{
+                    //     review.remove();
+                    // }
+
+                    const swiper = reviewEl.swiper;
+                    if(swiper != null) {
                         swiper.update();
-                    } else{
-                        slide.remove();
                     }
+                    review.remove();
 
                     Swal.fire(
                         'Удалено!',

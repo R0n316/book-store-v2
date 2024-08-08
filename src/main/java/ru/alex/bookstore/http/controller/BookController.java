@@ -66,7 +66,7 @@ public class BookController {
         model.addAttribute("topBooksByCirculation", topByCirculation);
         model.addAttribute("userId", user != null ? user.id() : null);
 
-        return "adaptive/books/index";
+        return "books/index";
     }
 
 
@@ -91,7 +91,7 @@ public class BookController {
         model.addAttribute("book", book);
         model.addAttribute("reviewsCount", bookReviewService.getReviewsCountByBook(id));
 
-        return "adaptive/books/book";
+        return "books/book";
     }
 
 
@@ -118,7 +118,7 @@ public class BookController {
                 "category", filter.getCategory() != null ? filter.getCategory() : "Все"
         ));
 
-        return "adaptive/books/books";
+        return "books/books";
     }
 
 
@@ -134,7 +134,7 @@ public class BookController {
                 "pageNumbers",getPageNumbers(favoriteBooks.getTotalPages(),page),
                 "userId",user.id()
         ));
-        return "adaptive/books/books-by";
+        return "books/books-by";
     }
 
     @GetMapping("/books/cart")
@@ -149,6 +149,6 @@ public class BookController {
                 "pageNumbers",getPageNumbers(inCartBooks.getTotalPages(),page),
                 "userId",user.id()
         ));
-        return "adaptive/books/books-by";
+        return "books/books-by";
     }
 }

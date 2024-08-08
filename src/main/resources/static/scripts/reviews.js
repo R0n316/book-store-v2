@@ -1,11 +1,9 @@
 let swiper = new Swiper('.swiper', {
-    spaceBetween: 30,
+    spaceBetween: 16,
     pagination: {
         el: '.swiper-pagination'
     },
     mousewheel: true,
     keyboard: true,
-    slidesPerView: 2,
-    freeMode: true,
-    resistance: false
+    slidesPerView: 'auto',
 });
