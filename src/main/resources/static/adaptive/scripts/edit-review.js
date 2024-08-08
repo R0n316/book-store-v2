@@ -1,4 +1,4 @@
-const url = window.location.pathname;
+// const url = window.location.pathname;
 const regex = /\/books\/(\d+)/;
 const matches = url.match(regex);
 const bookId = matches ? matches[1] : null;

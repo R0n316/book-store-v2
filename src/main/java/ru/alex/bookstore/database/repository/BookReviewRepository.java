@@ -1,7 +1,7 @@
 package ru.alex.bookstore.database.repository;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -31,7 +31,7 @@ public interface BookReviewRepository extends JpaRepository<BookReview,Integer> 
                     WHERE br.book_id = :bookId
                     GROUP BY br.id, b.name, b.author, br.content, u.id, u.username, rr.reaction, user_reaction.reaction
             """,nativeQuery = true)
-    Slice<BookReviewSummaryDto> findAllByBook(Integer bookId, Integer userId, Pageable pageable);
+    Page<BookReviewSummaryDto> findAllByBook(Integer bookId, Integer userId, Pageable pageable);
 
     @Query(value = """
             SELECT br.id, b.name AS bookName, b.author AS bookAuthor, br.content, u.username AS username,
@@ -44,7 +44,7 @@ public interface BookReviewRepository extends JpaRepository<BookReview,Integer> 
             WHERE br.book_id = :bookId
             GROUP BY br.id,b.name, br.id, b.author, u.username
             """,nativeQuery = true)
-    Slice<BookReviewSummaryDto> findAllByBook(Integer bookId, Pageable pageable);
+    Page<BookReviewSummaryDto> findAllByBook(Integer bookId, Pageable pageable);
 
 
     @Query(value = "DELETE FROM book_review WHERE id = :reviewId AND user_id = :userId",nativeQuery = true)
@@ -62,7 +62,7 @@ public interface BookReviewRepository extends JpaRepository<BookReview,Integer> 
             INNER JOIN users u ON u.id = br.user_id
             GROUP BY br.id,b.name, br.id, b.author, u.username
         """, nativeQuery = true)
-    Slice<BookReviewSummaryDto> findAllReviews(Pageable pageable);
+    Page<BookReviewSummaryDto> findAllReviews(Pageable pageable);
 
     @Query(value = """
         SELECT br.id, b.name AS bookName, b.author AS bookAuthor, br.content,
@@ -83,7 +83,7 @@ public interface BookReviewRepository extends JpaRepository<BookReview,Integer> 
         LEFT JOIN review_reaction user_reaction ON br.id = user_reaction.book_review_id AND user_reaction.user_id = :userId
         GROUP BY br.id, b.name, b.author, br.content, u.id, u.username, rr.reaction, user_reaction.reaction
         """, nativeQuery = true)
-    Slice<BookReviewSummaryDto> findAllReviews(Integer userId,Pageable pageable);
+    Page<BookReviewSummaryDto> findAllReviews(Integer userId,Pageable pageable);
 
     @Query("SELECT COUNT(*) FROM BookReview br WHERE br.book.id = :bookId")
     Integer getReviewsCountByBook(Integer bookId);

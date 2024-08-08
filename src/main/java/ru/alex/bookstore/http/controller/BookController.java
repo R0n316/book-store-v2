@@ -16,11 +16,11 @@ import ru.alex.bookstore.service.BookReviewService;
 import ru.alex.bookstore.service.BookService;
 import ru.alex.bookstore.service.UserBookService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static ru.alex.bookstore.util.PaginationUtils.getPageNumbers;
 
 @Controller
 public class BookController {
@@ -150,22 +150,5 @@ public class BookController {
                 "userId",user.id()
         ));
         return "adaptive/books/books-by";
-    }
-
-    private List<Integer> getPageNumbers(int totalPages, int currentPage){
-        List<Integer> pageNumbers = new ArrayList<>();
-        int startPage = Math.max(0,currentPage - 2);
-        int endPage = Math.min(totalPages - 1, currentPage + 2);
-        if(endPage - startPage < 4) {
-            if(startPage == 0) {
-                endPage = Math.min(totalPages - 1, startPage + 4);
-            } else {
-                startPage = Math.max(0, endPage - 4);
-            }
-        }
-        for(int i = startPage; i <= endPage; i++) {
-            pageNumbers.add(i);
-        }
-        return pageNumbers;
     }
 }

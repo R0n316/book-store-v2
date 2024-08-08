@@ -1,8 +1,8 @@
 package ru.alex.bookstore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.alex.bookstore.database.entity.BookReview;
@@ -30,11 +30,11 @@ public class BookReviewService {
     }
 
 
-    public Slice<BookReviewSummaryDto> findAll(Pageable pageable){
+    public Page<BookReviewSummaryDto> findAll(Pageable pageable){
         return bookReviewRepository.findAllReviews(pageable);
     }
 
-    public Slice<BookReviewSummaryDto> findAll(Integer userId,Pageable pageable){
+    public Page<BookReviewSummaryDto> findAll(Integer userId,Pageable pageable){
         return bookReviewRepository.findAllReviews(userId,pageable);
     }
 
@@ -42,11 +42,11 @@ public class BookReviewService {
         return bookReviewRepository.getReviewsCountByBook(bookId);
     }
 
-    public Slice<BookReviewSummaryDto> findAllByBook(Integer bookId,Integer userId, Pageable pageable){
+    public Page<BookReviewSummaryDto> findAllByBook(Integer bookId, Integer userId, Pageable pageable){
         return bookReviewRepository.findAllByBook(bookId,userId,pageable);
     }
 
-    public Slice<BookReviewSummaryDto> findAllByBook(Integer bookId, Pageable pageable){
+    public Page<BookReviewSummaryDto> findAllByBook(Integer bookId, Pageable pageable){
         return bookReviewRepository.findAllByBook(bookId,pageable);
     }
 

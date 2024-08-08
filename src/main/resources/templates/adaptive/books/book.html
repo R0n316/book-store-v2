@@ -37,7 +37,9 @@
             <div class="rating-container">
                 <img class="star" th:src="@{/static/adaptive/images/star.svg}" alt="star">
                 <span class="rating" th:text="${book.rating}">4.9</span>
-                <span class="rating-count" th:text="${reviewsCount} + ' отзывов'">15 отзывов</span>
+                <a th:href="@{/reviews(book=${book.id})}">
+                    <span class="rating-count" th:text="${reviewsCount} + ' отзывов'">15 отзывов</span>
+                </a>
             </div>
             <h1 class="book-name" th:text="${book.name}">book name</h1>
             <h3 class="book-author" th:text="${book.author}">book author</h3>
@@ -106,7 +108,9 @@
                 <div class="rating-container">
                     <img class="star" th:src="@{/static/adaptive/images/star.svg}" alt="star">
                     <span class="rating" th:text="${book.rating}">4.9</span>
-                    <span class="rating-count" th:text="${reviewsCount} + ' отзывов'">15 отзывов</span>
+                    <a th:href="@{/reviews(book=${book.id})}">
+                        <span class="rating-count" th:text="${reviewsCount} + ' отзывов'">15 отзывов</span>
+                    </a>
                 </div>
                 <h1 class="book-name" th:text="${book.name}">Лягушка, слон и брокколи. Как жить и как не надо</h1>
                 <h3 class="book-author" th:text="${book.author}">Алексей Марков</h3>
@@ -216,7 +220,9 @@
                 <div class="rating-container">
                     <img class="star" th:src="@{/static/adaptive/images/star.svg}" alt="star">
                     <span class="rating" th:text="${book.rating}">4.9</span>
-                    <span class="rating-count" th:text="${reviewsCount} + ' отзывов'">15 отзывов</span>
+                    <a th:href="@{/reviews(book=${book.id})}">
+                        <span class="rating-count" th:text="${reviewsCount} + ' отзывов'">15 отзывов</span>
+                    </a>
                 </div>
                 <h1 class="book-name" th:text="${book.name}">Лягушка, слон и брокколи. Как жить и как не надо</h1>
                 <h3 class="book-author" th:text="${book.author}">Алексей Марков</h3>

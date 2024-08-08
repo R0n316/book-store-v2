@@ -28,15 +28,6 @@
     margin-right: 8px;
 }
 
-.reviews-container {
-    display: flex;
-}
-
-.rating-container {
-    display: flex;
-    margin-bottom: 8px;
-}
-
 .rating {
     font-size: 14px;
     margin-right: 24px;
@@ -46,6 +37,10 @@
     width: 16px;
     height: 16px;
     margin-right: 4px;
+}
+
+.rating-container {
+    margin-bottom: 10px;
 }
 
 .rating-count {
@@ -128,6 +123,7 @@
 .favorites {
     width: 40px;
     height: 40px;
+    cursor: pointer;
 }
 
 .delivery-options {
