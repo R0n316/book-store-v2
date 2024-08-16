@@ -84,7 +84,7 @@ To get a local copy up and running follow these simple example steps.
 ## Usage
 
 To ___add books___ to the database, you can send a request to the url:
-```http request
+```
 /api/books
 ```
 with data in the multipart/form-data format:
