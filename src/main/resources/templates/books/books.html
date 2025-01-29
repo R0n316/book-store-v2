@@ -69,8 +69,8 @@
                                      th:attr="data-book-id=${book.id}"
                                      alt="favorites">
                             </div>
-                            <h1 class="book-name">Лягушка, слон и брокколи. Как жить и как не надо</h1>
-                            <h3 class="book-author">Алексей Марков</h3>
+                            <h1 class="book-name" th:text="${book.name}">Лягушка, слон и брокколи. Как жить и как не надо</h1>
+                            <h3 class="book-author" th:text="${book.author}">Алексей Марков</h3>
                         </div>
                         <div class="container2">
                             <div class="to-cart-button"

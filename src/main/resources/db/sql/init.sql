@@ -10,6 +10,8 @@ VALUES
 (1, 'user1', '{noop}1234', 'USER'),
 (2, 'user2', '{noop}1234', 'USER');
 
+SELECT SETVAL('users_id_seq',(SELECT MAX(id) FROM users));
+
 INSERT INTO category(id, name)
 VALUES
     (1, 'Фэнтези'),
