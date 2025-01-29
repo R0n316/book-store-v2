@@ -25,3 +25,25 @@ databaseChangeLog:
       file: db/changelog/db.create-book-review-table-1.1.sql
   - include:
       file: db/changelog/db.create-book-review-table-1.2.sql
+  - include:
+      file: db/changelog/db.create-publisher-table-1.0.sql
+  - include:
+      file: db/changelog/db.create-book-table-3.0.sql
+  - include:
+      file: db/changelog/db.create-author-table-1.0.sql
+  - include:
+      file: db/changelog/db.create-book-table-3.1.sql
+  - include:
+      file: db/changelog/db.create-cover-type-table-1.0.sql
+  - include:
+      file: db/changelog/db.create-book-table-3.2.sql
+  - include:
+      file: db/changelog/db.delete-user-book-table-1.0.sql
+  - include:
+      file: db/changelog/db.create-cart-table-1.0.sql
+  - include:
+      file: db/changelog/db.create-favorites-table-1.0.sql
+  - include:
+      file: db/changelog/db.create-language-table-1.0.sql
+  - include:
+      file: db/changelog/db.create-book-table-3.3.sql

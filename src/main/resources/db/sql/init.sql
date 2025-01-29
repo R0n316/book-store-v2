@@ -1,3 +1,4 @@
+TRUNCATE TABLE author RESTART IDENTITY CASCADE ;
 TRUNCATE TABLE book RESTART IDENTITY CASCADE ;
 TRUNCATE TABLE book_review RESTART IDENTITY CASCADE ;
 TRUNCATE TABLE category RESTART IDENTITY CASCADE ;
@@ -28,18 +29,48 @@ VALUES
 
 SELECT SETVAL('category_id_seq',(SELECT MAX(id) FROM category));
 
-INSERT INTO book (id, author, rating, price, publisher, series, year_of_publishing, isbn, number_of_pages, size, cover_type, circulation, weight, age_restrictions, name, category_id, description, language,image_path)
+INSERT INTO author(id, full_name)
 VALUES
-    (1, 'Leo Tolstoy', 4.5, 15, 'Oxford University Press', NULL, 1869, '9780199536117', 1296, '6.1 x 1.9 x 9.2 inches', 'Paperback', 100000, 1588, 0, 'War and Peace', 1, 'A monumental novel that explores the impact of the Napoleonic Wars on Tsarist Russia.', 'EN','71wXZB-VtBL._AC_UF1000,1000_QL80_.jpg'),
-    (2, 'Fyodor Dostoevsky', 4.3, 12, 'Vintage Classics', NULL, 1866, '9780099503271', 672, '5.1 x 1.8 x 7.8 inches', 'Paperback', 100000, 672, 0, 'Crime and Punishment', 1, 'A psychological thriller that delves into the mind of a murderer.', 'EN','Crimeandpunishmentcover.png'),
-    (3, 'Jane Austen', 4.2, 10, 'Penguin Classics', NULL, 1813, '9780141439562', 480, '5.1 x 1.3 x 7.8 inches', 'Paperback', 100000, 480, 0, 'Pride and Prejudice', 1, 'A romantic novel that explores the themes of love, marriage, and social class.', 'EN','MV5BMTA1NDQ3NTcyOTNeQTJeQWpwZ15BbWU3MDA0MzA4MzE@._V1_.jpg'),
-    (4, 'Charles Dickens', 4.1, 14, 'Penguin Classics', NULL, 1859, '9780141439593', 944, '5.1 x 2 x 7.8 inches', 'Paperback', 100000, 944, 0, 'A Tale of Two Cities', 1, 'A historical novel set in the French Revolution that explores the themes of duality and resurrection.', 'EN','images.jpg'),
-    (5, 'Mark Twain', 4.0, 11, 'Oxford University Press', NULL, 1884, '9780199535543', 416, '5.1 x 0.9 x 7.8 inches', 'Paperback', 100000, 416, 0, 'Adventures of Huckleberry Finn', 1, 'A satirical novel that explores the themes of racism and morality.', 'EN','91sBZnKzEfL._AC_UF1000,1000_QL80_.jpg'),
-    (6, 'Herman Melville', 3.9, 13, 'Penguin Classics', NULL, 1851, '9780141439814', 672, '5.1 x 1.7 x 7.8 inches', 'Paperback', 100000, 672, 0, 'Moby-Dick', 1, 'An epic novel that explores the themes of obsession and the nature of good and evil.', 'EN','81R91ODA9DL._AC_UF1000,1000_QL80_.jpg'),
-    (7, 'Gustave Flaubert', 3.8, 16, 'Penguin Classics', NULL, 1857, '9780140449281', 512, '5.1 x 1.3 x 7.8 inches', 'Paperback', 100000, 512, 0, 'Madame Bovary', 1, 'A realist novel that explores the themes of adultery and the nature of human desire.', 'EN','41Of4Xao87L._AC_UF1000,1000_QL80_.jpg'),
-    (8, 'George Eliot', 3.7, 12, 'Penguin Classics', NULL, 1861, '9780140434234', 864, '5.1 x 2 x 7.8 inches', 'Paperback', 100000, 864, 0, 'Silas Marner', 1, 'A pastoral novel that explores the themes of redemption and the nature of human relationships.', 'EN','71ZvgiUWuJL._AC_UF1000,1000_QL80_.jpg'),
-    (9, 'Thomas Hardy', 3.6, 10, 'Penguin Classics', NULL, 1874, '9780140434241', 448, '5.1 x 0.9 x 7.8 inches', 'Paperback', 100000, 448, 0, 'Far from the Madding Crowd', 1, 'A pastoral novel that explores the themes of love and the nature of human relationships.', 'EN','MV5BNzI4NzUwNDgwN15BMl5BanBnXkFtZTgwNTI3MjMwNTE@._V1_.jpg'),
-    (10, 'Emily Bronte', 3.5, 13, 'Penguin Classics', NULL, 1847, '9780141439548', 448, '5.1 x 0.9 x 7.8 inches', 'Paperback', 100000, 448, 0, 'Wuthering Heights', 1, 'A gothic novel that explores the themes of love and the nature of human relationships.', 'EN','81dvA4tU0rL._AC_UF1000,1000_QL80_.jpg');
+(1, 'Leo Tolstoy'),
+(2, 'Fyodor Dostoevsky'),
+(3, 'Jane Austen'),
+(4, 'Charles Dickens'),
+(5, 'Mark Twain'),
+(6, 'Herman Melville'),
+(7, 'Gustave Flaubert'),
+(8, 'George Eliot'),
+(9, 'Thomas Hardy'),
+(10, 'Emily Bronte');
+
+SELECT SETVAL('author_id_seq',(SELECT MAX(id) FROM author));
+
+INSERT INTO publisher(id, name)
+VALUES
+(1, 'Oxford University Press'),
+(2, 'Vintage Classics'),
+(3, 'Penguin Classics');
+
+SELECT SETVAL('publisher_id_seq',(SELECT MAX(id) FROM publisher));
+
+INSERT INTO cover(id, type)
+VALUES
+(1, 'Мягкая обложка'),
+(2, 'Твёрдая обложка');
+
+SELECT SETVAL('cover_id_seq',(SELECT MAX(id) FROM cover));
+
+INSERT INTO book (id, author_id, rating, price, publisher_id, series, year_of_publishing, isbn, number_of_pages, size, cover_id, circulation, weight, age_restrictions, name, category_id, description, language,image_path)
+VALUES
+    (1, 1, 4.5, 15, 1, NULL, 1869, '9780199536117', 1296, '6.1 x 1.9 x 9.2 inches', 1, 100000, 1588, 0, 'War and Peace', 1, 'A monumental novel that explores the impact of the Napoleonic Wars on Tsarist Russia.', 'EN','71wXZB-VtBL._AC_UF1000,1000_QL80_.jpg'),
+    (2, 2, 4.3, 12, 2, NULL, 1866, '9780099503271', 672, '5.1 x 1.8 x 7.8 inches', 2, 100000, 672, 0, 'Crime and Punishment', 1, 'A psychological thriller that delves into the mind of a murderer.', 'EN','Crimeandpunishmentcover.png'),
+    (3, 3, 4.2, 10, 3, NULL, 1813, '9780141439562', 480, '5.1 x 1.3 x 7.8 inches', 1, 100000, 480, 0, 'Pride and Prejudice', 1, 'A romantic novel that explores the themes of love, marriage, and social class.', 'EN','MV5BMTA1NDQ3NTcyOTNeQTJeQWpwZ15BbWU3MDA0MzA4MzE@._V1_.jpg'),
+    (4, 4, 4.1, 14, 3, NULL, 1859, '9780141439593', 944, '5.1 x 2 x 7.8 inches', 2, 100000, 944, 0, 'A Tale of Two Cities', 1, 'A historical novel set in the French Revolution that explores the themes of duality and resurrection.', 'EN','images.jpg'),
+    (5, 5, 4.0, 11, 1, NULL, 1884, '9780199535543', 416, '5.1 x 0.9 x 7.8 inches', 1, 100000, 416, 0, 'Adventures of Huckleberry Finn', 1, 'A satirical novel that explores the themes of racism and morality.', 'EN','91sBZnKzEfL._AC_UF1000,1000_QL80_.jpg'),
+    (6, 6, 3.9, 13, 3, NULL, 1851, '9780141439814', 672, '5.1 x 1.7 x 7.8 inches', 2, 100000, 672, 0, 'Moby-Dick', 1, 'An epic novel that explores the themes of obsession and the nature of good and evil.', 'EN','81R91ODA9DL._AC_UF1000,1000_QL80_.jpg'),
+    (7, 7, 3.8, 16, 3, NULL, 1857, '9780140449281', 512, '5.1 x 1.3 x 7.8 inches', 1, 100000, 512, 0, 'Madame Bovary', 1, 'A realist novel that explores the themes of adultery and the nature of human desire.', 'EN','41Of4Xao87L._AC_UF1000,1000_QL80_.jpg'),
+    (8, 8, 3.7, 12, 3, NULL, 1861, '9780140434234', 864, '5.1 x 2 x 7.8 inches', 2, 100000, 864, 0, 'Silas Marner', 1, 'A pastoral novel that explores the themes of redemption and the nature of human relationships.', 'EN','71ZvgiUWuJL._AC_UF1000,1000_QL80_.jpg'),
+    (9, 9, 3.6, 10, 3, NULL, 1874, '9780140434241', 448, '5.1 x 0.9 x 7.8 inches', 1, 100000, 448, 0, 'Far from the Madding Crowd', 1, 'A pastoral novel that explores the themes of love and the nature of human relationships.', 'EN','MV5BNzI4NzUwNDgwN15BMl5BanBnXkFtZTgwNTI3MjMwNTE@._V1_.jpg'),
+    (10, 10, 3.5, 13, 3, NULL, 1847, '9780141439548', 448, '5.1 x 0.9 x 7.8 inches', 2, 100000, 448, 0, 'Wuthering Heights', 1, 'A gothic novel that explores the themes of love and the nature of human relationships.', 'EN','81dvA4tU0rL._AC_UF1000,1000_QL80_.jpg');
 
 SELECT SETVAL('book_id_seq',(SELECT MAX(id) FROM book));
 
