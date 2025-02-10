@@ -47,3 +47,5 @@ databaseChangeLog:
       file: db/changelog/db.create-language-table-1.0.sql
   - include:
       file: db/changelog/db.create-book-table-3.3.sql
+  - include:
+      file: db/changelog/db.create-warehouse-table-1.0.sql
