@@ -13,9 +13,9 @@ spring:
   application:
     name: book-store-v2
   datasource:
-    username: postgres
-    password: 1
-    url: jdbc:postgresql://localhost:5432/book_store_v2_db
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL}
     driver-class-name: org.postgresql.Driver
   jpa:
     properties:
